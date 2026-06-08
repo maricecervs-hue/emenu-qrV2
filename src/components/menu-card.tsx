@@ -1,10 +1,8 @@
-
 "use client"
 
 import Image from "next/image"
-import { Plus, Minus, Star } from "lucide-react"
+import { Plus, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { useState } from "react"
 
 interface MenuCardProps {
@@ -13,63 +11,79 @@ interface MenuCardProps {
   description: string
   price: number
   imageUrl: string
-  rating?: number
+  customisable?: boolean
 }
 
-export function MenuCard({ name, description, price, imageUrl, rating = 4.8 }: MenuCardProps) {
+export function MenuCard({ name, description, price, imageUrl, customisable }: MenuCardProps) {
   const [quantity, setQuantity] = useState(0)
 
   return (
-    <Card className="overflow-hidden border-none shadow-[0_10px_30px_rgba(0,0,0,0.05)] rounded-[2rem] bg-white transition-all hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)]">
-      <div className="relative h-48 w-full">
+    <div className="flex bg-white rounded-[2rem] overflow-hidden shadow-[0_8px_25px_rgba(0,0,0,0.04)] border border-slate-50 min-h-[160px]">
+      {/* Content Side */}
+      <div className="flex-1 p-5 flex flex-col justify-between">
+        <div className="space-y-1.5">
+          <h3 className="font-extrabold text-[#1E2B4D] leading-tight text-lg">
+            {name}
+          </h3>
+          <p className="text-xs text-[#8E9AAF] font-medium line-clamp-2 leading-relaxed">
+            {description}
+          </p>
+        </div>
+        
+        <div className="flex items-center gap-1.5 pt-2">
+          <span className="text-[#1E2B4D] font-black text-xl">฿</span>
+          <span className="text-[#1E2B4D] font-black text-xl">{price.toFixed(2)}</span>
+        </div>
+      </div>
+
+      {/* Image Side */}
+      <div className="w-[140px] relative">
         <Image
           src={imageUrl}
           alt={name}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="140px"
         />
-        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1">
-          <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-          <span className="text-xs font-bold text-card-foreground">{rating}</span>
+        
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-3">
+          {quantity > 0 ? (
+            <div className="bg-white rounded-full flex items-center gap-3 px-3 py-1.5 shadow-xl animate-in zoom-in-75 duration-200">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-6 w-6 rounded-full text-red-500 hover:bg-red-50 p-0"
+                onClick={() => setQuantity(q => q - 1)}
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </Button>
+              <span className="text-sm font-bold text-[#1E2B4D]">{quantity}</span>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-6 w-6 rounded-full text-[#12B4A3] hover:bg-[#12B4A3]/10 p-0"
+                onClick={() => setQuantity(q => q + 1)}
+              >
+                <Plus className="w-3.5 h-3.5" />
+              </Button>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center gap-1 w-full">
+              <Button 
+                className="w-full h-9 rounded-full bg-[#12B4A3] hover:bg-[#109e8f] text-white font-bold text-sm shadow-lg transition-transform active:scale-95"
+                onClick={() => setQuantity(1)}
+              >
+                Add
+              </Button>
+              {customisable && (
+                <span className="text-[10px] font-bold text-white drop-shadow-md">
+                  Customisable
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      <CardContent className="p-5 space-y-3">
-        <div className="flex justify-between items-start gap-2">
-          <h3 className="font-bold text-lg leading-tight text-card-foreground line-clamp-1">{name}</h3>
-          <span className="text-primary font-bold text-lg">${price.toFixed(2)}</span>
-        </div>
-        <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-          {description}
-        </p>
-        <div className="flex justify-between items-center pt-2">
-          <div className="flex items-center bg-background rounded-full p-1 border border-border/50">
-            {quantity > 0 ? (
-              <div className="flex items-center">
-                <Button 
-                  size="icon" 
-                  variant="ghost" 
-                  className="h-8 w-8 rounded-full text-primary hover:bg-primary/10"
-                  onClick={() => setQuantity(q => q - 1)}
-                >
-                  <Minus className="h-4 w-4" />
-                </Button>
-                <span className="w-8 text-center font-bold text-sm text-card-foreground">{quantity}</span>
-              </div>
-            ) : null}
-            <Button 
-              size="icon" 
-              className={`h-8 w-8 rounded-full shadow-md ${quantity > 0 ? 'bg-primary' : 'bg-primary'}`}
-              onClick={() => setQuantity(q => q + 1)}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
-          <Button variant="link" className="text-primary p-0 h-auto font-bold text-xs uppercase tracking-wider">
-            Details
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+    </div>
   )
 }

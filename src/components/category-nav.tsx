@@ -1,38 +1,47 @@
-
 "use client"
 
 import * as React from "react"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
 
-const categories = [
-  { id: 'all', name: 'All' },
-  { id: 'pizza', name: 'Pizza' },
-  { id: 'pasta', name: 'Pasta' },
-  { id: 'salad', name: 'Salads' },
-  { id: 'burgers', name: 'Burgers' },
-  { id: 'drinks', name: 'Drinks' },
-]
+interface Category {
+  id: string
+  name: string
+  icon: React.ReactNode
+}
 
-export function CategoryNav() {
-  const [active, setActive] = React.useState('all')
+interface CategoryNavProps {
+  categories: Category[]
+  active: string
+  onChange: (id: string) => void
+}
 
+export function CategoryNav({ categories, active, onChange }: CategoryNavProps) {
   return (
-    <div className="relative -mx-6 px-6 py-2 overflow-hidden">
+    <div className="relative -mx-4 px-4 overflow-hidden border-b border-slate-100">
       <ScrollArea className="w-full whitespace-nowrap">
-        <div className="flex gap-3 pb-4">
+        <div className="flex gap-6 pb-2 pt-1">
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setActive(cat.id)}
+              onClick={() => onChange(cat.id)}
               className={cn(
-                "px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 shadow-sm",
+                "flex items-center gap-2 py-2 px-1 relative transition-all duration-300",
                 active === cat.id 
-                  ? "bg-primary text-white shadow-primary/20 scale-105" 
-                  : "bg-white text-muted-foreground border border-border/50 hover:bg-secondary"
+                  ? "text-[#12B4A3]" 
+                  : "text-slate-400"
               )}
             >
-              {cat.name}
+              <span className={cn(
+                "transition-transform",
+                active === cat.id ? "scale-110" : "scale-100"
+              )}>
+                {cat.icon}
+              </span>
+              <span className="font-bold text-sm tracking-tight">{cat.name}</span>
+              {active === cat.id && (
+                <div className="absolute bottom-[-2px] left-0 right-0 h-1 bg-[#12B4A3] rounded-full" />
+              )}
             </button>
           ))}
         </div>
