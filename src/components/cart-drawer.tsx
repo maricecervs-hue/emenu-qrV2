@@ -39,9 +39,10 @@ interface CartDrawerProps {
   items: CartItem[]
   onUpdateQuantity: (cartId: string, delta: number) => void
   onRemove: (cartId: string) => void
+  onEdit: (item: CartItem) => void
 }
 
-export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove }: CartDrawerProps) {
+export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove, onEdit }: CartDrawerProps) {
   const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
   const tax = subtotal * 0.08
   const serviceCharge = subtotal * 0.10
@@ -109,7 +110,15 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove 
                       <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
                     </div>
                     <div className="flex-1 space-y-1">
-                      <h3 className="font-extrabold text-[#1E2B4D] leading-tight text-sm line-clamp-1">{item.name}</h3>
+                      <div className="flex items-start justify-between gap-2">
+                        <h3 className="font-extrabold text-[#1E2B4D] leading-tight text-sm line-clamp-1">{item.name}</h3>
+                        <button 
+                          onClick={() => onEdit(item)}
+                          className="p-1 rounded-full bg-slate-50 hover:bg-slate-100 transition-colors"
+                        >
+                          <Pencil className="w-3.5 h-3.5 text-[#12B4A3]" />
+                        </button>
+                      </div>
                       <div className="flex items-center gap-1">
                         <span className="text-[#12B4A3] font-black text-lg">฿ {item.price.toFixed(2)}</span>
                       </div>

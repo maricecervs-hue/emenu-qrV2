@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -49,9 +48,10 @@ interface CustomizerDrawerProps {
   }
   customisable?: boolean
   onAddToCart: (quantity: number, customizations?: string) => void
+  isEdit?: boolean
 }
 
-export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToCart }: CustomizerDrawerProps) {
+export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToCart, isEdit }: CustomizerDrawerProps) {
   const [quantity, setQuantity] = React.useState(1)
   const [view, setView] = React.useState<'main' | 'sub'>('main')
   const [activeParentId, setActiveParentId] = React.useState<string | null>(null)
@@ -135,7 +135,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
           if (opt.id !== optionId) return opt
           const newQuantity = Math.max(0, opt.quantity + delta)
           if (newQuantity > 0 && delta > 0) {
-            // Scroll to next section if adding a new condiment
             setTimeout(() => scrollToNextSection(groupId), 300)
           }
           return { ...opt, quantity: newQuantity }
@@ -155,7 +154,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         }))
       }
     }))
-    // Small delay to let the UI update before scrolling
     setTimeout(() => scrollToNextSection(groupId), 300)
   }
 
@@ -185,7 +183,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         setTimeout(() => {
           setView('main')
           setActiveParentId(null)
-          // Reset internal state for next open if needed, or keep for UX
         }, 300)
       }
     }}>
@@ -230,7 +227,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                       <span className="text-sm font-bold text-[#8E9AAF]">(Base Price)</span>
                     </div>
 
-                    {/* Nutritional Info Section */}
                     <div className="bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100/50 space-y-5">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -255,7 +251,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                       </div>
                     </div>
 
-                    {/* Allergen Info Section */}
                     <div className="bg-[#FFFBEB] rounded-[2rem] p-6 border border-[#FEF08A] space-y-4">
                       <div className="flex items-center gap-2">
                         <AlertTriangle className="w-5 h-5 text-orange-500 fill-orange-500/10" />
@@ -430,7 +425,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                     value={selectedSubOption[activeParentId!]} 
                     onValueChange={(val) => {
                       setSelectedSubOption(prev => ({ ...prev, [activeParentId!]: val }))
-                      // Automatically select the parent if a sub-option is picked
                       const group = customizationGroups.find(g => g.options.some(o => o.id === activeParentId))
                       if (group) setSingleChoice(group.id, activeParentId!)
                     }}
@@ -485,7 +479,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                 className="flex-1 h-16 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-black text-xl shadow-xl shadow-[#12B4A3]/20 transition-all hover:scale-[1.01] active:scale-[0.98]"
                 onClick={handleAddToCart}
               >
-                Add • ฿ {(item.price * quantity + customizationGroups.reduce((acc, g) => acc + g.options.reduce((oAcc, o) => oAcc + (o.price * o.quantity), 0), 0)).toFixed(2)}
+                {isEdit ? 'Update' : 'Add'} • ฿ {(item.price * quantity + customizationGroups.reduce((acc, g) => acc + g.options.reduce((oAcc, o) => oAcc + (o.price * o.quantity), 0), 0)).toFixed(2)}
               </Button>
             </div>
           )}

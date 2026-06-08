@@ -8,6 +8,7 @@ import { MenuCard } from "@/components/menu-card"
 import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { CartDrawer } from "@/components/cart-drawer"
+import { CustomizerDrawer } from "@/components/customizer-drawer"
 import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
 
@@ -159,9 +160,10 @@ export default function MenuPage() {
   const [isNavVisible, setIsNavVisible] = React.useState(true)
   const [lastScrollY, setLastScrollY] = React.useState(0)
   const [isCartOpen, setIsCartOpen] = React.useState(false)
+  const [editingCartItem, setEditingCartItem] = React.useState<any>(null)
   const [cartItems, setCartItems] = React.useState<{
     id: string
-    cartId: string // Unique identifier for items in cart (id + customizations)
+    cartId: string 
     name: string
     price: number
     quantity: number
@@ -247,7 +249,6 @@ export default function MenuPage() {
 
   const handleAddToCart = (item: any, quantity: number, customizations?: string) => {
     setCartItems(prev => {
-      // Items with different customizations should be separate entries
       const cartId = customizations ? `${item.id}-${customizations}` : item.id
       const existing = prev.find(i => i.cartId === cartId)
       if (existing) {
@@ -265,6 +266,19 @@ export default function MenuPage() {
     })
   }
 
+  const handleUpdateCartItem = (oldCartId: string, item: any, quantity: number, customizations?: string) => {
+    setCartItems(prev => {
+      const newCartId = customizations ? `${item.id}-${customizations}` : item.id
+      return prev.map(i => i.cartId === oldCartId ? {
+        ...i,
+        cartId: newCartId,
+        quantity: quantity,
+        customizations: customizations
+      } : i)
+    })
+    setEditingCartItem(null)
+  }
+
   const updateCartQuantity = (cartId: string, delta: number) => {
     setCartItems(prev => {
       return prev.map(item => 
@@ -279,8 +293,16 @@ export default function MenuPage() {
     })
   }
 
+  const handleEditCartItem = (item: any) => {
+    setEditingCartItem(item)
+    setIsCartOpen(false)
+  }
+
   const activeCategoryItemsCount = MENU_ITEMS.filter(item => item.category === activeCategory).length
   const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0)
+
+  // Find original item data for the customizer when editing
+  const editingBaseItem = editingCartItem ? MENU_ITEMS.find(i => i.id === editingCartItem.id) : null
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center overflow-x-hidden">
@@ -342,8 +364,6 @@ export default function MenuPage() {
                       onAddToCart={(qty, cust) => handleAddToCart(item, qty, cust)}
                       currentQuantity={cartItems.filter(i => i.id === item.id).reduce((sum, i) => sum + i.quantity, 0)}
                       onUpdateQuantity={(delta) => {
-                        // For non-customisable, just find the item and update.
-                        // For customisable, clicking the "+" button in MenuCard opens drawer.
                         const cartItem = cartItems.find(i => i.id === item.id)
                         if (cartItem) updateCartQuantity(cartItem.cartId, delta)
                       }}
@@ -398,7 +418,19 @@ export default function MenuPage() {
           items={cartItems}
           onUpdateQuantity={updateCartQuantity}
           onRemove={removeCartItem}
+          onEdit={handleEditCartItem}
         />
+
+        {editingBaseItem && (
+          <CustomizerDrawer 
+            isOpen={!!editingCartItem}
+            onClose={() => setEditingCartItem(null)}
+            item={editingBaseItem}
+            customisable={editingBaseItem.customisable}
+            onAddToCart={(qty, cust) => handleUpdateCartItem(editingCartItem.cartId, editingBaseItem, qty, cust)}
+            isEdit
+          />
+        )}
       </div>
     </div>
   )
