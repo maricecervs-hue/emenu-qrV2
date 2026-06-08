@@ -3,45 +3,57 @@
   "placeholderImages": [
     {
       "id": "hero-food",
-      "description": "Exquisite gourmet dish with vibrant colors and pasta",
+      "description": "Exquisite gourmet dish with vibrant colors",
       "imageUrl": "https://picsum.photos/seed/menu-hero/1200/800",
-      "imageHint": "gourmet pasta ingredients"
+      "imageHint": "gourmet dish"
     },
     {
-      "id": "dish-1",
-      "description": "Margherita Pizza with fresh basil",
-      "imageUrl": "https://picsum.photos/seed/dish1/400/300",
+      "id": "margherita-pizza",
+      "description": "Fresh Pizza Margherita with basil and mozzarella",
+      "imageUrl": "https://picsum.photos/seed/margherita/400/300",
       "imageHint": "margherita pizza"
     },
     {
-      "id": "dish-2",
-      "description": "Creamy Truffle Pasta",
-      "imageUrl": "https://picsum.photos/seed/dish2/400/300",
-      "imageHint": "truffle pasta"
+      "id": "alfredo-pizza",
+      "description": "Creamy Chicken Alfredo Pizza",
+      "imageUrl": "https://picsum.photos/seed/alfredo/400/300",
+      "imageHint": "chicken pizza"
     },
     {
-      "id": "dish-3",
-      "description": "Grilled Salmon with asparagus",
-      "imageUrl": "https://picsum.photos/seed/dish3/400/300",
-      "imageHint": "grilled salmon"
+      "id": "hawaiian-pizza",
+      "description": "Hawaiian Pizza with ham and pineapple",
+      "imageUrl": "https://picsum.photos/seed/hawaiian/400/300",
+      "imageHint": "hawaiian pizza"
     },
     {
-      "id": "dish-4",
-      "description": "Classic Caesar Salad",
-      "imageUrl": "https://picsum.photos/seed/dish4/400/300",
-      "imageHint": "caesar salad"
+      "id": "garlic-bread",
+      "description": "Toasted garlic bread with herbs",
+      "imageUrl": "https://picsum.photos/seed/garlic-bread/400/300",
+      "imageHint": "garlic bread"
     },
     {
-      "id": "dish-5",
-      "description": "Premium Beef Burger",
-      "imageUrl": "https://picsum.photos/seed/dish5/400/300",
-      "imageHint": "beef burger"
+      "id": "french-fries",
+      "description": "Crispy golden french fries",
+      "imageUrl": "https://picsum.photos/seed/french-fries/400/300",
+      "imageHint": "french fries"
     },
     {
-      "id": "dish-6",
-      "description": "Red Wine Bottle selection",
-      "imageUrl": "https://picsum.photos/seed/wine1/400/300",
-      "imageHint": "wine bottle"
+      "id": "brownie",
+      "description": "Decadent chocolate brownie with ice cream",
+      "imageUrl": "https://picsum.photos/seed/brownie/400/300",
+      "imageHint": "chocolate brownie"
+    },
+    {
+      "id": "soft-drink",
+      "description": "Icy cold soft drink glass",
+      "imageUrl": "https://picsum.photos/seed/cola/400/300",
+      "imageHint": "soft drink"
+    },
+    {
+      "id": "water",
+      "description": "Bottled mineral water",
+      "imageUrl": "https://picsum.photos/seed/water-bottle/400/300",
+      "imageHint": "water bottle"
     }
   ]
 }

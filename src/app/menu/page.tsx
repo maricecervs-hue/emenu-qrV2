@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react"
@@ -24,7 +25,8 @@ const MENU_ITEMS = [
     name: 'Pizza Margherita - 12 inches',
     description: 'Homemade dough, homemade pizza sauce, fresh mozzarella, basil.',
     price: 36.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-1')?.imageUrl || "https://picsum.photos/seed/dish1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'margherita-pizza')?.imageUrl || "https://picsum.photos/seed/dish1/400/300",
+    imageHint: PlaceHolderImages.find(i => i.id === 'margherita-pizza')?.imageHint,
     category: 'bestsellers',
     customisable: false
   },
@@ -33,7 +35,8 @@ const MENU_ITEMS = [
     name: 'Chicken Alfredo Pizza - 12 inches',
     description: 'Homemade dough, white sauce base, marinated chicken, parmesan.',
     price: 48.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-2')?.imageUrl || "https://picsum.photos/seed/dish2/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'alfredo-pizza')?.imageUrl || "https://picsum.photos/seed/dish2/400/300",
+    imageHint: PlaceHolderImages.find(i => i.id === 'alfredo-pizza')?.imageHint,
     category: 'bestsellers',
     customisable: true
   },
@@ -42,7 +45,8 @@ const MENU_ITEMS = [
     name: 'Pizza Margherita - 10 inches',
     description: 'Homemade dough, homemade pizza sauce, fresh mozzarella, basil.',
     price: 27.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-1')?.imageUrl || "https://picsum.photos/seed/dish1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'margherita-pizza')?.imageUrl || "https://picsum.photos/seed/dish1/400/300",
+    imageHint: PlaceHolderImages.find(i => i.id === 'margherita-pizza')?.imageHint,
     category: 'pizza',
     customisable: false
   },
@@ -51,7 +55,8 @@ const MENU_ITEMS = [
     name: 'Hawaiian Pizza - 10 inches',
     description: 'Homemade dough, pizza sauce, mozzarella, ham, pineapple.',
     price: 32.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-5')?.imageUrl || "https://picsum.photos/seed/dish5/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'hawaiian-pizza')?.imageUrl || "https://picsum.photos/seed/dish5/400/300",
+    imageHint: PlaceHolderImages.find(i => i.id === 'hawaiian-pizza')?.imageHint,
     category: 'pizza',
     customisable: true
   },
@@ -60,7 +65,8 @@ const MENU_ITEMS = [
     name: 'Garlic Bread',
     description: 'Toasted bread with garlic butter and herbs.',
     price: 12.00,
-    imageUrl: "https://picsum.photos/seed/garlic/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageUrl || "https://picsum.photos/seed/garlic/400/300",
+    imageHint: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageHint,
     category: 'sides',
     customisable: false
   },
@@ -69,7 +75,8 @@ const MENU_ITEMS = [
     name: 'French Fries',
     description: 'Crispy golden fries served with ketchup.',
     price: 8.00,
-    imageUrl: "https://picsum.photos/seed/fries/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "https://picsum.photos/seed/fries/400/300",
+    imageHint: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageHint,
     category: 'sides',
     customisable: false
   },
@@ -78,7 +85,8 @@ const MENU_ITEMS = [
     name: 'Chocolate Brownie',
     description: 'Warm brownie with vanilla ice cream.',
     price: 15.00,
-    imageUrl: "https://picsum.photos/seed/brownie/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'brownie')?.imageUrl || "https://picsum.photos/seed/brownie/400/300",
+    imageHint: PlaceHolderImages.find(i => i.id === 'brownie')?.imageHint,
     category: 'desserts',
     customisable: false
   },
@@ -87,7 +95,8 @@ const MENU_ITEMS = [
     name: 'Soft Drink',
     description: 'Choose your favorite flavor.',
     price: 3.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-6')?.imageUrl || "https://picsum.photos/seed/wine1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'soft-drink')?.imageUrl || "https://picsum.photos/seed/wine1/400/300",
+    imageHint: PlaceHolderImages.find(i => i.id === 'soft-drink')?.imageHint,
     category: 'drinks',
     customisable: true
   },
@@ -96,7 +105,8 @@ const MENU_ITEMS = [
     name: 'Bottled Water',
     description: 'Still or sparkling water.',
     price: 2.50,
-    imageUrl: "https://picsum.photos/seed/water/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'water')?.imageUrl || "https://picsum.photos/seed/water/400/300",
+    imageHint: PlaceHolderImages.find(i => i.id === 'water')?.imageHint,
     category: 'drinks',
     customisable: false
   }
@@ -247,6 +257,7 @@ export default function MenuPage() {
                       description={item.description}
                       price={item.price}
                       imageUrl={item.imageUrl}
+                      imageHint={item.imageHint}
                       customisable={item.customisable}
                     />
                   ))}
