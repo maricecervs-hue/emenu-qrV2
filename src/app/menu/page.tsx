@@ -75,7 +75,7 @@ const MENU_ITEMS = [
 ]
 
 export default function MenuPage() {
-  const [activeCategory, setActiveCategory] = React.useState('drinks')
+  const [activeCategory, setActiveCategory] = React.useState('bestsellers')
 
   const filteredItems = React.useMemo(() => {
     const sections = ['bestsellers', 'pizza', 'drinks']
@@ -85,6 +85,14 @@ export default function MenuPage() {
       items: MENU_ITEMS.filter(item => item.category === section)
     }))
   }, [])
+
+  const handleCategoryChange = (id: string) => {
+    setActiveCategory(id);
+    const element = document.getElementById(`section-${id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   const activeCategoryItemsCount = MENU_ITEMS.filter(item => item.category === activeCategory).length
 
@@ -113,18 +121,22 @@ export default function MenuPage() {
           </header>
 
           {/* Sticky Category Navigation */}
-          <div className="sticky top-0 z-50 bg-white">
+          <div className="sticky top-0 z-50 bg-white shadow-sm">
             <CategoryNav 
               categories={CATEGORIES} 
               active={activeCategory} 
-              onChange={setActiveCategory} 
+              onChange={handleCategoryChange} 
             />
           </div>
 
           {/* Menu Sections */}
           <div className="px-4 space-y-10 py-6">
             {filteredItems.map((section) => (
-              <div key={section.id} className="space-y-6">
+              <div 
+                key={section.id} 
+                id={`section-${section.id}`} 
+                className="space-y-6 scroll-mt-20"
+              >
                 <div className="flex items-center gap-4">
                   <h3 className="text-2xl font-black text-[#1E2B4D] whitespace-nowrap">
                     {section.title}
