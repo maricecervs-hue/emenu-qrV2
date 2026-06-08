@@ -72,6 +72,12 @@
       "description": "Bottled mineral water with lemon",
       "imageUrl": "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?q=80&w=1976&auto=format&fit=crop",
       "imageHint": "mineral water"
+    },
+    {
+      "id": "beef-burger",
+      "description": "Premium Gourmet Beef Burger",
+      "imageUrl": "https://images.unsplash.com/photo-1708175313856-8573b2bf8a3a?q=80&w=2340&auto=format&fit=crop",
+      "imageHint": "beef burger"
     }
   ]
 }

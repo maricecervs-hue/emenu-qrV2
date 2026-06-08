@@ -25,17 +25,27 @@ const MENU_ITEMS = [
     name: 'Pizza Margherita - 12 inches',
     description: 'Homemade dough, homemade pizza sauce, fresh mozzarella, basil.',
     price: 36.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=2338&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "",
     imageHint: "margherita pizza",
     category: 'bestsellers',
     customisable: false
+  },
+  {
+    id: '13',
+    name: 'Premium Beef Burger',
+    description: '100% Wagyu beef, aged cheddar, pickles, and our signature burger sauce.',
+    price: 38.00,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'beef-burger')?.imageUrl || "",
+    imageHint: "beef burger",
+    category: 'bestsellers',
+    customisable: true
   },
   {
     id: '2',
     name: 'Chicken Alfredo Pizza - 12 inches',
     description: 'Homemade dough, white sauce base, marinated chicken, parmesan.',
     price: 48.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-alfredo')?.imageUrl || "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-alfredo')?.imageUrl || "",
     imageHint: "chicken pizza",
     category: 'bestsellers',
     customisable: true
@@ -45,7 +55,7 @@ const MENU_ITEMS = [
     name: 'Pizza Margherita - 10 inches',
     description: 'Classic thin crust with fresh tomato sauce and mozzarella.',
     price: 27.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=2338&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "",
     imageHint: "margherita pizza",
     category: 'pizza',
     customisable: false
@@ -55,7 +65,7 @@ const MENU_ITEMS = [
     name: 'Hawaiian Pizza - 10 inches',
     description: 'The perfect balance of ham and sweet pineapple chunks.',
     price: 32.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-hawaiian')?.imageUrl || "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-hawaiian')?.imageUrl || "",
     imageHint: "hawaiian pizza",
     category: 'pizza',
     customisable: true
@@ -65,7 +75,7 @@ const MENU_ITEMS = [
     name: 'Garlic Bread',
     description: 'Crispy baguette slices with roasted garlic butter and herbs.',
     price: 12.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageUrl || "https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?q=80&w=2070&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageUrl || "",
     imageHint: "garlic bread",
     category: 'sides',
     customisable: false
@@ -75,7 +85,7 @@ const MENU_ITEMS = [
     name: 'Buffalo Chicken Wings',
     description: 'Spicy glazed wings served with a side of blue cheese dip.',
     price: 18.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'chicken-wings')?.imageUrl || "https://images.unsplash.com/photo-1608039829572-78524f79c4c7?q=80&w=1974&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'chicken-wings')?.imageUrl || "",
     imageHint: "chicken wings",
     category: 'sides',
     customisable: true
@@ -85,7 +95,7 @@ const MENU_ITEMS = [
     name: 'French Fries',
     description: 'Deep fried golden potatoes served with classic ketchup.',
     price: 8.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "https://images.unsplash.com/photo-1518013431117-eb1465fa5752?q=80&w=2340&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "",
     imageHint: "french fries",
     category: 'sides',
     customisable: false
@@ -95,7 +105,7 @@ const MENU_ITEMS = [
     name: 'Warm Chocolate Brownie',
     description: 'Fudgy brownie topped with vanilla bean ice cream.',
     price: 15.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'brownie-dessert')?.imageUrl || "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1974&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'brownie-dessert')?.imageUrl || "",
     imageHint: "chocolate brownie",
     category: 'desserts',
     customisable: false
@@ -105,7 +115,7 @@ const MENU_ITEMS = [
     name: 'New York Cheesecake',
     description: 'Classic velvety cheesecake with a graham cracker crust.',
     price: 16.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'cheesecake')?.imageUrl || "https://images.unsplash.com/photo-1524351199679-46cddf33276a?q=80&w=2070&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'cheesecake')?.imageUrl || "",
     imageHint: "cheesecake",
     category: 'desserts',
     customisable: false
@@ -115,7 +125,7 @@ const MENU_ITEMS = [
     name: 'Iced Latte',
     description: 'Premium espresso with chilled milk over ice.',
     price: 6.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'iced-coffee')?.imageUrl || "https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1974&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'iced-coffee')?.imageUrl || "",
     imageHint: "iced coffee",
     category: 'drinks',
     customisable: true
@@ -125,7 +135,7 @@ const MENU_ITEMS = [
     name: 'Cola',
     description: 'Refreshing carbonated soft drink served with ice.',
     price: 3.50,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'cola-drink')?.imageUrl || "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=2070&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'cola-drink')?.imageUrl || "",
     imageHint: "soft drink",
     category: 'drinks',
     customisable: false
@@ -135,7 +145,7 @@ const MENU_ITEMS = [
     name: 'Mineral Water',
     description: 'Natural spring water, still or sparkling.',
     price: 2.50,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'mineral-water')?.imageUrl || "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?q=80&w=1976&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'mineral-water')?.imageUrl || "",
     imageHint: "mineral water",
     category: 'drinks',
     customisable: false
