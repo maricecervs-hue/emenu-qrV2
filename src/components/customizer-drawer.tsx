@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { X, Minus, Plus, MessageSquare, ChevronRight, ChevronLeft, AlertCircle, Zap, Wheat, Beef, Flame } from "lucide-react"
+import { X, Minus, Plus, MessageSquare, ChevronRight, ChevronLeft, AlertTriangle, Zap, Wheat, Beef, Flame } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -150,7 +150,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                       <span className="text-sm font-bold text-[#8E9AAF]">(Base Price)</span>
                     </div>
 
-                    {/* Nutritional Info Section - Matching Image Structure */}
+                    {/* Nutritional Info Section */}
                     <div className="bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100/50 space-y-5">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -180,17 +180,26 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                       </div>
                     </div>
 
-                    {/* Allergen Info */}
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline" className="rounded-full bg-orange-50 border-orange-100 text-orange-700 font-bold text-[10px] py-1.5 gap-1.5 px-4 shadow-sm">
-                        <AlertCircle className="w-3.5 h-3.5" /> Contains Nuts
-                      </Badge>
-                      <Badge variant="outline" className="rounded-full bg-green-50 border-green-100 text-green-700 font-bold text-[10px] py-1.5 gap-1.5 px-4 shadow-sm">
-                        <Wheat className="w-3.5 h-3.5" /> Gluten-Free
-                      </Badge>
-                      <Badge variant="outline" className="rounded-full bg-red-50 border-red-100 text-red-700 font-bold text-[10px] py-1.5 gap-1.5 px-4 shadow-sm">
-                        <Beef className="w-3.5 h-3.5" /> 100% Beef
-                      </Badge>
+                    {/* Allergen Info Section - High Fidelity Design */}
+                    <div className="bg-[#FFFBEB] rounded-[2rem] p-6 border border-[#FEF08A] space-y-4">
+                      <div className="flex items-center gap-2">
+                        <AlertTriangle className="w-5 h-5 text-orange-500 fill-orange-500/10" />
+                        <h3 className="text-xl font-black text-[#1E2B4D]">Allergen Information</h3>
+                      </div>
+
+                      <div className="flex flex-wrap gap-3">
+                        <div className="bg-white px-4 py-2.5 rounded-xl shadow-sm border border-[#FEF08A] flex items-center gap-2">
+                          <Wheat className="w-4 h-4 text-orange-600" />
+                          <span className="text-sm font-bold text-[#1E2B4D]">Gluten</span>
+                        </div>
+                        <div className="bg-white px-4 py-2.5 rounded-xl shadow-sm border border-[#FEF08A] flex items-center gap-2">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-orange-600">
+                            <path d="M12 2L4.5 20.29C4.21 21 4.79 21.71 5.5 21.71H18.5C19.21 21.71 19.79 21 19.5 20.29L12 2Z" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+                            <path d="M7 16H17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          </svg>
+                          <span className="text-sm font-bold text-[#1E2B4D]">Dairy</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
