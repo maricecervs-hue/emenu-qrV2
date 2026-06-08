@@ -89,33 +89,31 @@ export default function MenuPage() {
   const activeCategoryItemsCount = MENU_ITEMS.filter(item => item.category === activeCategory).length
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center">
-      <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative">
+    <div className="min-h-screen bg-white flex flex-col items-center overflow-x-hidden">
+      <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative h-screen overflow-hidden">
         
         {/* Main Scrollable Content */}
-        <div className="flex-1 overflow-y-auto pb-32">
+        <div className="flex-1 overflow-y-auto scrollbar-hide pb-32">
           {/* Top Header - Scrolls Away */}
-          <header className="pt-6 pb-2">
-            <div className="px-4 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Link href="/">
-                  <ChevronLeft className="w-6 h-6 text-slate-800" />
-                </Link>
-                <div className="flex flex-col">
-                  <h2 className="text-xl font-extrabold text-[#1E2B4D]">
-                    {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}
-                  </h2>
-                  <span className="text-sm font-medium text-[#12B4A3]">
-                    {activeCategoryItemsCount} items
-                  </span>
-                </div>
+          <header className="pt-6 pb-2 px-4 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Link href="/">
+                <ChevronLeft className="w-6 h-6 text-slate-800" />
+              </Link>
+              <div className="flex flex-col">
+                <h2 className="text-xl font-extrabold text-[#1E2B4D]">
+                  {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}
+                </h2>
+                <span className="text-sm font-medium text-[#12B4A3]">
+                  {activeCategoryItemsCount} items
+                </span>
               </div>
-              <Search className="w-6 h-6 text-slate-800" />
             </div>
+            <Search className="w-6 h-6 text-slate-800" />
           </header>
 
           {/* Sticky Category Navigation */}
-          <div className="sticky top-0 z-40 bg-white shadow-sm sm:shadow-none">
+          <div className="sticky top-0 z-50 bg-white">
             <CategoryNav 
               categories={CATEGORIES} 
               active={activeCategory} 
@@ -156,8 +154,8 @@ export default function MenuPage() {
         <AITasteAdvisor />
 
         {/* Floating Cart Button */}
-        <div className="fixed bottom-24 right-6 z-50">
-          <div className="relative">
+        <div className="fixed bottom-24 right-6 z-50 pointer-events-none">
+          <div className="relative pointer-events-auto">
             <Button 
               className="w-16 h-16 rounded-full bg-[#FF5C5C] hover:bg-[#FF4D4D] shadow-2xl flex items-center justify-center p-0"
             >
