@@ -230,7 +230,7 @@ export default function MenuPage() {
         <AITasteAdvisor />
 
         {/* Floating Cart Button */}
-        <div className="fixed bottom-24 right-6 z-50 pointer-events-none">
+        <div className="fixed bottom-28 right-6 z-50 pointer-events-none">
           <div className="relative pointer-events-auto">
             <Button 
               className="w-16 h-16 rounded-full bg-[#FF5C5C] hover:bg-[#FF4D4D] shadow-2xl flex items-center justify-center p-0"
@@ -244,14 +244,14 @@ export default function MenuPage() {
         </div>
 
         {/* Bottom Navigation */}
-        <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100 px-12 py-4 flex justify-between items-center z-40">
-          <div className="flex flex-col items-center gap-1">
-            <Home className="w-6 h-6 text-[#12B4A3]" />
-            <span className="text-[10px] font-bold text-[#12B4A3]">Menu</span>
+        <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] px-16 py-5 flex justify-between items-center z-40">
+          <div className="flex flex-col items-center gap-1.5 cursor-pointer">
+            <Home className="w-7 h-7 text-[#12B4A3]" strokeWidth={2.5} />
+            <span className="text-sm font-bold text-[#12B4A3]">Menu</span>
           </div>
-          <div className="flex flex-col items-center gap-1 opacity-40">
-            <ClipboardList className="w-6 h-6 text-slate-400" />
-            <span className="text-[10px] font-bold text-slate-400">Orders</span>
+          <div className="flex flex-col items-center gap-1.5 cursor-pointer opacity-30">
+            <ClipboardList className="w-7 h-7 text-slate-500" strokeWidth={2.5} />
+            <span className="text-sm font-bold text-slate-500">Orders</span>
           </div>
         </nav>
       </div>
