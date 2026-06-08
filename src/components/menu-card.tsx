@@ -2,7 +2,7 @@
 "use client"
 
 import Image from "next/image"
-import { Plus, Trash2 } from "lucide-react"
+import { Plus, Trash2, Minus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { CustomizerDrawer } from "@/components/customizer-drawer"
@@ -16,10 +16,23 @@ interface MenuCardProps {
   imageUrl: string
   imageHint?: string
   customisable?: boolean
+  onAddToCart: (quantity: number) => void
+  currentQuantity: number
+  onUpdateQuantity: (delta: number) => void
 }
 
-export function MenuCard({ id, name, description, price, imageUrl, imageHint, customisable }: MenuCardProps) {
-  const [quantity, setQuantity] = useState(0)
+export function MenuCard({ 
+  id, 
+  name, 
+  description, 
+  price, 
+  imageUrl, 
+  imageHint, 
+  customisable,
+  onAddToCart,
+  currentQuantity,
+  onUpdateQuantity
+}: MenuCardProps) {
   const [isCustomizerOpen, setIsCustomizerOpen] = useState(false)
   const [isAdding, setIsAdding] = useState(false)
 
@@ -28,17 +41,15 @@ export function MenuCard({ id, name, description, price, imageUrl, imageHint, cu
     if (customisable) {
       setIsCustomizerOpen(true)
     } else {
-      // Direct add with animation
       setIsAdding(true)
+      onAddToCart(1)
       setTimeout(() => {
-        setQuantity(q => q + 1)
         setIsAdding(false)
       }, 300)
     }
   }
 
   const handleCardClick = () => {
-    // Clicking the card always opens the drawer for info/customisation
     setIsCustomizerOpen(true)
   }
 
@@ -48,7 +59,6 @@ export function MenuCard({ id, name, description, price, imageUrl, imageHint, cu
         className="flex bg-white rounded-[10px] overflow-hidden shadow-[0_8px_25px_rgba(0,0,0,0.04)] border border-slate-50 min-h-[160px] cursor-pointer transition-transform active:scale-[0.98]"
         onClick={handleCardClick}
       >
-        {/* Content Side */}
         <div className="flex-1 p-5 flex flex-col justify-between">
           <div className="space-y-1.5">
             <h3 className="font-extrabold text-[#1E2B4D] leading-tight text-lg">
@@ -65,7 +75,6 @@ export function MenuCard({ id, name, description, price, imageUrl, imageHint, cu
           </div>
         </div>
 
-        {/* Image Side */}
         <div className="w-[140px] relative">
           <Image
             src={imageUrl}
@@ -76,29 +85,28 @@ export function MenuCard({ id, name, description, price, imageUrl, imageHint, cu
             data-ai-hint={imageHint || "food dish"}
           />
           
-          {/* Overlay Controls - Bottom Centered */}
           <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-3 bg-gradient-to-t from-black/60 to-transparent pt-12">
-            {quantity > 0 ? (
+            {currentQuantity > 0 ? (
               <div className="bg-white rounded-full flex items-center gap-3 px-2 py-1.5 shadow-xl animate-in zoom-in-75 duration-200">
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="h-6 w-6 rounded-full text-red-500 hover:bg-red-50 p-0"
+                  className="h-6 w-6 rounded-full text-[#FF5C5C] hover:bg-red-50 p-0"
                   onClick={(e) => {
                     e.stopPropagation()
-                    setQuantity(q => Math.max(0, q - 1))
+                    onUpdateQuantity(-1)
                   }}
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  {currentQuantity === 1 ? <Trash2 className="w-3.5 h-3.5" /> : <Minus className="w-3.5 h-3.5" />}
                 </Button>
-                <span className="text-sm font-bold text-[#1E2B4D]">{quantity}</span>
+                <span className="text-sm font-bold text-[#1E2B4D]">{currentQuantity}</span>
                 <Button 
                   variant="ghost" 
                   size="icon" 
                   className="h-6 w-6 rounded-full text-[#12B4A3] hover:bg-[#12B4A3]/10 p-0"
                   onClick={(e) => {
                     e.stopPropagation()
-                    setQuantity(q => q + 1)
+                    onUpdateQuantity(1)
                   }}
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -131,6 +139,7 @@ export function MenuCard({ id, name, description, price, imageUrl, imageHint, cu
         onClose={() => setIsCustomizerOpen(false)}
         item={{ id, name, description, price, imageUrl, imageHint }}
         customisable={customisable}
+        onAddToCart={onAddToCart}
       />
     </>
   )

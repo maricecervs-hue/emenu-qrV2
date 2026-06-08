@@ -3,7 +3,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { X, Flame, Beef, Wheat, Droplets, Minus, Plus, MessageSquare } from "lucide-react"
+import { X, Wheat, Droplets, Minus, Plus, MessageSquare } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -30,16 +30,21 @@ interface CustomizerDrawerProps {
     imageHint?: string
   }
   customisable?: boolean
+  onAddToCart: (quantity: number) => void
 }
 
-export function CustomizerDrawer({ isOpen, onClose, item, customisable }: CustomizerDrawerProps) {
+export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToCart }: CustomizerDrawerProps) {
   const [quantity, setQuantity] = React.useState(1)
   const [variation, setVariation] = React.useState("var1")
+
+  const handleAddToCart = () => {
+    onAddToCart(quantity)
+    onClose()
+  }
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden">
-        {/* Accessibility labels for Screen Readers */}
         <SheetHeader className="sr-only">
           <SheetTitle>{item.name}</SheetTitle>
           <SheetDescription>{item.description}</SheetDescription>
@@ -81,7 +86,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable }: Custom
               </div>
             </div>
 
-            {/* Nutritional Info */}
             <div className="bg-white rounded-[1.5rem] p-4 flex justify-between items-center shadow-sm border border-slate-100">
               <div className="flex flex-col items-center gap-1 flex-1 border-r border-slate-100">
                 <span className="text-sm font-black text-[#1E2B4D]">892</span>
@@ -101,7 +105,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable }: Custom
               </div>
             </div>
 
-            {/* Allergen Info */}
             <div className="bg-[#FFF9E7] rounded-[1.5rem] p-5 space-y-3 border border-[#FFE8A3]/30">
               <div className="flex items-center gap-2 text-[#856404] font-bold text-sm">
                 <span className="w-5 h-5 flex items-center justify-center bg-white rounded-full text-xs">!</span>
@@ -117,7 +120,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable }: Custom
               </div>
             </div>
 
-            {/* Flavor Selection - only show if customizable */}
             {customisable && (
               <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
                 <div>
@@ -138,7 +140,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable }: Custom
               </div>
             )}
 
-            {/* Special Requests */}
             <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
               <div className="flex items-center gap-2">
                 <MessageSquare className="w-4 h-4 text-[#8E9AAF]" />
@@ -159,7 +160,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable }: Custom
           </div>
         </ScrollArea>
 
-        {/* Sticky Footer */}
         <div className="absolute bottom-0 w-full bg-white p-6 border-t border-slate-50 flex items-center gap-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
           <div className="flex items-center gap-6 bg-[#F8F9FA] px-4 py-3 rounded-2xl border border-slate-100">
             <button 
@@ -178,7 +178,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable }: Custom
           </div>
           <Button 
             className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-black text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
-            onClick={onClose}
+            onClick={handleAddToCart}
           >
             Add • ฿ {(item.price * quantity).toFixed(2)}
           </Button>

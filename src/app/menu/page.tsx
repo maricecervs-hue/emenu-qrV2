@@ -11,6 +11,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { AITasteAdvisor } from "@/components/ai-taste-advisor"
 import { CartDrawer } from "@/components/cart-drawer"
 import { cn } from "@/lib/utils"
+import { useToast } from "@/hooks/use-toast"
 
 const CATEGORIES = [
   { id: 'bestsellers', name: 'Bestsellers', icon: <Flame className="w-4 h-4" /> },
@@ -154,20 +155,20 @@ const MENU_ITEMS = [
 ]
 
 export default function MenuPage() {
+  const { toast } = useToast()
   const [activeCategory, setActiveCategory] = React.useState('bestsellers')
   const [isManualScrolling, setIsManualScrolling] = React.useState(false)
   const [isNavVisible, setIsNavVisible] = React.useState(true)
   const [lastScrollY, setLastScrollY] = React.useState(0)
   const [isCartOpen, setIsCartOpen] = React.useState(false)
-  const [cartItems, setCartItems] = React.useState([
-    {
-      id: '1',
-      name: 'Pizza Margherita - 12 inches',
-      price: 36.00,
-      quantity: 1,
-      imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || ""
-    }
-  ])
+  const [cartItems, setCartItems] = React.useState<{
+    id: string
+    name: string
+    price: number
+    quantity: number
+    imageUrl: string
+  }[]>([])
+  
   const scrollContainerRef = React.useRef<HTMLDivElement>(null)
 
   const filteredItems = React.useMemo(() => {
@@ -183,7 +184,6 @@ export default function MenuPage() {
       if (!scrollContainerRef.current) return
       const currentScrollY = scrollContainerRef.current.scrollTop
       
-      // Hide/Show logic for bottom nav
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
         setIsNavVisible(false)
       } else if (currentScrollY < lastScrollY) {
@@ -229,19 +229,55 @@ export default function MenuPage() {
     const element = document.getElementById(`section-${id}`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Timeout to match scroll behavior
       setTimeout(() => setIsManualScrolling(false), 800);
     }
   };
 
+  const handleAddToCart = (item: any, quantity: number) => {
+    setCartItems(prev => {
+      const existing = prev.find(i => i.id === item.id)
+      if (existing) {
+        return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + quantity } : i)
+      }
+      return [...prev, {
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: quantity,
+        imageUrl: item.imageUrl
+      }]
+    })
+  }
+
   const updateCartQuantity = (id: string, delta: number) => {
-    setCartItems(prev => prev.map(item => 
-      item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
-    ))
+    setCartItems(prev => {
+      const newItems = prev.map(item => 
+        item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
+      ).filter(item => item.quantity > 0)
+
+      if (newItems.length === 0 && prev.length > 0) {
+        setIsCartOpen(false)
+        toast({
+          title: "Basket Empty",
+          description: "All items removed from your basket.",
+        })
+      }
+      return newItems
+    })
   }
 
   const removeCartItem = (id: string) => {
-    setCartItems(prev => prev.filter(item => item.id !== id))
+    setCartItems(prev => {
+      const newItems = prev.filter(item => item.id !== id)
+      if (newItems.length === 0 && prev.length > 0) {
+        setIsCartOpen(false)
+        toast({
+          title: "Basket Empty",
+          description: "All items removed from your basket.",
+        })
+      }
+      return newItems
+    })
   }
 
   const activeCategoryItemsCount = MENU_ITEMS.filter(item => item.category === activeCategory).length
@@ -304,6 +340,9 @@ export default function MenuPage() {
                       imageUrl={item.imageUrl}
                       imageHint={item.imageHint}
                       customisable={item.customisable}
+                      onAddToCart={(qty) => handleAddToCart(item, qty)}
+                      currentQuantity={cartItems.find(i => i.id === item.id)?.quantity || 0}
+                      onUpdateQuantity={(delta) => updateCartQuantity(item.id, delta)}
                     />
                   ))}
                 </div>
@@ -316,11 +355,11 @@ export default function MenuPage() {
 
         <div 
           className={cn(
-            "fixed bottom-28 right-6 z-50 pointer-events-none transition-transform duration-300 ease-in-out",
-            !isNavVisible && "translate-y-24"
+            "fixed bottom-28 right-6 z-50 transition-all duration-300 ease-in-out",
+            (!isNavVisible || cartItems.length === 0) ? "translate-y-24 opacity-0 scale-0 pointer-events-none" : "translate-y-0 opacity-100 scale-100 pointer-events-auto"
           )}
         >
-          <div className="relative pointer-events-auto">
+          <div className="relative">
             <Button 
               className="w-16 h-16 rounded-full bg-[#FF5C5C] hover:bg-[#FF4D4D] shadow-2xl flex items-center justify-center p-0 transition-transform active:scale-90"
               onClick={() => setIsCartOpen(true)}
