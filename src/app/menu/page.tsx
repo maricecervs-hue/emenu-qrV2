@@ -25,8 +25,8 @@ const MENU_ITEMS = [
     name: 'Pizza Margherita - 12 inches',
     description: 'Homemade dough, homemade pizza sauce, fresh mozzarella, basil.',
     price: 36.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'margherita-pizza')?.imageUrl || "https://picsum.photos/seed/dish1/400/300",
-    imageHint: PlaceHolderImages.find(i => i.id === 'margherita-pizza')?.imageHint,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "https://picsum.photos/seed/p1/400/300",
+    imageHint: "margherita pizza",
     category: 'bestsellers',
     customisable: false
   },
@@ -35,78 +35,108 @@ const MENU_ITEMS = [
     name: 'Chicken Alfredo Pizza - 12 inches',
     description: 'Homemade dough, white sauce base, marinated chicken, parmesan.',
     price: 48.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'alfredo-pizza')?.imageUrl || "https://picsum.photos/seed/dish2/400/300",
-    imageHint: PlaceHolderImages.find(i => i.id === 'alfredo-pizza')?.imageHint,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-alfredo')?.imageUrl || "https://picsum.photos/seed/p2/400/300",
+    imageHint: "chicken pizza",
     category: 'bestsellers',
     customisable: true
   },
   {
     id: '3',
     name: 'Pizza Margherita - 10 inches',
-    description: 'Homemade dough, homemade pizza sauce, fresh mozzarella, basil.',
+    description: 'Classic thin crust with fresh tomato sauce and mozzarella.',
     price: 27.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'margherita-pizza')?.imageUrl || "https://picsum.photos/seed/dish1/400/300",
-    imageHint: PlaceHolderImages.find(i => i.id === 'margherita-pizza')?.imageHint,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "https://picsum.photos/seed/p1/400/300",
+    imageHint: "margherita pizza",
     category: 'pizza',
     customisable: false
   },
   {
     id: '4',
     name: 'Hawaiian Pizza - 10 inches',
-    description: 'Homemade dough, pizza sauce, mozzarella, ham, pineapple.',
+    description: 'The perfect balance of ham and sweet pineapple chunks.',
     price: 32.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'hawaiian-pizza')?.imageUrl || "https://picsum.photos/seed/dish5/400/300",
-    imageHint: PlaceHolderImages.find(i => i.id === 'hawaiian-pizza')?.imageHint,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-hawaiian')?.imageUrl || "https://picsum.photos/seed/p3/400/300",
+    imageHint: "hawaiian pizza",
     category: 'pizza',
     customisable: true
   },
   {
     id: '5',
     name: 'Garlic Bread',
-    description: 'Toasted bread with garlic butter and herbs.',
+    description: 'Crispy baguette slices with roasted garlic butter and herbs.',
     price: 12.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageUrl || "https://picsum.photos/seed/garlic/400/300",
-    imageHint: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageHint,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageUrl || "https://picsum.photos/seed/b1/400/300",
+    imageHint: "garlic bread",
     category: 'sides',
     customisable: false
   },
   {
     id: '6',
+    name: 'Buffalo Chicken Wings',
+    description: 'Spicy glazed wings served with a side of blue cheese dip.',
+    price: 18.00,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'chicken-wings')?.imageUrl || "https://picsum.photos/seed/w1/400/300",
+    imageHint: "chicken wings",
+    category: 'sides',
+    customisable: true
+  },
+  {
+    id: '7',
     name: 'French Fries',
-    description: 'Crispy golden fries served with ketchup.',
+    description: 'Deep fried golden potatoes served with classic ketchup.',
     price: 8.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "https://picsum.photos/seed/fries/400/300",
-    imageHint: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageHint,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "https://picsum.photos/seed/f1/400/300",
+    imageHint: "french fries",
     category: 'sides',
     customisable: false
   },
   {
-    id: '7',
-    name: 'Chocolate Brownie',
-    description: 'Warm brownie with vanilla ice cream.',
+    id: '8',
+    name: 'Warm Chocolate Brownie',
+    description: 'Fudgy brownie topped with vanilla bean ice cream.',
     price: 15.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'brownie')?.imageUrl || "https://picsum.photos/seed/brownie/400/300",
-    imageHint: PlaceHolderImages.find(i => i.id === 'brownie')?.imageHint,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'brownie-dessert')?.imageUrl || "https://picsum.photos/seed/d1/400/300",
+    imageHint: "chocolate brownie",
     category: 'desserts',
     customisable: false
   },
   {
-    id: '8',
-    name: 'Soft Drink',
-    description: 'Choose your favorite flavor.',
-    price: 3.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'soft-drink')?.imageUrl || "https://picsum.photos/seed/wine1/400/300",
-    imageHint: PlaceHolderImages.find(i => i.id === 'soft-drink')?.imageHint,
+    id: '9',
+    name: 'New York Cheesecake',
+    description: 'Classic velvety cheesecake with a graham cracker crust.',
+    price: 16.00,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'cheesecake')?.imageUrl || "https://picsum.photos/seed/d2/400/300",
+    imageHint: "cheesecake",
+    category: 'desserts',
+    customisable: false
+  },
+  {
+    id: '10',
+    name: 'Iced Latte',
+    description: 'Premium espresso with chilled milk over ice.',
+    price: 6.00,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'iced-coffee')?.imageUrl || "https://picsum.photos/seed/dr1/400/300",
+    imageHint: "iced coffee",
     category: 'drinks',
     customisable: true
   },
   {
-    id: '9',
-    name: 'Bottled Water',
-    description: 'Still or sparkling water.',
+    id: '11',
+    name: 'Cola',
+    description: 'Refreshing carbonated soft drink served with ice.',
+    price: 3.50,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'cola-drink')?.imageUrl || "https://picsum.photos/seed/dr2/400/300",
+    imageHint: "soft drink",
+    category: 'drinks',
+    customisable: false
+  },
+  {
+    id: '12',
+    name: 'Mineral Water',
+    description: 'Natural spring water, still or sparkling.',
     price: 2.50,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'water')?.imageUrl || "https://picsum.photos/seed/water/400/300",
-    imageHint: PlaceHolderImages.find(i => i.id === 'water')?.imageHint,
+    imageUrl: PlaceHolderImages.find(i => i.id === 'mineral-water')?.imageUrl || "https://picsum.photos/seed/dr3/400/300",
+    imageHint: "mineral water",
     category: 'drinks',
     customisable: false
   }
@@ -127,44 +157,33 @@ export default function MenuPage() {
     })).filter(section => section.items.length > 0)
   }, [])
 
-  // Handle Bottom Nav visibility on scroll
   React.useEffect(() => {
     const handleScroll = () => {
       if (!scrollContainerRef.current) return
-      
       const currentScrollY = scrollContainerRef.current.scrollTop
-      
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
         setIsNavVisible(false)
       } else if (currentScrollY < lastScrollY) {
         setIsNavVisible(true)
       }
-      
       setLastScrollY(currentScrollY)
     }
-
     const container = scrollContainerRef.current
     if (container) {
       container.addEventListener('scroll', handleScroll)
     }
-
     return () => {
-      if (container) {
-        container.removeEventListener('scroll', handleScroll)
-      }
+      if (container) container.removeEventListener('scroll', handleScroll)
     }
   }, [lastScrollY])
 
-  // Highlight category on scroll
   React.useEffect(() => {
     if (isManualScrolling) return;
-
     const observerOptions = {
       root: scrollContainerRef.current,
-      rootMargin: '-10% 0px -80% 0px',
+      rootMargin: '-20% 0px -70% 0px',
       threshold: 0,
     };
-
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -173,14 +192,11 @@ export default function MenuPage() {
         }
       });
     };
-
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-
     CATEGORIES.forEach((category) => {
       const element = document.getElementById(`section-${category.id}`);
       if (element) observer.observe(element);
     });
-
     return () => observer.disconnect();
   }, [isManualScrolling]);
 
@@ -190,7 +206,6 @@ export default function MenuPage() {
     const element = document.getElementById(`section-${id}`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Reset manual scroll flag after animation finished approx
       setTimeout(() => setIsManualScrolling(false), 800);
     }
   };
@@ -200,13 +215,10 @@ export default function MenuPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center overflow-x-hidden">
       <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative h-screen overflow-hidden">
-        
-        {/* Main Scrollable Content */}
         <div 
           ref={scrollContainerRef}
           className="flex-1 overflow-y-auto scrollbar-hide pb-32"
         >
-          {/* Top Header - Scrolls Away */}
           <header className="pt-6 pb-2 px-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/">
@@ -224,7 +236,6 @@ export default function MenuPage() {
             <Search className="w-6 h-6 text-slate-800" />
           </header>
 
-          {/* Sticky Category Navigation */}
           <div className="sticky top-0 z-50 bg-white">
             <CategoryNav 
               categories={CATEGORIES} 
@@ -233,7 +244,6 @@ export default function MenuPage() {
             />
           </div>
 
-          {/* Menu Sections */}
           <div className="px-4 space-y-10 py-6">
             {filteredItems.map((section) => (
               <div 
@@ -267,10 +277,8 @@ export default function MenuPage() {
           </div>
         </div>
 
-        {/* AI Advisor Floating Action */}
         <AITasteAdvisor />
 
-        {/* Floating Cart Button */}
         <div 
           className={cn(
             "fixed bottom-28 right-6 z-50 pointer-events-none transition-transform duration-300 ease-in-out",
@@ -289,7 +297,6 @@ export default function MenuPage() {
           </div>
         </div>
 
-        {/* Bottom Navigation */}
         <nav 
           className={cn(
             "fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40 transition-transform duration-300 ease-in-out",

@@ -1,14 +1,14 @@
+
 'use client';
 
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Bell, Utensils, ReceiptText, List, ChevronDown, Globe, Crown } from "lucide-react"
+import { MapPin, Utensils, ReceiptText, List, ChevronDown, Globe, Crown } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Button } from "@/components/ui/button"
-import { LanguageSelector } from "@/components/language-selector"
 
 export default function Home() {
-  const heroImage = PlaceHolderImages.find(i => i.id === 'hero-food')?.imageUrl || "https://picsum.photos/seed/menu-hero/1200/800"
+  const heroImage = PlaceHolderImages.find(i => i.id === 'hero-restaurant')?.imageUrl || "https://picsum.photos/seed/menu-hero/1200/800"
 
   return (
     <main className="relative min-h-screen bg-[#F4F8FB] flex flex-col items-center overflow-x-hidden">
