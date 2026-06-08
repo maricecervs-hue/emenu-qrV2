@@ -106,7 +106,11 @@ export function MenuCard({
                   className="h-6 w-6 rounded-full text-[#12B4A3] hover:bg-[#12B4A3]/10 p-0"
                   onClick={(e) => {
                     e.stopPropagation()
-                    onUpdateQuantity(1)
+                    if (customisable) {
+                      setIsCustomizerOpen(true)
+                    } else {
+                      onUpdateQuantity(1)
+                    }
                   }}
                 >
                   <Plus className="w-3.5 h-3.5" />

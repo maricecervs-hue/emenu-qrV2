@@ -42,6 +42,22 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
     onClose()
   }
 
+  const getVariationTitle = () => {
+    const name = item.name.toLowerCase()
+    if (name.includes('pizza')) return 'Crust Type'
+    if (name.includes('burger')) return 'Doneness'
+    if (name.includes('latte') || name.includes('coffee')) return 'Milk Selection'
+    return 'Flavor'
+  }
+
+  const getVariationOptions = () => {
+    const name = item.name.toLowerCase()
+    if (name.includes('pizza')) return ["Thin Crust", "Hand-tossed", "Deep Dish", "Gluten Free Crust"]
+    if (name.includes('burger')) return ["Rare", "Medium Rare", "Medium", "Well Done"]
+    if (name.includes('latte') || name.includes('coffee')) return ["Whole Milk", "Oat Milk (+฿1.50)", "Almond Milk (+฿1.50)", "Soy Milk"]
+    return ["Standard", "Spicy", "Extra Savory", "Chef's Special"]
+  }
+
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden">
@@ -123,12 +139,12 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
             {customisable && (
               <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
                 <div>
-                  <h3 className="text-lg font-black text-[#1E2B4D]">Flavor</h3>
+                  <h3 className="text-lg font-black text-[#1E2B4D]">{getVariationTitle()}</h3>
                   <p className="text-xs font-bold text-[#8E9AAF]">Select one option <span className="text-red-500">(Required)</span></p>
                 </div>
                 
                 <RadioGroup value={variation} onValueChange={setVariation} className="space-y-0">
-                  {["Variation / Condiments 1", "Variation / Condiments 2", "Variation / Condiments 3", "Variation / Condiments 4"].map((v, i) => (
+                  {getVariationOptions().map((v, i) => (
                     <div key={i} className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0">
                       <Label htmlFor={`v${i}`} className="text-sm font-bold text-[#1E2B4D] cursor-pointer flex-1">
                         {v}
