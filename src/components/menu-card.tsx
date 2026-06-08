@@ -18,7 +18,7 @@ export function MenuCard({ name, description, price, imageUrl, customisable }: M
   const [quantity, setQuantity] = useState(0)
 
   return (
-    <div className="flex bg-white rounded-[2rem] overflow-hidden shadow-[0_8px_25px_rgba(0,0,0,0.04)] border border-slate-50 min-h-[160px]">
+    <div className="flex bg-white rounded-[10px] overflow-hidden shadow-[0_8px_25px_rgba(0,0,0,0.04)] border border-slate-50 min-h-[160px]">
       {/* Content Side */}
       <div className="flex-1 p-5 flex flex-col justify-between">
         <div className="space-y-1.5">
