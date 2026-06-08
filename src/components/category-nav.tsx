@@ -18,9 +18,9 @@ interface CategoryNavProps {
 
 export function CategoryNav({ categories, active, onChange }: CategoryNavProps) {
   return (
-    <div className="relative -mx-4 px-4 overflow-hidden border-b border-slate-100">
+    <div className="w-full border-b border-slate-100 overflow-hidden">
       <ScrollArea className="w-full whitespace-nowrap">
-        <div className="flex gap-6 pb-2 pt-1">
+        <div className="flex gap-6 pb-2 pt-1 px-4">
           {categories.map((cat) => (
             <button
               key={cat.id}

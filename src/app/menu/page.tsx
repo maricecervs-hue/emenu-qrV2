@@ -8,6 +8,7 @@ import { MenuCard } from "@/components/menu-card"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
+import { AITasteAdvisor } from "@/components/ai-taste-advisor"
 
 const CATEGORIES = [
   { id: 'bestsellers', name: 'Bestsellers', icon: <Flame className="w-4 h-4" /> },
@@ -93,8 +94,8 @@ export default function MenuPage() {
       <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative pb-32">
         
         {/* Header */}
-        <header className="px-4 pt-6 pb-2 space-y-4">
-          <div className="flex items-center justify-between">
+        <header className="pt-6 pb-2 space-y-4">
+          <div className="px-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/">
                 <ChevronLeft className="w-6 h-6 text-slate-800" />
@@ -147,6 +148,9 @@ export default function MenuPage() {
             ))}
           </div>
         </ScrollArea>
+
+        {/* AI Advisor Floating Action */}
+        <AITasteAdvisor />
 
         {/* Floating Cart Button */}
         <div className="fixed bottom-24 right-6 z-50">
