@@ -9,6 +9,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -37,6 +38,12 @@ export function CustomizerDrawer({ isOpen, onClose, item }: CustomizerDrawerProp
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden">
+        {/* Accessibility labels for Screen Readers */}
+        <SheetHeader className="sr-only">
+          <SheetTitle>{item.name}</SheetTitle>
+          <SheetDescription>{item.description}</SheetDescription>
+        </SheetHeader>
+
         <ScrollArea className="h-full">
           <div className="relative w-full aspect-[4/3]">
             <Image
