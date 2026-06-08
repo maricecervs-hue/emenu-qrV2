@@ -1,9 +1,8 @@
-
 "use client"
 
 import * as React from "react"
 import Image from "next/image"
-import { X, Minus, Plus, MessageSquare, ChevronRight, ChevronLeft, AlertCircle } from "lucide-react"
+import { X, Minus, Plus, MessageSquare, ChevronRight, ChevronLeft, AlertCircle, Zap, Wheat, Beef } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -17,7 +16,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 
 interface Condiment {
@@ -50,7 +48,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
   const [view, setView] = React.useState<'main' | 'sub'>('main')
   const [activeParentId, setActiveParentId] = React.useState<string | null>(null)
   
-  // High-fidelity Condiments Data with Nested Structure
   const [condiments, setCondiments] = React.useState<Condiment[]>([
     { id: 'c1', name: 'Extra Cheese', price: 2.50, quantity: 0, required: true },
     { id: 'c2', name: 'Pepperoni', price: 3.00, quantity: 0 },
@@ -66,7 +63,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         { id: 'sc2', name: 'Cheddar Fill', price: 1.00, quantity: 0 },
         { id: 'sc3', name: 'Garlic Butter Fill', price: 0.50, quantity: 0 },
       ],
-      selectedChildId: undefined // Not selected by default
+      selectedChildId: undefined
     },
     { id: 'c5', name: 'Extra Basil', price: 1.00, quantity: 0 },
   ])
@@ -130,6 +127,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                     className="object-cover"
                     data-ai-hint={item.imageHint || "food dish"}
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                   <Button
                     variant="ghost"
                     size="icon"
@@ -141,12 +139,48 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                 </div>
 
                 <div className="p-6 space-y-6 pb-32">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-2xl font-extrabold text-[#1E2B4D] leading-tight">{item.name}</h2>
-                      <span className="text-2xl font-black text-[#1E2B4D]">฿ {item.price.toFixed(2)}</span>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <h2 className="text-2xl font-extrabold text-[#1E2B4D] leading-tight">{item.name}</h2>
+                        <span className="text-2xl font-black text-[#1E2B4D]">฿ {item.price.toFixed(2)}</span>
+                      </div>
+                      <p className="text-sm text-[#8E9AAF] font-medium leading-relaxed">{item.description}</p>
                     </div>
-                    <p className="text-sm text-[#8E9AAF] font-medium leading-relaxed">{item.description}</p>
+
+                    {/* Nutritional Info & Allergens Section */}
+                    <div className="space-y-4">
+                      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide -mx-1 px-1">
+                        <div className="flex flex-col items-center bg-white px-4 py-2 rounded-2xl border border-slate-100 min-w-[80px] shadow-sm">
+                          <span className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-wider">Calories</span>
+                          <span className="text-xs font-black text-[#1E2B4D]">420 kcal</span>
+                        </div>
+                        <div className="flex flex-col items-center bg-white px-4 py-2 rounded-2xl border border-slate-100 min-w-[80px] shadow-sm">
+                          <span className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-wider">Protein</span>
+                          <span className="text-xs font-black text-[#1E2B4D]">24g</span>
+                        </div>
+                        <div className="flex flex-col items-center bg-white px-4 py-2 rounded-2xl border border-slate-100 min-w-[80px] shadow-sm">
+                          <span className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-wider">Fat</span>
+                          <span className="text-xs font-black text-[#1E2B4D]">18g</span>
+                        </div>
+                        <div className="flex flex-col items-center bg-white px-4 py-2 rounded-2xl border border-slate-100 min-w-[80px] shadow-sm">
+                          <span className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-wider">Carbs</span>
+                          <span className="text-xs font-black text-[#1E2B4D]">32g</span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="outline" className="rounded-full bg-slate-50 border-slate-200 text-[#8E9AAF] font-bold text-[10px] py-1 gap-1.5 px-3">
+                          <AlertCircle className="w-3 h-3 text-orange-400" /> Contains Nuts
+                        </Badge>
+                        <Badge variant="outline" className="rounded-full bg-slate-50 border-slate-200 text-[#8E9AAF] font-bold text-[10px] py-1 gap-1.5 px-3">
+                          <Wheat className="w-3 h-3 text-slate-400" /> Gluten-Free
+                        </Badge>
+                        <Badge variant="outline" className="rounded-full bg-slate-50 border-slate-200 text-[#8E9AAF] font-bold text-[10px] py-1 gap-1.5 px-3">
+                          <Beef className="w-3 h-3 text-red-400" /> 100% Beef
+                        </Badge>
+                      </div>
+                    </div>
                   </div>
 
                   {customisable && (
