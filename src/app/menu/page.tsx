@@ -7,7 +7,6 @@ import { CategoryNav } from "@/components/category-nav"
 import { MenuCard } from "@/components/menu-card"
 import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
-import { AITasteAdvisor } from "@/components/ai-taste-advisor"
 import { CartDrawer } from "@/components/cart-drawer"
 import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
@@ -345,8 +344,6 @@ export default function MenuPage() {
             ))}
           </div>
         </div>
-
-        <AITasteAdvisor />
 
         <div 
           className={cn(
