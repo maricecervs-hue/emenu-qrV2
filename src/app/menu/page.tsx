@@ -244,7 +244,7 @@ export default function MenuPage() {
         </div>
 
         {/* Bottom Navigation */}
-        <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] px-16 py-5 flex justify-between items-center z-40">
+        <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40">
           <div className="flex flex-col items-center gap-1.5 cursor-pointer">
             <Home className="w-7 h-7 text-[#12B4A3]" strokeWidth={2.5} />
             <span className="text-sm font-bold text-[#12B4A3]">Menu</span>
