@@ -9,6 +9,7 @@ import { MenuCard } from "@/components/menu-card"
 import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { AITasteAdvisor } from "@/components/ai-taste-advisor"
+import { CartDrawer } from "@/components/cart-drawer"
 import { cn } from "@/lib/utils"
 
 const CATEGORIES = [
@@ -157,6 +158,16 @@ export default function MenuPage() {
   const [isManualScrolling, setIsManualScrolling] = React.useState(false)
   const [isNavVisible, setIsNavVisible] = React.useState(true)
   const [lastScrollY, setLastScrollY] = React.useState(0)
+  const [isCartOpen, setIsCartOpen] = React.useState(false)
+  const [cartItems, setCartItems] = React.useState([
+    {
+      id: '1',
+      name: 'Pizza Margherita - 12 inches',
+      price: 36.00,
+      quantity: 1,
+      imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || ""
+    }
+  ])
   const scrollContainerRef = React.useRef<HTMLDivElement>(null)
 
   const filteredItems = React.useMemo(() => {
@@ -223,7 +234,18 @@ export default function MenuPage() {
     }
   };
 
+  const updateCartQuantity = (id: string, delta: number) => {
+    setCartItems(prev => prev.map(item => 
+      item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
+    ))
+  }
+
+  const removeCartItem = (id: string) => {
+    setCartItems(prev => prev.filter(item => item.id !== id))
+  }
+
   const activeCategoryItemsCount = MENU_ITEMS.filter(item => item.category === activeCategory).length
+  const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0)
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center overflow-x-hidden">
@@ -300,13 +322,16 @@ export default function MenuPage() {
         >
           <div className="relative pointer-events-auto">
             <Button 
-              className="w-16 h-16 rounded-full bg-[#FF5C5C] hover:bg-[#FF4D4D] shadow-2xl flex items-center justify-center p-0"
+              className="w-16 h-16 rounded-full bg-[#FF5C5C] hover:bg-[#FF4D4D] shadow-2xl flex items-center justify-center p-0 transition-transform active:scale-90"
+              onClick={() => setIsCartOpen(true)}
             >
               <ShoppingCart className="w-7 h-7 text-white" />
             </Button>
-            <div className="absolute -top-1 -right-1 w-6 h-6 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">
-              1
-            </div>
+            {totalCartItems > 0 && (
+              <div className="absolute -top-1 -right-1 w-6 h-6 bg-black text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">
+                {totalCartItems}
+              </div>
+            )}
           </div>
         </div>
 
@@ -325,6 +350,14 @@ export default function MenuPage() {
             <span className="text-sm font-bold text-slate-500">Orders</span>
           </div>
         </nav>
+
+        <CartDrawer 
+          isOpen={isCartOpen} 
+          onClose={() => setIsCartOpen(false)}
+          items={cartItems}
+          onUpdateQuantity={updateCartQuantity}
+          onRemove={removeCartItem}
+        />
       </div>
     </div>
   )
