@@ -103,6 +103,7 @@ const MENU_ITEMS = [
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = React.useState('bestsellers')
+  const [isManualScrolling, setIsManualScrolling] = React.useState(false)
   const scrollContainerRef = React.useRef<HTMLDivElement>(null)
 
   const filteredItems = React.useMemo(() => {
@@ -113,12 +114,43 @@ export default function MenuPage() {
     })).filter(section => section.items.length > 0)
   }, [])
 
+  // Highlight category on scroll
+  React.useEffect(() => {
+    if (isManualScrolling) return;
+
+    const observerOptions = {
+      root: scrollContainerRef.current,
+      rootMargin: '-10% 0px -80% 0px',
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const categoryId = entry.target.id.replace('section-', '');
+          setActiveCategory(categoryId);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    CATEGORIES.forEach((category) => {
+      const element = document.getElementById(`section-${category.id}`);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [isManualScrolling]);
+
   const handleCategoryChange = (id: string) => {
     setActiveCategory(id);
+    setIsManualScrolling(true);
     const element = document.getElementById(`section-${id}`);
     if (element) {
-      // scroll-mt-16 in the div ensures the title isn't covered by the sticky header
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Reset manual scroll flag after animation finished approx
+      setTimeout(() => setIsManualScrolling(false), 800);
     }
   };
 
@@ -152,7 +184,6 @@ export default function MenuPage() {
           </header>
 
           {/* Sticky Category Navigation */}
-          {/* Using sticky top-0 to lock header at the top of the scroll container */}
           <div className="sticky top-0 z-50 bg-white">
             <CategoryNav 
               categories={CATEGORIES} 
@@ -167,7 +198,7 @@ export default function MenuPage() {
               <div 
                 key={section.id} 
                 id={`section-${section.id}`} 
-                className="space-y-6 scroll-mt-16" 
+                className="space-y-6 scroll-mt-20" 
               >
                 <div className="flex items-center gap-4">
                   <h3 className="text-2xl font-black text-[#1E2B4D] whitespace-nowrap">
