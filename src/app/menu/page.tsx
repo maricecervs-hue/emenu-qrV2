@@ -6,7 +6,6 @@ import Link from "next/link"
 import { CategoryNav } from "@/components/category-nav"
 import { MenuCard } from "@/components/menu-card"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { AITasteAdvisor } from "@/components/ai-taste-advisor"
 
@@ -91,37 +90,41 @@ export default function MenuPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">
-      <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative pb-32">
+      <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative">
         
-        {/* Header */}
-        <header className="pt-6 pb-2 space-y-4">
-          <div className="px-4 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/">
-                <ChevronLeft className="w-6 h-6 text-slate-800" />
-              </Link>
-              <div className="flex flex-col">
-                <h2 className="text-xl font-extrabold text-[#1E2B4D]">
-                  {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}
-                </h2>
-                <span className="text-sm font-medium text-[#12B4A3]">
-                  {activeCategoryItemsCount} items
-                </span>
+        {/* Main Scrollable Content */}
+        <div className="flex-1 overflow-y-auto pb-32">
+          {/* Top Header - Scrolls Away */}
+          <header className="pt-6 pb-2">
+            <div className="px-4 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <Link href="/">
+                  <ChevronLeft className="w-6 h-6 text-slate-800" />
+                </Link>
+                <div className="flex flex-col">
+                  <h2 className="text-xl font-extrabold text-[#1E2B4D]">
+                    {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}
+                  </h2>
+                  <span className="text-sm font-medium text-[#12B4A3]">
+                    {activeCategoryItemsCount} items
+                  </span>
+                </div>
               </div>
+              <Search className="w-6 h-6 text-slate-800" />
             </div>
-            <Search className="w-6 h-6 text-slate-800" />
+          </header>
+
+          {/* Sticky Category Navigation */}
+          <div className="sticky top-0 z-40 bg-white shadow-sm sm:shadow-none">
+            <CategoryNav 
+              categories={CATEGORIES} 
+              active={activeCategory} 
+              onChange={setActiveCategory} 
+            />
           </div>
 
-          <CategoryNav 
-            categories={CATEGORIES} 
-            active={activeCategory} 
-            onChange={setActiveCategory} 
-          />
-        </header>
-
-        {/* Menu Sections */}
-        <ScrollArea className="flex-1 px-4">
-          <div className="space-y-10 py-6">
+          {/* Menu Sections */}
+          <div className="px-4 space-y-10 py-6">
             {filteredItems.map((section) => (
               <div key={section.id} className="space-y-6">
                 <div className="flex items-center gap-4">
@@ -147,7 +150,7 @@ export default function MenuPage() {
               </div>
             ))}
           </div>
-        </ScrollArea>
+        </div>
 
         {/* AI Advisor Floating Action */}
         <AITasteAdvisor />
