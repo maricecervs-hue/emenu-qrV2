@@ -4,73 +4,73 @@
     {
       "id": "hero-restaurant",
       "description": "Premium gourmet restaurant interior",
-      "imageUrl": "https://picsum.photos/seed/restaurant-hero/1200/800",
+      "imageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop",
       "imageHint": "gourmet restaurant"
     },
     {
       "id": "pizza-margherita",
       "description": "Fresh Pizza Margherita with basil and mozzarella",
-      "imageUrl": "https://picsum.photos/seed/pizza1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=2338&auto=format&fit=crop",
       "imageHint": "margherita pizza"
     },
     {
       "id": "pizza-alfredo",
       "description": "Creamy Chicken Alfredo Pizza",
-      "imageUrl": "https://picsum.photos/seed/pizza2/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop",
       "imageHint": "chicken pizza"
     },
     {
       "id": "pizza-hawaiian",
       "description": "Hawaiian Pizza with ham and pineapple",
-      "imageUrl": "https://picsum.photos/seed/pizza3/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop",
       "imageHint": "hawaiian pizza"
     },
     {
       "id": "garlic-bread",
       "description": "Toasted garlic bread with herbs",
-      "imageUrl": "https://picsum.photos/seed/bread1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?q=80&w=2070&auto=format&fit=crop",
       "imageHint": "garlic bread"
     },
     {
       "id": "french-fries",
       "description": "Crispy golden french fries",
-      "imageUrl": "https://picsum.photos/seed/fries1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1573016605884-58814d4f4747?q=80&w=2070&auto=format&fit=crop",
       "imageHint": "french fries"
     },
     {
       "id": "chicken-wings",
       "description": "Spicy buffalo chicken wings",
-      "imageUrl": "https://picsum.photos/seed/wings1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1608039829572-78524f79c4c7?q=80&w=1974&auto=format&fit=crop",
       "imageHint": "chicken wings"
     },
     {
       "id": "brownie-dessert",
       "description": "Decadent chocolate brownie with ice cream",
-      "imageUrl": "https://picsum.photos/seed/brownie1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1974&auto=format&fit=crop",
       "imageHint": "chocolate brownie"
     },
     {
       "id": "cheesecake",
       "description": "Creamy New York Cheesecake",
-      "imageUrl": "https://picsum.photos/seed/cake1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1524351199679-46cddf33276a?q=80&w=2070&auto=format&fit=crop",
       "imageHint": "cheesecake"
     },
     {
       "id": "cola-drink",
       "description": "Icy cold soft drink glass",
-      "imageUrl": "https://picsum.photos/seed/cola1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=2070&auto=format&fit=crop",
       "imageHint": "soft drink"
     },
     {
       "id": "iced-coffee",
       "description": "Refreshing iced coffee with cream",
-      "imageUrl": "https://picsum.photos/seed/coffee1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1974&auto=format&fit=crop",
       "imageHint": "iced coffee"
     },
     {
       "id": "mineral-water",
       "description": "Bottled mineral water with lemon",
-      "imageUrl": "https://picsum.photos/seed/water1/400/300",
+      "imageUrl": "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?q=80&w=1976&auto=format&fit=crop",
       "imageHint": "mineral water"
     }
   ]

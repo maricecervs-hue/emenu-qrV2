@@ -25,7 +25,7 @@ const MENU_ITEMS = [
     name: 'Pizza Margherita - 12 inches',
     description: 'Homemade dough, homemade pizza sauce, fresh mozzarella, basil.',
     price: 36.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "https://picsum.photos/seed/p1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=2338&auto=format&fit=crop",
     imageHint: "margherita pizza",
     category: 'bestsellers',
     customisable: false
@@ -35,7 +35,7 @@ const MENU_ITEMS = [
     name: 'Chicken Alfredo Pizza - 12 inches',
     description: 'Homemade dough, white sauce base, marinated chicken, parmesan.',
     price: 48.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-alfredo')?.imageUrl || "https://picsum.photos/seed/p2/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-alfredo')?.imageUrl || "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop",
     imageHint: "chicken pizza",
     category: 'bestsellers',
     customisable: true
@@ -45,7 +45,7 @@ const MENU_ITEMS = [
     name: 'Pizza Margherita - 10 inches',
     description: 'Classic thin crust with fresh tomato sauce and mozzarella.',
     price: 27.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "https://picsum.photos/seed/p1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-margherita')?.imageUrl || "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=2338&auto=format&fit=crop",
     imageHint: "margherita pizza",
     category: 'pizza',
     customisable: false
@@ -55,7 +55,7 @@ const MENU_ITEMS = [
     name: 'Hawaiian Pizza - 10 inches',
     description: 'The perfect balance of ham and sweet pineapple chunks.',
     price: 32.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-hawaiian')?.imageUrl || "https://picsum.photos/seed/p3/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-hawaiian')?.imageUrl || "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop",
     imageHint: "hawaiian pizza",
     category: 'pizza',
     customisable: true
@@ -65,7 +65,7 @@ const MENU_ITEMS = [
     name: 'Garlic Bread',
     description: 'Crispy baguette slices with roasted garlic butter and herbs.',
     price: 12.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageUrl || "https://picsum.photos/seed/b1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageUrl || "https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?q=80&w=2070&auto=format&fit=crop",
     imageHint: "garlic bread",
     category: 'sides',
     customisable: false
@@ -75,7 +75,7 @@ const MENU_ITEMS = [
     name: 'Buffalo Chicken Wings',
     description: 'Spicy glazed wings served with a side of blue cheese dip.',
     price: 18.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'chicken-wings')?.imageUrl || "https://picsum.photos/seed/w1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'chicken-wings')?.imageUrl || "https://images.unsplash.com/photo-1608039829572-78524f79c4c7?q=80&w=1974&auto=format&fit=crop",
     imageHint: "chicken wings",
     category: 'sides',
     customisable: true
@@ -85,7 +85,7 @@ const MENU_ITEMS = [
     name: 'French Fries',
     description: 'Deep fried golden potatoes served with classic ketchup.',
     price: 8.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "https://picsum.photos/seed/f1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "https://images.unsplash.com/photo-1573016605884-58814d4f4747?q=80&w=2070&auto=format&fit=crop",
     imageHint: "french fries",
     category: 'sides',
     customisable: false
@@ -95,7 +95,7 @@ const MENU_ITEMS = [
     name: 'Warm Chocolate Brownie',
     description: 'Fudgy brownie topped with vanilla bean ice cream.',
     price: 15.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'brownie-dessert')?.imageUrl || "https://picsum.photos/seed/d1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'brownie-dessert')?.imageUrl || "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1974&auto=format&fit=crop",
     imageHint: "chocolate brownie",
     category: 'desserts',
     customisable: false
@@ -105,7 +105,7 @@ const MENU_ITEMS = [
     name: 'New York Cheesecake',
     description: 'Classic velvety cheesecake with a graham cracker crust.',
     price: 16.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'cheesecake')?.imageUrl || "https://picsum.photos/seed/d2/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'cheesecake')?.imageUrl || "https://images.unsplash.com/photo-1524351199679-46cddf33276a?q=80&w=2070&auto=format&fit=crop",
     imageHint: "cheesecake",
     category: 'desserts',
     customisable: false
@@ -115,7 +115,7 @@ const MENU_ITEMS = [
     name: 'Iced Latte',
     description: 'Premium espresso with chilled milk over ice.',
     price: 6.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'iced-coffee')?.imageUrl || "https://picsum.photos/seed/dr1/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'iced-coffee')?.imageUrl || "https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1974&auto=format&fit=crop",
     imageHint: "iced coffee",
     category: 'drinks',
     customisable: true
@@ -125,7 +125,7 @@ const MENU_ITEMS = [
     name: 'Cola',
     description: 'Refreshing carbonated soft drink served with ice.',
     price: 3.50,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'cola-drink')?.imageUrl || "https://picsum.photos/seed/dr2/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'cola-drink')?.imageUrl || "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=2070&auto=format&fit=crop",
     imageHint: "soft drink",
     category: 'drinks',
     customisable: false
@@ -135,7 +135,7 @@ const MENU_ITEMS = [
     name: 'Mineral Water',
     description: 'Natural spring water, still or sparkling.',
     price: 2.50,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'mineral-water')?.imageUrl || "https://picsum.photos/seed/dr3/400/300",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'mineral-water')?.imageUrl || "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?q=80&w=1976&auto=format&fit=crop",
     imageHint: "mineral water",
     category: 'drinks',
     customisable: false
@@ -161,6 +161,8 @@ export default function MenuPage() {
     const handleScroll = () => {
       if (!scrollContainerRef.current) return
       const currentScrollY = scrollContainerRef.current.scrollTop
+      
+      // Hide/Show logic for bottom nav
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
         setIsNavVisible(false)
       } else if (currentScrollY < lastScrollY) {
@@ -206,6 +208,7 @@ export default function MenuPage() {
     const element = document.getElementById(`section-${id}`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Timeout to match scroll behavior
       setTimeout(() => setIsManualScrolling(false), 800);
     }
   };
@@ -249,7 +252,7 @@ export default function MenuPage() {
               <div 
                 key={section.id} 
                 id={`section-${section.id}`} 
-                className="space-y-6 scroll-mt-20" 
+                className="space-y-6 scroll-mt-24" 
               >
                 <div className="flex items-center gap-4">
                   <h3 className="text-2xl font-black text-[#1E2B4D] whitespace-nowrap">
