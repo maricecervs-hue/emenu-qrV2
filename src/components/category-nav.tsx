@@ -18,7 +18,7 @@ interface CategoryNavProps {
 
 export function CategoryNav({ categories, active, onChange }: CategoryNavProps) {
   return (
-    <div className="w-full border-t border-b border-slate-200 bg-white overflow-hidden">
+    <div className="w-full border-t border-b border-slate-200 bg-white">
       <ScrollArea className="w-full whitespace-nowrap">
         <div className="flex gap-8 py-1 px-4">
           {categories.map((cat) => (

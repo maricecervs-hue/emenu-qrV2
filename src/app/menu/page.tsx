@@ -56,6 +56,33 @@ const MENU_ITEMS = [
   },
   {
     id: '5',
+    name: 'Garlic Bread',
+    description: 'Toasted bread with garlic butter and herbs.',
+    price: 12.00,
+    imageUrl: "https://picsum.photos/seed/garlic/400/300",
+    category: 'sides',
+    customisable: false
+  },
+  {
+    id: '6',
+    name: 'French Fries',
+    description: 'Crispy golden fries served with ketchup.',
+    price: 8.00,
+    imageUrl: "https://picsum.photos/seed/fries/400/300",
+    category: 'sides',
+    customisable: false
+  },
+  {
+    id: '7',
+    name: 'Chocolate Brownie',
+    description: 'Warm brownie with vanilla ice cream.',
+    price: 15.00,
+    imageUrl: "https://picsum.photos/seed/brownie/400/300",
+    category: 'desserts',
+    customisable: false
+  },
+  {
+    id: '8',
     name: 'Soft Drink',
     description: 'Choose your favorite flavor.',
     price: 3.00,
@@ -64,7 +91,7 @@ const MENU_ITEMS = [
     customisable: true
   },
   {
-    id: '6',
+    id: '9',
     name: 'Bottled Water',
     description: 'Still or sparkling water.',
     price: 2.50,
@@ -76,20 +103,21 @@ const MENU_ITEMS = [
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = React.useState('bestsellers')
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null)
 
   const filteredItems = React.useMemo(() => {
-    const sections = ['bestsellers', 'pizza', 'drinks']
-    return sections.map(section => ({
-      id: section,
-      title: section.charAt(0).toUpperCase() + section.slice(1),
-      items: MENU_ITEMS.filter(item => item.category === section)
-    }))
+    return CATEGORIES.map(category => ({
+      id: category.id,
+      title: category.name,
+      items: MENU_ITEMS.filter(item => item.category === category.id)
+    })).filter(section => section.items.length > 0)
   }, [])
 
   const handleCategoryChange = (id: string) => {
     setActiveCategory(id);
     const element = document.getElementById(`section-${id}`);
     if (element) {
+      // scroll-mt-16 in the div ensures the title isn't covered by the sticky header
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
@@ -101,7 +129,10 @@ export default function MenuPage() {
       <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative h-screen overflow-hidden">
         
         {/* Main Scrollable Content */}
-        <div className="flex-1 overflow-y-auto scrollbar-hide pb-32">
+        <div 
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto scrollbar-hide pb-32"
+        >
           {/* Top Header - Scrolls Away */}
           <header className="pt-6 pb-2 px-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -110,7 +141,7 @@ export default function MenuPage() {
               </Link>
               <div className="flex flex-col">
                 <h2 className="text-xl font-extrabold text-[#1E2B4D]">
-                  {activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}
+                  {CATEGORIES.find(c => c.id === activeCategory)?.name || 'Menu'}
                 </h2>
                 <span className="text-sm font-medium text-[#12B4A3]">
                   {activeCategoryItemsCount} items
@@ -121,7 +152,8 @@ export default function MenuPage() {
           </header>
 
           {/* Sticky Category Navigation */}
-          <div className="sticky top-0 z-50 bg-white shadow-sm">
+          {/* Using sticky top-0 to lock header at the top of the scroll container */}
+          <div className="sticky top-0 z-50 bg-white">
             <CategoryNav 
               categories={CATEGORIES} 
               active={activeCategory} 
@@ -135,7 +167,7 @@ export default function MenuPage() {
               <div 
                 key={section.id} 
                 id={`section-${section.id}`} 
-                className="space-y-6 scroll-mt-20"
+                className="space-y-6 scroll-mt-16" 
               >
                 <div className="flex items-center gap-4">
                   <h3 className="text-2xl font-black text-[#1E2B4D] whitespace-nowrap">
