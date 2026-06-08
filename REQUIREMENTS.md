@@ -15,9 +15,10 @@
 
 ## 3. Item Customization (Bottom Sheet)
 - **Visuals**: Full-width high-quality image with a gradient overlay for the close button.
+- **Background**: Clean white background (`bg-white`).
 - **Information**:
   - Item name, price, and long description.
-  - **Nutritional Info**: Calories, Protein, Fat, and Carbs badges.
+  - **Nutritional Info**: Calories, Protein, Fat, and Carbs badges in a clean card layout.
   - **Allergen Info**: Dynamic allergen badges (Gluten-Free, Contains Nuts, etc.) with icons.
 - **Condiments & Add-ons**:
   - **Multi-Condiment**: Support for multiple extras with individual quantity counters (+/-).

@@ -109,7 +109,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         }, 300)
       }
     }}>
-      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden">
+      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden">
         <SheetHeader className="sr-only">
           <SheetTitle>{item.name}</SheetTitle>
           <SheetDescription>{item.description}</SheetDescription>
@@ -209,7 +209,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                               "relative group p-4 rounded-[1.5rem] border transition-all duration-300",
                               condiment.required 
                                 ? "bg-orange-50/80 border-orange-100 shadow-[0_4px_12px_rgba(255,165,0,0.05)]" 
-                                : "bg-white border-slate-50 shadow-sm"
+                                : "bg-slate-50 border-slate-100 shadow-sm"
                             )}
                           >
                             <div className="flex items-center justify-between">
@@ -250,13 +250,13 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                                 </div>
                               </div>
 
-                              <div className="flex items-center gap-3 bg-[#F8F9FA] px-2 py-1.5 rounded-full border border-slate-100/50">
+                              <div className="flex items-center gap-3 bg-white px-2 py-1.5 rounded-full border border-slate-100/50">
                                 <button 
                                   onClick={(e) => {
                                     e.stopPropagation()
                                     updateCondimentQuantity(condiment.id, -1)
                                   }}
-                                  className="w-7 h-7 rounded-full flex items-center justify-center text-[#FF5C5C] hover:bg-white transition-colors"
+                                  className="w-7 h-7 rounded-full flex items-center justify-center text-[#FF5C5C] hover:bg-slate-50 transition-colors"
                                 >
                                   <Minus className="w-3.5 h-3.5" strokeWidth={3} />
                                 </button>
@@ -271,7 +271,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                                       updateCondimentQuantity(condiment.id, 1)
                                     }
                                   }}
-                                  className="w-7 h-7 rounded-full flex items-center justify-center text-[#1E2B4D] hover:bg-white transition-colors"
+                                  className="w-7 h-7 rounded-full flex items-center justify-center text-[#1E2B4D] hover:bg-slate-50 transition-colors"
                                 >
                                   <Plus className="w-3.5 h-3.5" strokeWidth={3} />
                                 </button>
@@ -283,14 +283,14 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                     </div>
                   )}
 
-                  <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
+                  <div className="bg-slate-50 rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
                     <div className="flex items-center gap-2">
                       <MessageSquare className="w-4 h-4 text-[#8E9AAF]" />
                       <h3 className="text-lg font-black text-[#1E2B4D]">Special Requests</h3>
                     </div>
                     <Textarea 
                       placeholder="For example: less spicy, no sugar, allergy notes..."
-                      className="min-h-[100px] rounded-2xl border-slate-100 bg-[#F8F9FA] p-4 text-sm font-medium focus-visible:ring-[#12B4A3]/20"
+                      className="min-h-[100px] rounded-2xl border-slate-100 bg-white p-4 text-sm font-medium focus-visible:ring-[#12B4A3]/20"
                     />
                   </div>
                 </div>
@@ -312,7 +312,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                   </div>
                 </div>
 
-                <div className="bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-slate-50">
+                <div className="bg-slate-50 rounded-[2rem] p-6 shadow-sm border border-slate-100">
                   <RadioGroup 
                     value={activeParent?.selectedChildId} 
                     onValueChange={(val) => activeParentId && updateSubCondiment(activeParentId, val)}
@@ -320,7 +320,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                     {activeParent?.children?.map((child) => (
                       <div 
                         key={child.id} 
-                        className="flex items-center justify-between py-5 border-b border-slate-50 last:border-0 cursor-pointer"
+                        className="flex items-center justify-between py-5 border-b border-slate-100 last:border-0 cursor-pointer"
                         onClick={() => activeParentId && updateSubCondiment(activeParentId, child.id)}
                       >
                         <Label htmlFor={child.id} className="flex-1 cursor-pointer">
@@ -350,7 +350,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
 
           {view === 'main' && (
             <div className="w-full bg-white p-6 border-t border-slate-100/50 flex items-center gap-4 shadow-[0_-15px_40px_rgba(0,0,0,0.05)] z-10">
-              <div className="flex items-center gap-6 bg-[#F8F9FA] px-5 py-3 rounded-2xl border border-slate-100">
+              <div className="flex items-center gap-6 bg-slate-50 px-5 py-3 rounded-2xl border border-slate-100">
                 <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="text-[#1E2B4D] hover:scale-110 transition-transform">
                   <Minus className="w-4 h-4" strokeWidth={3} />
                 </button>
