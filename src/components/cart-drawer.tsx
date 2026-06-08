@@ -1,9 +1,8 @@
-
 "use client"
 
 import * as React from "react"
 import Image from "next/image"
-import { X, ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, Gift, ChevronRight } from "lucide-react"
+import { X, ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, Gift, ChevronRight, ChevronDown } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -17,21 +16,29 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { cn } from "@/lib/utils"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 interface CartItem {
   id: string
+  cartId: string
   name: string
   price: number
   quantity: number
   imageUrl: string
+  customizations?: string
 }
 
 interface CartDrawerProps {
   isOpen: boolean
   onClose: () => void
   items: CartItem[]
-  onUpdateQuantity: (id: string, delta: number) => void
-  onRemove: (id: string) => void
+  onUpdateQuantity: (cartId: string, delta: number) => void
+  onRemove: (cartId: string) => void
 }
 
 export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove }: CartDrawerProps) {
@@ -96,31 +103,51 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove 
             {/* Cart Items */}
             <div className="space-y-4">
               {items.map((item) => (
-                <div key={item.id} className="bg-white p-4 rounded-[1.5rem] shadow-[0_8px_20px_rgba(0,0,0,0.03)] border border-slate-50 flex items-center gap-4">
-                  <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0">
-                    <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
-                  </div>
-                  <div className="flex-1 space-y-1">
-                    <h3 className="font-extrabold text-[#1E2B4D] leading-tight text-sm line-clamp-1">{item.name}</h3>
-                    <div className="flex items-center gap-1">
-                      <span className="text-[#12B4A3] font-black text-lg">฿ {item.price.toFixed(2)}</span>
+                <div key={item.cartId} className="bg-white p-4 rounded-[1.5rem] shadow-[0_8px_20px_rgba(0,0,0,0.03)] border border-slate-50 space-y-3">
+                  <div className="flex items-center gap-4">
+                    <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0">
+                      <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
+                    </div>
+                    <div className="flex-1 space-y-1">
+                      <h3 className="font-extrabold text-[#1E2B4D] leading-tight text-sm line-clamp-1">{item.name}</h3>
+                      <div className="flex items-center gap-1">
+                        <span className="text-[#12B4A3] font-black text-lg">฿ {item.price.toFixed(2)}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 bg-[#F8F9FA] px-2 py-1.5 rounded-full border border-slate-100">
+                      <button 
+                        onClick={() => item.quantity > 1 ? onUpdateQuantity(item.cartId, -1) : onRemove(item.cartId)}
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-[#FF5C5C] hover:bg-white transition-colors"
+                      >
+                        {item.quantity === 1 ? <Trash2 className="w-4 h-4" /> : <Minus className="w-4 h-4" strokeWidth={3} />}
+                      </button>
+                      <span className="text-sm font-black text-[#1E2B4D] min-w-[12px] text-center">{item.quantity}</span>
+                      <button 
+                        onClick={() => onUpdateQuantity(item.cartId, 1)}
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-[#1E2B4D] hover:bg-white transition-colors"
+                      >
+                        <Plus className="w-4 h-4" strokeWidth={3} />
+                      </button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 bg-[#F8F9FA] px-2 py-1.5 rounded-full border border-slate-100">
-                    <button 
-                      onClick={() => item.quantity > 1 ? onUpdateQuantity(item.id, -1) : onRemove(item.id)}
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-[#FF5C5C] hover:bg-white transition-colors"
-                    >
-                      {item.quantity === 1 ? <Trash2 className="w-4 h-4" /> : <Minus className="w-4 h-4" strokeWidth={3} />}
-                    </button>
-                    <span className="text-sm font-black text-[#1E2B4D] min-w-[12px] text-center">{item.quantity}</span>
-                    <button 
-                      onClick={() => onUpdateQuantity(item.id, 1)}
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-[#1E2B4D] hover:bg-white transition-colors"
-                    >
-                      <Plus className="w-4 h-4" strokeWidth={3} />
-                    </button>
-                  </div>
+
+                  {item.customizations && (
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="customizations" className="border-none">
+                        <AccordionTrigger className="py-0 hover:no-underline text-[10px] font-bold text-[#12B4A3] flex items-center gap-1.5 h-auto">
+                          <span>Review condiments & addons</span>
+                        </AccordionTrigger>
+                        <AccordionContent className="pt-2 pb-0">
+                          <div className="bg-[#F8F9FA] rounded-xl p-3 space-y-1 border border-slate-100">
+                            <div className="flex justify-between items-center">
+                              <span className="text-[10px] font-bold text-[#8E9AAF]">Selected:</span>
+                              <span className="text-[10px] font-black text-[#1E2B4D]">{item.customizations}</span>
+                            </div>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  )}
                 </div>
               ))}
             </div>

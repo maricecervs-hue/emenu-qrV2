@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -30,17 +29,12 @@ interface CustomizerDrawerProps {
     imageHint?: string
   }
   customisable?: boolean
-  onAddToCart: (quantity: number) => void
+  onAddToCart: (quantity: number, customizations?: string) => void
 }
 
 export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToCart }: CustomizerDrawerProps) {
   const [quantity, setQuantity] = React.useState(1)
   const [variation, setVariation] = React.useState("var1")
-
-  const handleAddToCart = () => {
-    onAddToCart(quantity)
-    onClose()
-  }
 
   const getVariationTitle = () => {
     const name = item.name.toLowerCase()
@@ -56,6 +50,14 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
     if (name.includes('burger')) return ["Rare", "Medium Rare", "Medium", "Well Done"]
     if (name.includes('latte') || name.includes('coffee')) return ["Whole Milk", "Oat Milk (+฿1.50)", "Almond Milk (+฿1.50)", "Soy Milk"]
     return ["Standard", "Spicy", "Extra Savory", "Chef's Special"]
+  }
+
+  const handleAddToCart = () => {
+    const options = getVariationOptions()
+    const index = parseInt(variation.replace('var', '')) - 1
+    const selectedVariation = options[index] || ""
+    onAddToCart(quantity, customisable ? selectedVariation : undefined)
+    onClose()
   }
 
   return (

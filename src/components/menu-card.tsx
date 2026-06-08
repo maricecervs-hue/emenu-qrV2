@@ -1,4 +1,3 @@
-
 "use client"
 
 import Image from "next/image"
@@ -16,7 +15,7 @@ interface MenuCardProps {
   imageUrl: string
   imageHint?: string
   customisable?: boolean
-  onAddToCart: (quantity: number) => void
+  onAddToCart: (quantity: number, customizations?: string) => void
   currentQuantity: number
   onUpdateQuantity: (delta: number) => void
 }

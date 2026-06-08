@@ -161,16 +161,17 @@ export default function MenuPage() {
   const [isCartOpen, setIsCartOpen] = React.useState(false)
   const [cartItems, setCartItems] = React.useState<{
     id: string
+    cartId: string // Unique identifier for items in cart (id + customizations)
     name: string
     price: number
     quantity: number
     imageUrl: string
+    customizations?: string
   }[]>([])
   
   const scrollContainerRef = React.useRef<HTMLDivElement>(null)
   const prevCartCount = React.useRef(0)
 
-  // Use an effect to handle side effects when the cart becomes empty.
   React.useEffect(() => {
     if (prevCartCount.current > 0 && cartItems.length === 0) {
       setIsCartOpen(false)
@@ -244,33 +245,37 @@ export default function MenuPage() {
     }
   };
 
-  const handleAddToCart = (item: any, quantity: number) => {
+  const handleAddToCart = (item: any, quantity: number, customizations?: string) => {
     setCartItems(prev => {
-      const existing = prev.find(i => i.id === item.id)
+      // Items with different customizations should be separate entries
+      const cartId = customizations ? `${item.id}-${customizations}` : item.id
+      const existing = prev.find(i => i.cartId === cartId)
       if (existing) {
-        return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + quantity } : i)
+        return prev.map(i => i.cartId === cartId ? { ...i, quantity: i.quantity + quantity } : i)
       }
       return [...prev, {
         id: item.id,
+        cartId: cartId,
         name: item.name,
         price: item.price,
         quantity: quantity,
-        imageUrl: item.imageUrl
+        imageUrl: item.imageUrl,
+        customizations: customizations
       }]
     })
   }
 
-  const updateCartQuantity = (id: string, delta: number) => {
+  const updateCartQuantity = (cartId: string, delta: number) => {
     setCartItems(prev => {
       return prev.map(item => 
-        item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
+        item.cartId === cartId ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
       ).filter(item => item.quantity > 0)
     })
   }
 
-  const removeCartItem = (id: string) => {
+  const removeCartItem = (cartId: string) => {
     setCartItems(prev => {
-      return prev.filter(item => item.id !== id)
+      return prev.filter(item => item.cartId !== cartId)
     })
   }
 
@@ -334,9 +339,14 @@ export default function MenuPage() {
                       imageUrl={item.imageUrl}
                       imageHint={item.imageHint}
                       customisable={item.customisable}
-                      onAddToCart={(qty) => handleAddToCart(item, qty)}
-                      currentQuantity={cartItems.find(i => i.id === item.id)?.quantity || 0}
-                      onUpdateQuantity={(delta) => updateCartQuantity(item.id, delta)}
+                      onAddToCart={(qty, cust) => handleAddToCart(item, qty, cust)}
+                      currentQuantity={cartItems.filter(i => i.id === item.id).reduce((sum, i) => sum + i.quantity, 0)}
+                      onUpdateQuantity={(delta) => {
+                        // For non-customisable, just find the item and update.
+                        // For customisable, clicking the "+" button in MenuCard opens drawer.
+                        const cartItem = cartItems.find(i => i.id === item.id)
+                        if (cartItem) updateCartQuantity(cartItem.cartId, delta)
+                      }}
                     />
                   ))}
                 </div>
