@@ -1,139 +1,104 @@
 
 import Image from "next/image"
-import { Search, ShoppingBag, MapPin, Bell } from "lucide-react"
+import { MapPin, Bell, Utensils, ReceiptText, List, Globe, ChevronDown } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { LanguageSelector } from "@/components/language-selector"
-import { CategoryNav } from "@/components/category-nav"
-import { MenuCard } from "@/components/menu-card"
-import { AITasteAdvisor } from "@/components/ai-taste-advisor"
-
-const DISHES = [
-  { 
-    id: "1", 
-    name: "Classic Margherita", 
-    description: "San Marzano tomatoes, fresh mozzarella, organic basil, extra virgin olive oil.", 
-    price: 18.00, 
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-1')?.imageUrl || "" 
-  },
-  { 
-    id: "2", 
-    name: "Truffle Tagliatelle", 
-    description: "House-made pasta, black winter truffle, aged parmesan cream, roasted garlic.", 
-    price: 24.50, 
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-2')?.imageUrl || "" 
-  },
-  { 
-    id: "3", 
-    name: "Atlantic Salmon", 
-    description: "Pan-seared wild salmon, lemon butter reduction, wild asparagus, heritage carrots.", 
-    price: 32.00, 
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-3')?.imageUrl || "" 
-  },
-  { 
-    id: "4", 
-    name: "Signature Caesar", 
-    description: "Baby gem lettuce, focaccia croutons, white anchovy dressing, shaved parmigiano.", 
-    price: 16.00, 
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-4')?.imageUrl || "" 
-  },
-]
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find(i => i.id === 'hero-food')?.imageUrl || ""
 
   return (
-    <main className="relative min-h-screen bg-background pb-20">
-      {/* Immersive Hero Section */}
-      <div className="relative h-[45vh] w-full">
+    <main className="relative min-h-screen bg-slate-50 flex flex-col items-center">
+      {/* Hero Background Image */}
+      <div className="absolute top-0 w-full h-[40vh] overflow-hidden">
         <Image
           src={heroImage}
-          alt="Restaurant Ambiance"
+          alt="Restaurant Hero"
           fill
           priority
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
-        
-        {/* Transparent Header */}
-        <header className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10">
-          <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md rounded-full px-4 py-2 border border-white/20">
-            <MapPin className="w-4 h-4 text-white" />
-            <span className="text-white text-sm font-bold tracking-tight uppercase">Table 24</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <LanguageSelector />
-            <Button variant="ghost" size="icon" className="bg-white/20 backdrop-blur-md rounded-full border border-white/20 h-10 w-10 text-white">
-              <Bell className="w-5 h-5" />
-            </Button>
-          </div>
-        </header>
+        <div className="absolute inset-0 bg-black/10" />
+      </div>
 
-        {/* Hero Content */}
-        <div className="absolute bottom-16 left-0 right-0 p-8 text-white">
-          <h1 className="text-4xl font-bold font-headline mb-2 leading-tight">Gourmet Corner</h1>
-          <p className="text-white/80 font-medium">Modern European Cuisine</p>
+      {/* Header Controls */}
+      <div className="relative w-full max-w-md px-6 pt-6 flex justify-between items-start z-10">
+        <Button 
+          variant="outline" 
+          className="bg-white/90 backdrop-blur-sm border-none rounded-full h-10 px-4 flex items-center gap-2 shadow-sm text-slate-700 font-bold"
+        >
+          <Globe className="w-4 h-4 text-primary" />
+          <span>EN</span>
+          <ChevronDown className="w-3 h-3 text-slate-400" />
+        </Button>
+
+        <div className="relative">
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="bg-white/90 backdrop-blur-sm border-none rounded-full h-11 w-11 shadow-sm"
+          >
+            <Bell className="w-5 h-5 text-slate-600" />
+          </Button>
+          <div className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white" />
         </div>
       </div>
 
-      {/* Floating Menu Container */}
-      <div className="relative -mt-12 bg-background rounded-t-[3rem] px-6 pt-10 pb-12 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
-        <div className="max-w-md mx-auto space-y-8">
+      {/* Main Content Card Container */}
+      <div className="relative w-full max-w-md px-6 mt-16 z-20">
+        {/* Floating Circular Icon */}
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-primary rounded-full flex items-center justify-center shadow-xl border-4 border-white z-30">
+          <List className="w-10 h-10 text-white" strokeWidth={2.5} />
+        </div>
+
+        {/* The Card */}
+        <div className="bg-white rounded-[3rem] pt-20 pb-12 px-8 shadow-2xl shadow-slate-200/50 flex flex-col items-center text-center space-y-6">
+          <h1 className="text-4xl font-extrabold text-[#1E2B4D] tracking-tight">Blue Plate</h1>
           
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search for your favorite dish..." 
-              className="w-full bg-white h-14 pl-12 rounded-2xl border-none shadow-sm text-base focus-visible:ring-primary"
-            />
+          {/* Table Indicator Pill */}
+          <div className="bg-slate-100 px-5 py-2 rounded-full flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-red-500 fill-red-500" />
+            <span className="text-slate-700 font-bold text-sm">Table 12</span>
           </div>
 
-          {/* Categories */}
-          <section>
-            <div className="flex justify-between items-center mb-4 px-2">
-              <h2 className="text-xl font-bold text-card-foreground">Categories</h2>
-              <Button variant="link" className="text-primary font-bold">See All</Button>
-            </div>
-            <CategoryNav />
-          </section>
+          <div className="w-full border-t border-dashed border-slate-200" />
 
-          {/* Menu Items */}
-          <section className="space-y-6">
-            <div className="flex justify-between items-center px-2">
-              <h2 className="text-xl font-bold text-card-foreground">Recommended for You</h2>
-            </div>
-            <div className="grid gap-6">
-              {DISHES.map(dish => (
-                <MenuCard 
-                  key={dish.id}
-                  id={dish.id}
-                  name={dish.name}
-                  description={dish.description}
-                  price={dish.price}
-                  imageUrl={dish.imageUrl}
-                />
-              ))}
-            </div>
-          </section>
+          <p className="text-slate-400 font-medium text-lg leading-relaxed px-4">
+            Welcome! We're<br />delighted to have you.
+          </p>
 
-          {/* Payment CTA - Direct Bill Payment Mock */}
-          <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background/95 to-transparent z-40">
-            <Button className="w-full h-16 rounded-2xl shadow-xl text-lg font-bold flex justify-between items-center px-8">
-              <div className="flex items-center gap-3">
-                <ShoppingBag className="h-6 w-6" />
-                <span>View Order</span>
-              </div>
-              <span className="bg-white/20 px-3 py-1 rounded-lg">$0.00</span>
+          <div className="w-full space-y-4 pt-4">
+            <Button 
+              variant="outline" 
+              className="w-full h-16 rounded-2xl border-2 border-primary text-primary font-bold text-xl flex items-center justify-center gap-3 hover:bg-primary/5 transition-all"
+            >
+              <Utensils className="w-6 h-6" />
+              View Menu
+            </Button>
+
+            <Button 
+              className="w-full h-16 rounded-2xl bg-primary text-white font-bold text-xl flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
+            >
+              <ReceiptText className="w-6 h-6" />
+              Pay my Bill
             </Button>
           </div>
         </div>
       </div>
 
-      {/* AI Advisor Tool */}
-      <AITasteAdvisor />
+      {/* Footer Branding */}
+      <footer className="mt-auto py-12 flex flex-col items-center gap-1 opacity-80">
+        <div className="flex items-center gap-1">
+          <div className="flex flex-col gap-0.5 scale-75">
+            <div className="w-4 h-1 bg-primary rounded-full" />
+            <div className="w-6 h-1 bg-primary rounded-full" />
+            <div className="w-4 h-1 bg-primary rounded-full" />
+          </div>
+          <span className="text-2xl font-black text-primary tracking-tight">eMenu</span>
+        </div>
+        <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">Powered by</p>
+      </footer>
     </main>
   )
 }

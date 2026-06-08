@@ -5,13 +5,13 @@
 
 @layer base {
   :root {
-    --background: 210 31% 96%; /* #F0F4F8 - Light Sky Grey */
-    --foreground: 224 44% 15%; /* Darker Navy for text */
+    --background: 210 31% 96%; /* #F0F4F8 */
+    --foreground: 224 44% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 224 44% 21%; /* #1E2B4D - Dark Navy */
+    --card-foreground: 224 44% 21%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 44% 21%;
-    --primary: 174 82% 39%; /* #12B4A3 - Vibrant Teal */
+    --primary: 174 82% 39%; /* #12B4A3 */
     --primary-foreground: 0 0% 100%;
     --secondary: 210 31% 90%;
     --secondary-foreground: 224 44% 21%;
@@ -24,7 +24,7 @@
     --border: 210 31% 85%;
     --input: 210 31% 85%;
     --ring: 174 82% 39%;
-    --radius: 1.5rem; /* Larger rounded corners as requested */
+    --radius: 1.5rem;
   }
   .dark {
     --background: 224 44% 10%;
@@ -54,6 +54,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body antialiased;
   }
 }

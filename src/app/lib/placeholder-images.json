@@ -3,9 +3,9 @@
   "placeholderImages": [
     {
       "id": "hero-food",
-      "description": "Exquisite gourmet dish with vibrant colors",
+      "description": "Exquisite gourmet dish with vibrant colors and pasta",
       "imageUrl": "https://picsum.photos/seed/menu-hero/1200/800",
-      "imageHint": "gourmet dish"
+      "imageHint": "gourmet pasta ingredients"
     },
     {
       "id": "dish-1",
