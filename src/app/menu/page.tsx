@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react"
@@ -23,7 +24,7 @@ const MENU_ITEMS = [
     name: 'Pizza Margherita - 12 inches',
     description: 'Homemade dough, homemade pizza sauce, fresh mozzarella, basil.',
     price: 36.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-1')?.imageUrl || "",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-1')?.imageUrl || "https://picsum.photos/seed/dish1/400/300",
     category: 'bestsellers',
     customisable: false
   },
@@ -32,7 +33,7 @@ const MENU_ITEMS = [
     name: 'Chicken Alfredo Pizza - 12 inches',
     description: 'Homemade dough, white sauce base, marinated chicken, parmesan.',
     price: 48.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-2')?.imageUrl || "",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-2')?.imageUrl || "https://picsum.photos/seed/dish2/400/300",
     category: 'bestsellers',
     customisable: true
   },
@@ -41,7 +42,7 @@ const MENU_ITEMS = [
     name: 'Pizza Margherita - 10 inches',
     description: 'Homemade dough, homemade pizza sauce, fresh mozzarella, basil.',
     price: 27.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-1')?.imageUrl || "",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-1')?.imageUrl || "https://picsum.photos/seed/dish1/400/300",
     category: 'pizza',
     customisable: false
   },
@@ -50,7 +51,7 @@ const MENU_ITEMS = [
     name: 'Hawaiian Pizza - 10 inches',
     description: 'Homemade dough, pizza sauce, mozzarella, ham, pineapple.',
     price: 32.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-5')?.imageUrl || "",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-5')?.imageUrl || "https://picsum.photos/seed/dish5/400/300",
     category: 'pizza',
     customisable: true
   },
@@ -86,7 +87,7 @@ const MENU_ITEMS = [
     name: 'Soft Drink',
     description: 'Choose your favorite flavor.',
     price: 3.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-6')?.imageUrl || "",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'dish-6')?.imageUrl || "https://picsum.photos/seed/wine1/400/300",
     category: 'drinks',
     customisable: true
   },
