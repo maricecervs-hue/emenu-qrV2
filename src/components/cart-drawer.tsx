@@ -1,8 +1,9 @@
+
 "use client"
 
 import * as React from "react"
 import Image from "next/image"
-import { X, ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, Gift, ChevronRight, ChevronDown } from "lucide-react"
+import { X, ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, Gift, ChevronRight } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -15,7 +16,6 @@ import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
-import { cn } from "@/lib/utils"
 import {
   Accordion,
   AccordionContent,
@@ -40,9 +40,10 @@ interface CartDrawerProps {
   onUpdateQuantity: (cartId: string, delta: number) => void
   onRemove: (cartId: string) => void
   onEdit: (item: CartItem) => void
+  onCheckout: () => void
 }
 
-export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove, onEdit }: CartDrawerProps) {
+export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove, onEdit, onCheckout }: CartDrawerProps) {
   const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
   const tax = subtotal * 0.08
   const serviceCharge = subtotal * 0.10
@@ -192,7 +193,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
               <button className="w-full bg-white p-4 rounded-2xl flex items-center justify-between shadow-sm border border-slate-50 group active:bg-slate-50 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-[#12B4A3]">
-                    <Pencil className="w-4 h-4" />
+                    <Plus className="w-4 h-4" />
                   </div>
                   <div className="text-left">
                     <p className="text-sm font-black text-[#1E2B4D]">Add a Note</p>
@@ -260,7 +261,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
         <div className="absolute bottom-0 w-full bg-white p-6 border-t border-slate-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
           <Button 
             className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-black text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
-            onClick={onClose}
+            onClick={onCheckout}
           >
             Proceed to Checkout
           </Button>

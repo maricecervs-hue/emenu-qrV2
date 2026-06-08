@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react"
@@ -9,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { CartDrawer } from "@/components/cart-drawer"
 import { CustomizerDrawer } from "@/components/customizer-drawer"
+import { CheckoutDrawer } from "@/components/checkout-drawer"
 import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
 
@@ -160,6 +162,7 @@ export default function MenuPage() {
   const [isNavVisible, setIsNavVisible] = React.useState(true)
   const [lastScrollY, setLastScrollY] = React.useState(0)
   const [isCartOpen, setIsCartOpen] = React.useState(false)
+  const [isCheckoutOpen, setIsCheckoutOpen] = React.useState(false)
   const [editingCartItem, setEditingCartItem] = React.useState<any>(null)
   const [cartItems, setCartItems] = React.useState<{
     id: string
@@ -177,6 +180,7 @@ export default function MenuPage() {
   React.useEffect(() => {
     if (prevCartCount.current > 0 && cartItems.length === 0) {
       setIsCartOpen(false)
+      setIsCheckoutOpen(false)
       toast({
         title: "Basket Empty",
         description: "All items removed from your basket.",
@@ -298,6 +302,12 @@ export default function MenuPage() {
     setIsCartOpen(false)
   }
 
+  const handleProceedToCheckout = () => {
+    setIsCartOpen(false)
+    setIsCheckoutOpen(true)
+  }
+
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
   const activeCategoryItemsCount = MENU_ITEMS.filter(item => item.category === activeCategory).length
   const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0)
 
@@ -419,6 +429,17 @@ export default function MenuPage() {
           onUpdateQuantity={updateCartQuantity}
           onRemove={removeCartItem}
           onEdit={handleEditCartItem}
+          onCheckout={handleProceedToCheckout}
+        />
+
+        <CheckoutDrawer 
+          isOpen={isCheckoutOpen}
+          onClose={() => setIsCheckoutOpen(false)}
+          onBack={() => {
+            setIsCheckoutOpen(false)
+            setIsCartOpen(true)
+          }}
+          subtotal={subtotal}
         />
 
         {editingBaseItem && (
