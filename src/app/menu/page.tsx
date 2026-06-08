@@ -85,7 +85,7 @@ const MENU_ITEMS = [
     name: 'French Fries',
     description: 'Deep fried golden potatoes served with classic ketchup.',
     price: 8.00,
-    imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "https://images.unsplash.com/photo-1573016605884-58814d4f4747?q=80&w=2070&auto=format&fit=crop",
+    imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "https://images.unsplash.com/photo-1518013431117-eb1465fa5752?q=80&w=2340&auto=format&fit=crop",
     imageHint: "french fries",
     category: 'sides',
     customisable: false
