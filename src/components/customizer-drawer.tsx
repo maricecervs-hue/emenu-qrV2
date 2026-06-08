@@ -55,6 +55,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
   const [quantity, setQuantity] = React.useState(1)
   const [view, setView] = React.useState<'main' | 'sub'>('main')
   const [activeParentId, setActiveParentId] = React.useState<string | null>(null)
+  const groupRefs = React.useRef<Record<string, HTMLDivElement | null>>({})
   
   const [customizationGroups, setCustomizationGroups] = React.useState<CustomizationGroup[]>([
     {
@@ -65,7 +66,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
       type: 'single',
       options: [
         { id: 'opt1', name: 'Rare', price: 0, quantity: 0 },
-        { id: 'opt2', name: 'Medium Rare', price: 0, quantity: 1 },
+        { id: 'opt2', name: 'Medium Rare', price: 0, quantity: 0 },
         { id: 'opt3', name: 'Medium', price: 0, quantity: 0 },
         { id: 'opt4', name: 'Well Done', price: 0, quantity: 0 },
       ]
@@ -77,7 +78,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
       required: true,
       type: 'single',
       options: [
-        { id: 'opt5', name: 'Classic Thin', price: 0, quantity: 1 },
+        { id: 'opt5', name: 'Classic Thin', price: 0, quantity: 0 },
         { id: 'opt6', name: 'Pan Pizza', price: 2.00, quantity: 0 },
         { id: 'opt7', name: 'Stuffed Crust', price: 5.00, quantity: 0, hasChildren: true },
       ]
@@ -109,6 +110,22 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
     'opt7': 'sc1'
   })
 
+  const isGroupSelected = (group: CustomizationGroup) => {
+    return group.options.some(opt => opt.quantity > 0)
+  }
+
+  const scrollToNextSection = (currentGroupId: string) => {
+    const groupIds = customizationGroups.map(g => g.id)
+    const currentIndex = groupIds.indexOf(currentGroupId)
+    if (currentIndex !== -1 && currentIndex < groupIds.length - 1) {
+      const nextGroupId = groupIds[currentIndex + 1]
+      const nextElement = groupRefs.current[nextGroupId]
+      if (nextElement) {
+        nextElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+  }
+
   const updateOptionQuantity = (groupId: string, optionId: string, delta: number) => {
     setCustomizationGroups(prev => prev.map(group => {
       if (group.id !== groupId) return group
@@ -116,7 +133,12 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         ...group,
         options: group.options.map(opt => {
           if (opt.id !== optionId) return opt
-          return { ...opt, quantity: Math.max(0, opt.quantity + delta) }
+          const newQuantity = Math.max(0, opt.quantity + delta)
+          if (newQuantity > 0 && delta > 0) {
+            // Scroll to next section if adding a new condiment
+            setTimeout(() => scrollToNextSection(groupId), 300)
+          }
+          return { ...opt, quantity: newQuantity }
         })
       }
     }))
@@ -133,6 +155,8 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         }))
       }
     }))
+    // Small delay to let the UI update before scrolling
+    setTimeout(() => scrollToNextSection(groupId), 300)
   }
 
   const handleAddToCart = () => {
@@ -161,6 +185,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         setTimeout(() => {
           setView('main')
           setActiveParentId(null)
+          // Reset internal state for next open if needed, or keep for UX
         }, 300)
       }
     }}>
@@ -249,118 +274,127 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                     </div>
                   </div>
 
-                  {customisable && customizationGroups.map((group) => (
-                    <div 
-                      key={group.id} 
-                      className={cn(
-                        "rounded-[2.5rem] p-6 space-y-5 transition-all duration-300",
-                        group.required 
-                          ? "bg-orange-50/80 border border-orange-100 shadow-[0_8px_30px_rgba(255,165,0,0.05)]" 
-                          : "bg-slate-50 border border-slate-100 shadow-sm"
-                      )}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <h3 className="text-xl font-black text-[#1E2B4D]">{group.name}</h3>
-                            {group.required && (
-                              <Badge variant="outline" className="h-5 text-[8px] px-2 border-orange-200 text-orange-600 bg-white font-black uppercase tracking-widest">
-                                Required
-                              </Badge>
-                            )}
-                          </div>
-                          {group.description && <p className="text-xs font-bold text-[#8E9AAF] mt-0.5">{group.description}</p>}
-                        </div>
-                      </div>
-
-                      {group.type === 'single' ? (
-                        <RadioGroup 
-                          value={group.options.find(o => o.quantity > 0)?.id} 
-                          onValueChange={(val) => setSingleChoice(group.id, val)}
-                          className="space-y-1"
-                        >
-                          {group.options.map((option) => (
-                            <div 
-                              key={option.id} 
-                              className={cn(
-                                "flex items-center justify-between py-4 border-b border-slate-200/50 last:border-0 cursor-pointer group/item",
-                                option.hasChildren && "pr-2"
+                  {customisable && customizationGroups.map((group) => {
+                    const selected = isGroupSelected(group)
+                    return (
+                      <div 
+                        key={group.id} 
+                        ref={(el) => { groupRefs.current[group.id] = el }}
+                        className={cn(
+                          "rounded-[2.5rem] p-6 space-y-5 transition-all duration-500 scroll-mt-6",
+                          group.required && !selected 
+                            ? "bg-orange-50/80 border border-orange-100 shadow-[0_8px_30px_rgba(255,165,0,0.05)]" 
+                            : "bg-slate-50 border border-slate-100 shadow-sm"
+                        )}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h3 className="text-xl font-black text-[#1E2B4D]">{group.name}</h3>
+                              {group.required && !selected && (
+                                <Badge variant="outline" className="h-5 text-[8px] px-2 border-orange-200 text-orange-600 bg-white font-black uppercase tracking-widest">
+                                  Required
+                                </Badge>
                               )}
-                              onClick={() => {
-                                if (option.hasChildren) {
-                                  setActiveParentId(option.id)
-                                  setView('sub')
-                                } else {
-                                  setSingleChoice(group.id, option.id)
-                                }
-                              }}
-                            >
-                              <div className="flex-1">
-                                <Label htmlFor={option.id} className="cursor-pointer">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-base font-bold text-[#1E2B4D] group-hover/item:text-[#12B4A3] transition-colors">{option.name}</span>
-                                    {option.hasChildren && <ChevronRight className="w-4 h-4 text-[#12B4A3] group-hover/item:translate-x-1 transition-transform" />}
-                                  </div>
-                                  <div className="flex items-center gap-1.5 mt-0.5">
-                                    <span className={cn(
-                                      "text-xs font-bold",
-                                      option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
-                                    )}>
-                                      {option.price > 0 ? `+ ฿ ${option.price.toFixed(2)}` : 'Included'}
-                                    </span>
-                                    {option.hasChildren && selectedSubOption[option.id] && option.quantity > 0 && (
-                                      <span className="text-[10px] text-[#8E9AAF] font-medium flex items-center gap-1">
-                                        • <span className="font-bold text-[#1E2B4D]">
-                                          {subOptions[option.id as keyof typeof subOptions]?.find(s => s.id === selectedSubOption[option.id])?.name}
-                                        </span>
-                                      </span>
-                                    )}
-                                  </div>
-                                </Label>
-                              </div>
-                              <RadioGroupItem value={option.id} id={option.id} className="h-6 w-6 border-slate-300 text-[#12B4A3] focus:ring-[#12B4A3]" />
+                              {selected && (
+                                <div className="h-5 w-5 rounded-full bg-[#12B4A3] flex items-center justify-center">
+                                  <Check className="w-3 h-3 text-white" />
+                                </div>
+                              )}
                             </div>
-                          ))}
-                        </RadioGroup>
-                      ) : (
-                        <div className="space-y-1">
-                          {group.options.map((option) => (
-                            <div 
-                              key={option.id} 
-                              className="flex items-center justify-between py-4 border-b border-slate-200/50 last:border-0"
-                            >
-                              <div className="flex-1">
-                                <span className="text-base font-bold text-[#1E2B4D]">{option.name}</span>
-                                <p className={cn(
-                                  "text-xs font-bold mt-0.5",
-                                  option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
-                                )}>
-                                  {option.price > 0 ? `+ ฿ ${option.price.toFixed(2)}` : 'Free'}
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-3 bg-white px-2 py-1.5 rounded-full border border-slate-100 shadow-sm">
-                                <button 
-                                  onClick={() => updateOptionQuantity(group.id, option.id, -1)}
-                                  className="w-8 h-8 rounded-full flex items-center justify-center text-[#FF5C5C] hover:bg-slate-50 transition-colors"
-                                >
-                                  <Minus className="w-4 h-4" strokeWidth={3} />
-                                </button>
-                                <span className="text-sm font-black text-[#1E2B4D] min-w-[16px] text-center">{option.quantity}</span>
-                                <button 
-                                  onClick={() => updateOptionQuantity(group.id, option.id, 1)}
-                                  className="w-8 h-8 rounded-full flex items-center justify-center text-[#1E2B4D] hover:bg-slate-50 transition-colors"
-                                >
-                                  <Plus className="w-4 h-4" strokeWidth={3} />
-                                </button>
-                              </div>
-                            </div>
-                          ))}
+                            {group.description && <p className="text-xs font-bold text-[#8E9AAF] mt-0.5">{group.description}</p>}
+                          </div>
                         </div>
-                      )}
-                    </div>
-                  ))}
 
-                  <div className="bg-slate-50 rounded-[2rem] p-6 space-y-4 shadow-sm border border-slate-100">
+                        {group.type === 'single' ? (
+                          <RadioGroup 
+                            value={group.options.find(o => o.quantity > 0)?.id} 
+                            onValueChange={(val) => setSingleChoice(group.id, val)}
+                            className="space-y-1"
+                          >
+                            {group.options.map((option) => (
+                              <div 
+                                key={option.id} 
+                                className={cn(
+                                  "flex items-center justify-between py-4 border-b border-slate-200/50 last:border-0 cursor-pointer group/item",
+                                  option.hasChildren && "pr-2"
+                                )}
+                                onClick={() => {
+                                  if (option.hasChildren) {
+                                    setActiveParentId(option.id)
+                                    setView('sub')
+                                  } else {
+                                    setSingleChoice(group.id, option.id)
+                                  }
+                                }}
+                              >
+                                <div className="flex-1">
+                                  <Label htmlFor={option.id} className="cursor-pointer">
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-base font-bold text-[#1E2B4D] group-hover/item:text-[#12B4A3] transition-colors">{option.name}</span>
+                                      {option.hasChildren && <ChevronRight className="w-4 h-4 text-[#12B4A3] group-hover/item:translate-x-1 transition-transform" />}
+                                    </div>
+                                    <div className="flex items-center gap-1.5 mt-0.5">
+                                      <span className={cn(
+                                        "text-xs font-bold",
+                                        option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
+                                      )}>
+                                        {option.price > 0 ? `+ ฿ ${option.price.toFixed(2)}` : 'Included'}
+                                      </span>
+                                      {option.hasChildren && selectedSubOption[option.id] && option.quantity > 0 && (
+                                        <span className="text-[10px] text-[#8E9AAF] font-medium flex items-center gap-1">
+                                          • <span className="font-bold text-[#1E2B4D]">
+                                            {subOptions[option.id as keyof typeof subOptions]?.find(s => s.id === selectedSubOption[option.id])?.name}
+                                          </span>
+                                        </span>
+                                      )}
+                                    </div>
+                                  </Label>
+                                </div>
+                                <RadioGroupItem value={option.id} id={option.id} className="h-6 w-6 border-slate-300 text-[#12B4A3] focus:ring-[#12B4A3]" />
+                              </div>
+                            ))}
+                          </RadioGroup>
+                        ) : (
+                          <div className="space-y-1">
+                            {group.options.map((option) => (
+                              <div 
+                                key={option.id} 
+                                className="flex items-center justify-between py-4 border-b border-slate-200/50 last:border-0"
+                              >
+                                <div className="flex-1">
+                                  <span className="text-base font-bold text-[#1E2B4D]">{option.name}</span>
+                                  <p className={cn(
+                                    "text-xs font-bold mt-0.5",
+                                    option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
+                                  )}>
+                                    {option.price > 0 ? `+ ฿ ${option.price.toFixed(2)}` : 'Free'}
+                                  </p>
+                                </div>
+                                <div className="flex items-center gap-3 bg-white px-2 py-1.5 rounded-full border border-slate-100 shadow-sm">
+                                  <button 
+                                    onClick={() => updateOptionQuantity(group.id, option.id, -1)}
+                                    className="w-8 h-8 rounded-full flex items-center justify-center text-[#FF5C5C] hover:bg-slate-50 transition-colors"
+                                  >
+                                    <Minus className="w-4 h-4" strokeWidth={3} />
+                                  </button>
+                                  <span className="text-sm font-black text-[#1E2B4D] min-w-[16px] text-center">{option.quantity}</span>
+                                  <button 
+                                    onClick={() => updateOptionQuantity(group.id, option.id, 1)}
+                                    className="w-8 h-8 rounded-full flex items-center justify-center text-[#1E2B4D] hover:bg-slate-50 transition-colors"
+                                  >
+                                    <Plus className="w-4 h-4" strokeWidth={3} />
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+
+                  <div className="bg-slate-50 rounded-[2rem] p-6 space-y-4 shadow-sm border border-slate-100 scroll-mt-6">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
                         <MessageSquare className="w-4 h-4 text-[#12B4A3]" />
