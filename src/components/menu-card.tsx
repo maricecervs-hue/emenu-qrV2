@@ -46,37 +46,38 @@ export function MenuCard({ name, description, price, imageUrl, customisable }: M
           sizes="140px"
         />
         
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-3">
+        {/* Overlay Controls - Bottom Centered */}
+        <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end pb-4 bg-gradient-to-t from-black/40 to-transparent pt-12">
           {quantity > 0 ? (
-            <div className="bg-white rounded-full flex items-center gap-3 px-3 py-1.5 shadow-xl animate-in zoom-in-75 duration-200">
+            <div className="bg-white rounded-full flex items-center gap-4 px-3 py-2 shadow-xl animate-in zoom-in-75 duration-200">
               <Button 
                 variant="ghost" 
                 size="icon" 
                 className="h-6 w-6 rounded-full text-red-500 hover:bg-red-50 p-0"
                 onClick={() => setQuantity(q => q - 1)}
               >
-                <Trash2 className="w-3.5 h-3.5" />
+                <Trash2 className="w-4 h-4" />
               </Button>
-              <span className="text-sm font-bold text-[#1E2B4D]">{quantity}</span>
+              <span className="text-base font-bold text-[#1E2B4D]">{quantity}</span>
               <Button 
                 variant="ghost" 
                 size="icon" 
                 className="h-6 w-6 rounded-full text-[#12B4A3] hover:bg-[#12B4A3]/10 p-0"
                 onClick={() => setQuantity(q => q + 1)}
               >
-                <Plus className="w-3.5 h-3.5" />
+                <Plus className="w-4 h-4" />
               </Button>
             </div>
           ) : (
-            <div className="flex flex-col items-center gap-1 w-full">
+            <div className="flex flex-col items-center gap-1.5 w-[85%]">
               <Button 
-                className="w-full h-9 rounded-full bg-[#12B4A3] hover:bg-[#109e8f] text-white font-bold text-sm shadow-lg transition-transform active:scale-95"
+                className="w-full h-10 rounded-full bg-[#12B4A3] hover:bg-[#109e8f] text-white font-bold text-base shadow-lg transition-transform active:scale-95"
                 onClick={() => setQuantity(1)}
               >
                 Add
               </Button>
               {customisable && (
-                <span className="text-[10px] font-bold text-white drop-shadow-md">
+                <span className="text-[11px] font-bold text-white drop-shadow-lg tracking-wide">
                   Customisable
                 </span>
               )}
