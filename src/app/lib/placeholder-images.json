@@ -3,9 +3,9 @@
   "placeholderImages": [
     {
       "id": "hero-restaurant",
-      "description": "Premium gourmet restaurant interior",
-      "imageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop",
-      "imageHint": "gourmet restaurant"
+      "description": "Premium gourmet beef burger showcase",
+      "imageUrl": "https://images.unsplash.com/photo-1708175313856-8573b2bf8a3a?q=80&w=2340&auto=format&fit=crop",
+      "imageHint": "beef burger"
     },
     {
       "id": "pizza-margherita",
