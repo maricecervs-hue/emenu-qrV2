@@ -37,11 +37,16 @@ export function MenuCard({ id, name, description, price, imageUrl, imageHint, cu
     }
   }
 
+  const handleCardClick = () => {
+    // Clicking the card always opens the drawer for info/customisation
+    setIsCustomizerOpen(true)
+  }
+
   return (
     <>
       <div 
         className="flex bg-white rounded-[10px] overflow-hidden shadow-[0_8px_25px_rgba(0,0,0,0.04)] border border-slate-50 min-h-[160px] cursor-pointer transition-transform active:scale-[0.98]"
-        onClick={() => customisable && setIsCustomizerOpen(true)}
+        onClick={handleCardClick}
       >
         {/* Content Side */}
         <div className="flex-1 p-5 flex flex-col justify-between">
@@ -125,6 +130,7 @@ export function MenuCard({ id, name, description, price, imageUrl, imageHint, cu
         isOpen={isCustomizerOpen} 
         onClose={() => setIsCustomizerOpen(false)}
         item={{ id, name, description, price, imageUrl, imageHint }}
+        customisable={customisable}
       />
     </>
   )

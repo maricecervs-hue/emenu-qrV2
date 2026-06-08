@@ -29,9 +29,10 @@ interface CustomizerDrawerProps {
     imageUrl: string
     imageHint?: string
   }
+  customisable?: boolean
 }
 
-export function CustomizerDrawer({ isOpen, onClose, item }: CustomizerDrawerProps) {
+export function CustomizerDrawer({ isOpen, onClose, item, customisable }: CustomizerDrawerProps) {
   const [quantity, setQuantity] = React.useState(1)
   const [variation, setVariation] = React.useState("var1")
 
@@ -116,24 +117,26 @@ export function CustomizerDrawer({ isOpen, onClose, item }: CustomizerDrawerProp
               </div>
             </div>
 
-            {/* Flavor Selection */}
-            <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
-              <div>
-                <h3 className="text-lg font-black text-[#1E2B4D]">Flavor</h3>
-                <p className="text-xs font-bold text-[#8E9AAF]">Select one option <span className="text-red-500">(Required)</span></p>
+            {/* Flavor Selection - only show if customizable */}
+            {customisable && (
+              <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
+                <div>
+                  <h3 className="text-lg font-black text-[#1E2B4D]">Flavor</h3>
+                  <p className="text-xs font-bold text-[#8E9AAF]">Select one option <span className="text-red-500">(Required)</span></p>
+                </div>
+                
+                <RadioGroup value={variation} onValueChange={setVariation} className="space-y-0">
+                  {["Variation / Condiments 1", "Variation / Condiments 2", "Variation / Condiments 3", "Variation / Condiments 4"].map((v, i) => (
+                    <div key={i} className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0">
+                      <Label htmlFor={`v${i}`} className="text-sm font-bold text-[#1E2B4D] cursor-pointer flex-1">
+                        {v}
+                      </Label>
+                      <RadioGroupItem value={`var${i+1}`} id={`v${i}`} className="text-[#12B4A3] border-slate-200" />
+                    </div>
+                  ))}
+                </RadioGroup>
               </div>
-              
-              <RadioGroup value={variation} onValueChange={setVariation} className="space-y-0">
-                {["Variation / Condiments 1", "Variation / Condiments 2", "Variation / Condiments 3", "Variation / Condiments 4"].map((v, i) => (
-                  <div key={i} className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0">
-                    <Label htmlFor={`v${i}`} className="text-sm font-bold text-[#1E2B4D] cursor-pointer flex-1">
-                      {v}
-                    </Label>
-                    <RadioGroupItem value={`var${i+1}`} id={`v${i}`} className="text-[#12B4A3] border-slate-200" />
-                  </div>
-                ))}
-              </RadioGroup>
-            </div>
+            )}
 
             {/* Special Requests */}
             <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
