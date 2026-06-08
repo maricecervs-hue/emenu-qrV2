@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react"
@@ -170,6 +169,20 @@ export default function MenuPage() {
   }[]>([])
   
   const scrollContainerRef = React.useRef<HTMLDivElement>(null)
+  const prevCartCount = React.useRef(0)
+
+  // Use an effect to handle side effects when the cart becomes empty.
+  // This avoids calling toast() or setIsCartOpen() during the render phase or inside another state updater.
+  React.useEffect(() => {
+    if (prevCartCount.current > 0 && cartItems.length === 0) {
+      setIsCartOpen(false)
+      toast({
+        title: "Basket Empty",
+        description: "All items removed from your basket.",
+      })
+    }
+    prevCartCount.current = cartItems.length
+  }, [cartItems.length, toast])
 
   const filteredItems = React.useMemo(() => {
     return CATEGORIES.map(category => ({
@@ -251,32 +264,15 @@ export default function MenuPage() {
 
   const updateCartQuantity = (id: string, delta: number) => {
     setCartItems(prev => {
-      const newItems = prev.map(item => 
+      return prev.map(item => 
         item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item
       ).filter(item => item.quantity > 0)
-
-      if (newItems.length === 0 && prev.length > 0) {
-        setIsCartOpen(false)
-        toast({
-          title: "Basket Empty",
-          description: "All items removed from your basket.",
-        })
-      }
-      return newItems
     })
   }
 
   const removeCartItem = (id: string) => {
     setCartItems(prev => {
-      const newItems = prev.filter(item => item.id !== id)
-      if (newItems.length === 0 && prev.length > 0) {
-        setIsCartOpen(false)
-        toast({
-          title: "Basket Empty",
-          description: "All items removed from your basket.",
-        })
-      }
-      return newItems
+      return prev.filter(item => item.id !== id)
     })
   }
 
