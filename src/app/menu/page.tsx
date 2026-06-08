@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react"
@@ -9,6 +8,7 @@ import { MenuCard } from "@/components/menu-card"
 import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { AITasteAdvisor } from "@/components/ai-taste-advisor"
+import { cn } from "@/lib/utils"
 
 const CATEGORIES = [
   { id: 'bestsellers', name: 'Bestsellers', icon: <Flame className="w-4 h-4" /> },
@@ -105,6 +105,8 @@ const MENU_ITEMS = [
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = React.useState('bestsellers')
   const [isManualScrolling, setIsManualScrolling] = React.useState(false)
+  const [isNavVisible, setIsNavVisible] = React.useState(true)
+  const [lastScrollY, setLastScrollY] = React.useState(0)
   const scrollContainerRef = React.useRef<HTMLDivElement>(null)
 
   const filteredItems = React.useMemo(() => {
@@ -114,6 +116,34 @@ export default function MenuPage() {
       items: MENU_ITEMS.filter(item => item.category === category.id)
     })).filter(section => section.items.length > 0)
   }, [])
+
+  // Handle Bottom Nav visibility on scroll
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return
+      
+      const currentScrollY = scrollContainerRef.current.scrollTop
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsNavVisible(false)
+      } else if (currentScrollY < lastScrollY) {
+        setIsNavVisible(true)
+      }
+      
+      setLastScrollY(currentScrollY)
+    }
+
+    const container = scrollContainerRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [lastScrollY])
 
   // Highlight category on scroll
   React.useEffect(() => {
@@ -230,7 +260,12 @@ export default function MenuPage() {
         <AITasteAdvisor />
 
         {/* Floating Cart Button */}
-        <div className="fixed bottom-28 right-6 z-50 pointer-events-none">
+        <div 
+          className={cn(
+            "fixed bottom-28 right-6 z-50 pointer-events-none transition-transform duration-300 ease-in-out",
+            !isNavVisible && "translate-y-24"
+          )}
+        >
           <div className="relative pointer-events-auto">
             <Button 
               className="w-16 h-16 rounded-full bg-[#FF5C5C] hover:bg-[#FF4D4D] shadow-2xl flex items-center justify-center p-0"
@@ -244,7 +279,12 @@ export default function MenuPage() {
         </div>
 
         {/* Bottom Navigation */}
-        <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40">
+        <nav 
+          className={cn(
+            "fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40 transition-transform duration-300 ease-in-out",
+            !isNavVisible && "translate-y-full"
+          )}
+        >
           <div className="flex flex-col items-center gap-1.5 cursor-pointer">
             <Home className="w-7 h-7 text-[#12B4A3]" strokeWidth={2.5} />
             <span className="text-sm font-bold text-[#12B4A3]">Menu</span>
