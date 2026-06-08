@@ -1,8 +1,9 @@
+
 "use client"
 
 import * as React from "react"
 import Image from "next/image"
-import { X, Wheat, Droplets, Minus, Plus, MessageSquare } from "lucide-react"
+import { X, Wheat, Droplets, Minus, Plus, MessageSquare, ChevronRight, ChevronLeft } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -16,6 +17,16 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+
+interface Condiment {
+  id: string
+  name: string
+  price: number
+  quantity: number
+  children?: Condiment[]
+  selectedChildId?: string
+}
 
 interface CustomizerDrawerProps {
   isOpen: boolean
@@ -34,172 +45,239 @@ interface CustomizerDrawerProps {
 
 export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToCart }: CustomizerDrawerProps) {
   const [quantity, setQuantity] = React.useState(1)
-  const [variation, setVariation] = React.useState("var1")
+  const [view, setView] = React.useState<'main' | 'sub'>('main')
+  const [activeParentId, setActiveParentId] = React.useState<string | null>(null)
+  
+  // Example Condiments Data
+  const [condiments, setCondiments] = React.useState<Condiment[]>([
+    { id: 'c1', name: 'Extra Cheese', price: 2.50, quantity: 0 },
+    { id: 'c2', name: 'Pepperoni', price: 3.00, quantity: 0 },
+    { id: 'c3', name: 'Mushrooms', price: 1.50, quantity: 0 },
+    { 
+      id: 'c4', 
+      name: 'Stuffed Crust', 
+      price: 5.00, 
+      quantity: 0,
+      children: [
+        { id: 'sc1', name: 'Mozzarella Fill', price: 0, quantity: 1 },
+        { id: 'sc2', name: 'Cheddar Fill', price: 1.00, quantity: 0 },
+        { id: 'sc3', name: 'Garlic Butter Fill', price: 0.50, quantity: 0 },
+      ],
+      selectedChildId: 'sc1'
+    }
+  ])
 
-  const getVariationTitle = () => {
-    const name = item.name.toLowerCase()
-    if (name.includes('pizza')) return 'Crust Type'
-    if (name.includes('burger')) return 'Doneness'
-    if (name.includes('latte') || name.includes('coffee')) return 'Milk Selection'
-    return 'Flavor'
+  const updateCondimentQuantity = (id: string, delta: number) => {
+    setCondiments(prev => prev.map(c => 
+      c.id === id ? { ...c, quantity: Math.max(0, c.quantity + delta) } : c
+    ))
   }
 
-  const getVariationOptions = () => {
-    const name = item.name.toLowerCase()
-    if (name.includes('pizza')) return ["Thin Crust", "Hand-tossed", "Deep Dish", "Gluten Free Crust"]
-    if (name.includes('burger')) return ["Rare", "Medium Rare", "Medium", "Well Done"]
-    if (name.includes('latte') || name.includes('coffee')) return ["Whole Milk", "Oat Milk (+฿1.50)", "Almond Milk (+฿1.50)", "Soy Milk"]
-    return ["Standard", "Spicy", "Extra Savory", "Chef's Special"]
+  const updateSubCondiment = (parentId: string, childId: string) => {
+    setCondiments(prev => prev.map(c => 
+      c.id === parentId ? { ...c, selectedChildId: childId, quantity: 1 } : c
+    ))
   }
 
   const handleAddToCart = () => {
-    const options = getVariationOptions()
-    const index = parseInt(variation.replace('var', '')) - 1
-    const selectedVariation = options[index] || ""
-    onAddToCart(quantity, customisable ? selectedVariation : undefined)
+    const selected = condiments
+      .filter(c => c.quantity > 0)
+      .map(c => {
+        let label = `${c.name} (x${c.quantity})`
+        if (c.children && c.selectedChildId) {
+          const child = c.children.find(ch => ch.id === c.selectedChildId)
+          label += ` [${child?.name}]`
+        }
+        return label
+      })
+      .join(', ')
+
+    onAddToCart(quantity, selected || undefined)
     onClose()
   }
 
+  const activeParent = condiments.find(c => c.id === activeParentId)
+
   return (
-    <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <Sheet open={isOpen} onOpenChange={(open) => {
+      if (!open) {
+        onClose()
+        setTimeout(() => {
+          setView('main')
+          setActiveParentId(null)
+        }, 300)
+      }
+    }}>
       <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden">
         <SheetHeader className="sr-only">
           <SheetTitle>{item.name}</SheetTitle>
           <SheetDescription>{item.description}</SheetDescription>
         </SheetHeader>
 
-        <ScrollArea className="h-full">
-          <div className="relative w-full aspect-[4/3]">
-            <Image
-              src={item.imageUrl}
-              alt={item.name}
-              fill
-              className="object-cover"
-              data-ai-hint={item.imageHint || "food dish"}
-            />
-            <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full">
-              1 / 5
-            </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full h-8 w-8 hover:bg-white"
-              onClick={onClose}
-            >
-              <X className="h-4 w-4 text-slate-900" />
-            </Button>
-          </div>
+        <div className="h-full flex flex-col">
+          <ScrollArea className="flex-1">
+            {view === 'main' ? (
+              <>
+                <div className="relative w-full aspect-[4/3]">
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                    data-ai-hint={item.imageHint || "food dish"}
+                  />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full h-8 w-8 hover:bg-white"
+                    onClick={onClose}
+                  >
+                    <X className="h-4 w-4 text-slate-900" />
+                  </Button>
+                </div>
 
-          <div className="p-6 space-y-6 pb-32">
-            <div className="space-y-2">
-              <h2 className="text-2xl font-extrabold text-[#1E2B4D] leading-tight">
-                {item.name}
-              </h2>
-              <p className="text-sm text-[#8E9AAF] font-medium leading-relaxed">
-                {item.description}
-              </p>
-              <div className="flex items-baseline gap-2 pt-2">
-                <span className="text-2xl font-black text-[#1E2B4D]">฿ {item.price.toFixed(2)}</span>
-                <span className="text-xs font-bold text-[#8E9AAF]">(Base Price)</span>
-              </div>
-            </div>
+                <div className="p-6 space-y-6 pb-32">
+                  <div className="space-y-2">
+                    <h2 className="text-2xl font-extrabold text-[#1E2B4D] leading-tight">{item.name}</h2>
+                    <p className="text-sm text-[#8E9AAF] font-medium leading-relaxed">{item.description}</p>
+                    <div className="flex items-baseline gap-2 pt-2">
+                      <span className="text-2xl font-black text-[#1E2B4D]">฿ {item.price.toFixed(2)}</span>
+                    </div>
+                  </div>
 
-            <div className="bg-white rounded-[1.5rem] p-4 flex justify-between items-center shadow-sm border border-slate-100">
-              <div className="flex flex-col items-center gap-1 flex-1 border-r border-slate-100">
-                <span className="text-sm font-black text-[#1E2B4D]">892</span>
-                <span className="text-[10px] font-bold text-[#8E9AAF]">Kcal</span>
-              </div>
-              <div className="flex flex-col items-center gap-1 flex-1 border-r border-slate-100">
-                <span className="text-sm font-black text-[#1E2B4D]">32g</span>
-                <span className="text-[10px] font-bold text-[#8E9AAF]">Protein</span>
-              </div>
-              <div className="flex flex-col items-center gap-1 flex-1 border-r border-slate-100">
-                <span className="text-sm font-black text-[#1E2B4D]">98g</span>
-                <span className="text-[10px] font-bold text-[#8E9AAF]">Carbs</span>
-              </div>
-              <div className="flex flex-col items-center gap-1 flex-1">
-                <span className="text-sm font-black text-[#1E2B4D]">38g</span>
-                <span className="text-[10px] font-bold text-[#8E9AAF]">Fat</span>
-              </div>
-            </div>
+                  {customisable && (
+                    <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
+                      <div>
+                        <h3 className="text-lg font-black text-[#1E2B4D]">Add Condiments</h3>
+                        <p className="text-xs font-bold text-[#8E9AAF]">Customise your meal</p>
+                      </div>
+                      
+                      <div className="space-y-1">
+                        {condiments.map((condiment) => (
+                          <div key={condiment.id} className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0">
+                            <div 
+                              className="flex-1 cursor-pointer group"
+                              onClick={() => {
+                                if (condiment.children) {
+                                  setActiveParentId(condiment.id)
+                                  setView('sub')
+                                }
+                              }}
+                            >
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-bold text-[#1E2B4D] group-hover:text-[#12B4A3] transition-colors">
+                                  {condiment.name}
+                                </span>
+                                {condiment.children && <ChevronRight className="w-4 h-4 text-[#12B4A3]" />}
+                              </div>
+                              <span className="text-xs font-bold text-[#12B4A3]">
+                                {condiment.price > 0 ? `+ ฿ ${condiment.price.toFixed(2)}` : 'Free'}
+                              </span>
+                              {condiment.selectedChildId && condiment.quantity > 0 && (
+                                <p className="text-[10px] text-[#8E9AAF] font-bold">
+                                  Selected: {condiment.children?.find(ch => ch.id === condiment.selectedChildId)?.name}
+                                </p>
+                              )}
+                            </div>
 
-            <div className="bg-[#FFF9E7] rounded-[1.5rem] p-5 space-y-3 border border-[#FFE8A3]/30">
-              <div className="flex items-center gap-2 text-[#856404] font-bold text-sm">
-                <span className="w-5 h-5 flex items-center justify-center bg-white rounded-full text-xs">!</span>
-                Allergen Information
-              </div>
-              <div className="flex gap-2">
-                <Badge variant="outline" className="bg-white border-none py-1.5 px-3 flex items-center gap-2 rounded-xl text-[#856404] font-bold shadow-sm">
-                  <Wheat className="w-3.5 h-3.5" /> Gluten
-                </Badge>
-                <Badge variant="outline" className="bg-white border-none py-1.5 px-3 flex items-center gap-2 rounded-xl text-[#856404] font-bold shadow-sm">
-                  <Droplets className="w-3.5 h-3.5" /> Dairy
-                </Badge>
-              </div>
-            </div>
+                            <div className="flex items-center gap-3 bg-[#F8F9FA] px-2 py-1 rounded-full border border-slate-100">
+                              <button 
+                                onClick={() => updateCondimentQuantity(condiment.id, -1)}
+                                className="w-7 h-7 rounded-full flex items-center justify-center text-[#FF5C5C] hover:bg-white"
+                              >
+                                <Minus className="w-3.5 h-3.5" strokeWidth={3} />
+                              </button>
+                              <span className="text-xs font-black text-[#1E2B4D] min-w-[12px] text-center">{condiment.quantity}</span>
+                              <button 
+                                onClick={() => updateCondimentQuantity(condiment.id, 1)}
+                                className="w-7 h-7 rounded-full flex items-center justify-center text-[#1E2B4D] hover:bg-white"
+                              >
+                                <Plus className="w-3.5 h-3.5" strokeWidth={3} />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-            {customisable && (
-              <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
-                <div>
-                  <h3 className="text-lg font-black text-[#1E2B4D]">{getVariationTitle()}</h3>
-                  <p className="text-xs font-bold text-[#8E9AAF]">Select one option <span className="text-red-500">(Required)</span></p>
+                  <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
+                    <div className="flex items-center gap-2">
+                      <MessageSquare className="w-4 h-4 text-[#8E9AAF]" />
+                      <h3 className="text-lg font-black text-[#1E2B4D]">Special requests</h3>
+                    </div>
+                    <Textarea 
+                      placeholder="For example: less spicy, no sugar, etc."
+                      className="min-h-[100px] rounded-2xl border-slate-100 bg-[#F8F9FA] p-4 text-sm font-medium"
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="p-6 space-y-6">
+                <div className="flex items-center gap-4">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="rounded-full bg-white shadow-sm"
+                    onClick={() => setView('main')}
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </Button>
+                  <div>
+                    <h3 className="text-xl font-black text-[#1E2B4D]">{activeParent?.name} options</h3>
+                    <p className="text-xs font-bold text-[#8E9AAF]">Select one fill option</p>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100">
+                  <RadioGroup 
+                    value={activeParent?.selectedChildId} 
+                    onValueChange={(val) => activeParentId && updateSubCondiment(activeParentId, val)}
+                  >
+                    {activeParent?.children?.map((child) => (
+                      <div key={child.id} className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0">
+                        <Label htmlFor={child.id} className="flex-1 cursor-pointer">
+                          <p className="text-sm font-bold text-[#1E2B4D]">{child.name}</p>
+                          <p className="text-xs font-bold text-[#12B4A3]">
+                            {child.price > 0 ? `+ ฿ ${child.price.toFixed(2)}` : 'Included'}
+                          </p>
+                        </Label>
+                        <RadioGroupItem value={child.id} id={child.id} className="text-[#12B4A3]" />
+                      </div>
+                    ))}
+                  </RadioGroup>
                 </div>
                 
-                <RadioGroup value={variation} onValueChange={setVariation} className="space-y-0">
-                  {getVariationOptions().map((v, i) => (
-                    <div key={i} className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0">
-                      <Label htmlFor={`v${i}`} className="text-sm font-bold text-[#1E2B4D] cursor-pointer flex-1">
-                        {v}
-                      </Label>
-                      <RadioGroupItem value={`var${i+1}`} id={`v${i}`} className="text-[#12B4A3] border-slate-200" />
-                    </div>
-                  ))}
-                </RadioGroup>
+                <Button 
+                  className="w-full h-14 rounded-2xl bg-[#12B4A3] text-white font-bold"
+                  onClick={() => setView('main')}
+                >
+                  Confirm Selection
+                </Button>
               </div>
             )}
+          </ScrollArea>
 
-            <div className="bg-white rounded-[1.5rem] p-6 space-y-4 shadow-sm border border-slate-100">
-              <div className="flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-[#8E9AAF]" />
-                <h3 className="text-lg font-black text-[#1E2B4D]">Special requests</h3>
+          {view === 'main' && (
+            <div className="w-full bg-white p-6 border-t border-slate-50 flex items-center gap-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+              <div className="flex items-center gap-6 bg-[#F8F9FA] px-4 py-3 rounded-2xl border border-slate-100">
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="text-[#1E2B4D]">
+                  <Minus className="w-4 h-4" strokeWidth={3} />
+                </button>
+                <span className="text-lg font-black text-[#1E2B4D] min-w-[20px] text-center">{quantity}</span>
+                <button onClick={() => setQuantity(quantity + 1)} className="text-[#1E2B4D]">
+                  <Plus className="w-4 h-4" strokeWidth={3} />
+                </button>
               </div>
-              <p className="text-xs text-[#8E9AAF] font-medium leading-relaxed">
-                We'll pass your special request to the restaurant, and they'll do their best to follow it.
-              </p>
-              <div className="relative">
-                <Textarea 
-                  placeholder="For example: less spicy, no sugar, etc."
-                  className="min-h-[100px] rounded-2xl border-slate-100 bg-[#F8F9FA] focus:ring-[#12B4A3] p-4 text-sm font-medium"
-                  maxLength={150}
-                />
-                <span className="absolute bottom-3 right-3 text-[10px] font-bold text-[#8E9AAF]">0/150</span>
-              </div>
+              <Button 
+                className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-black text-lg shadow-xl shadow-[#12B4A3]/20"
+                onClick={handleAddToCart}
+              >
+                Add • ฿ {(item.price * quantity).toFixed(2)}
+              </Button>
             </div>
-          </div>
-        </ScrollArea>
-
-        <div className="absolute bottom-0 w-full bg-white p-6 border-t border-slate-50 flex items-center gap-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
-          <div className="flex items-center gap-6 bg-[#F8F9FA] px-4 py-3 rounded-2xl border border-slate-100">
-            <button 
-              onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="text-[#1E2B4D] hover:text-[#12B4A3] transition-colors"
-            >
-              <Minus className="w-4 h-4" strokeWidth={3} />
-            </button>
-            <span className="text-lg font-black text-[#1E2B4D] min-w-[20px] text-center">{quantity}</span>
-            <button 
-              onClick={() => setQuantity(quantity + 1)}
-              className="text-[#1E2B4D] hover:text-[#12B4A3] transition-colors"
-            >
-              <Plus className="w-4 h-4" strokeWidth={3} />
-            </button>
-          </div>
-          <Button 
-            className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-black text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
-            onClick={handleAddToCart}
-          >
-            Add • ฿ {(item.price * quantity).toFixed(2)}
-          </Button>
+          )}
         </div>
       </SheetContent>
     </Sheet>
