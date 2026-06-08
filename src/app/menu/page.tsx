@@ -172,7 +172,6 @@ export default function MenuPage() {
   const prevCartCount = React.useRef(0)
 
   // Use an effect to handle side effects when the cart becomes empty.
-  // This avoids calling toast() or setIsCartOpen() during the render phase or inside another state updater.
   React.useEffect(() => {
     if (prevCartCount.current > 0 && cartItems.length === 0) {
       setIsCartOpen(false)
@@ -352,7 +351,7 @@ export default function MenuPage() {
         <div 
           className={cn(
             "fixed bottom-28 right-6 z-50 transition-all duration-300 ease-in-out",
-            (!isNavVisible || cartItems.length === 0) ? "translate-y-24 opacity-0 scale-0 pointer-events-none" : "translate-y-0 opacity-100 scale-100 pointer-events-auto"
+            (cartItems.length === 0) ? "translate-y-24 opacity-0 scale-0 pointer-events-none" : "translate-y-0 opacity-100 scale-100 pointer-events-auto"
           )}
         >
           <div className="relative">
