@@ -63,7 +63,15 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
   }
 
   const handlePay = () => {
-    setIsVipOpen(true)
+    // Save draft order to localStorage before moving to payment flow
+    const pendingOrder = {
+      items: items.map(i => ({ id: i.id, imageUrl: i.imageUrl, name: i.name })),
+      total: total,
+      table: '12',
+      itemCount: items.reduce((acc, curr) => acc + curr.quantity, 0)
+    };
+    localStorage.setItem('pending_order', JSON.stringify(pendingOrder));
+    setIsVipOpen(true);
   }
 
   return (

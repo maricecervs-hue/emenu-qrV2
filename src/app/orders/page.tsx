@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react"
@@ -8,7 +7,6 @@ import { Home, ClipboardList, ChevronRight, MapPin, Calendar, ShoppingBag } from
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { PlaceHolderImages } from "@/lib/placeholder-images"
 
 type OrderStatus = 'Preparing' | 'Served' | 'Completed'
 
@@ -27,50 +25,17 @@ interface Order {
   total: number
 }
 
-const MOCK_ORDERS: Order[] = [
-  {
-    id: '1',
-    orderNumber: '198992',
-    status: 'Preparing',
-    table: '12',
-    date: 'Mar 17, 2026 at 10:27 AM',
-    total: 139.52,
-    items: [
-      { id: 'i1', imageUrl: PlaceHolderImages.find(p => p.id === 'beef-burger')?.imageUrl || "" },
-      { id: 'i2', imageUrl: PlaceHolderImages.find(p => p.id === 'iced-coffee')?.imageUrl || "" },
-      { id: 'i3', imageUrl: PlaceHolderImages.find(p => p.id === 'garlic-bread')?.imageUrl || "" },
-      { id: 'i4', imageUrl: PlaceHolderImages.find(p => p.id === 'french-fries')?.imageUrl || "" },
-    ]
-  },
-  {
-    id: '2',
-    orderNumber: '198765',
-    status: 'Served',
-    table: '5',
-    date: 'Mar 16, 2026 at 06:45 PM',
-    total: 87.30,
-    items: [
-      { id: 'i5', imageUrl: PlaceHolderImages.find(p => p.id === 'pizza-margherita')?.imageUrl || "" },
-      { id: 'i6', imageUrl: PlaceHolderImages.find(p => p.id === 'mineral-water')?.imageUrl || "" },
-      { id: 'i7', imageUrl: PlaceHolderImages.find(p => p.id === 'cheesecake')?.imageUrl || "" },
-    ]
-  },
-  {
-    id: '3',
-    orderNumber: '828854',
-    status: 'Completed',
-    table: '8',
-    date: 'Mar 15, 2026 at 02:15 PM',
-    total: 45.00,
-    items: [
-      { id: 'i8', imageUrl: PlaceHolderImages.find(p => p.id === 'pizza-hawaiian')?.imageUrl || "" },
-    ]
-  }
-]
-
 export default function OrdersPage() {
   const [activeFilter, setActiveFilter] = React.useState<'All' | OrderStatus>('All')
-  const [orders] = React.useState<Order[]>(MOCK_ORDERS)
+  const [orders, setOrders] = React.useState<Order[]>([])
+
+  React.useEffect(() => {
+    // Load orders from localStorage
+    const savedOrders = localStorage.getItem('all_orders');
+    if (savedOrders) {
+      setOrders(JSON.parse(savedOrders));
+    }
+  }, []);
 
   const filteredOrders = orders.filter(order => 
     activeFilter === 'All' ? true : order.status === activeFilter
@@ -150,7 +115,7 @@ export default function OrdersPage() {
                     <div className="flex items-center gap-4">
                       <div className="flex -space-x-3 overflow-hidden">
                         {order.items.slice(0, 3).map((item, idx) => (
-                          <div key={item.id} className="relative w-12 h-12 rounded-xl border-[3px] border-white overflow-hidden shadow-sm">
+                          <div key={`${order.id}-${idx}`} className="relative w-12 h-12 rounded-xl border-[3px] border-white overflow-hidden shadow-sm">
                             <Image src={item.imageUrl} alt="food" fill className="object-cover" />
                           </div>
                         ))}
@@ -167,7 +132,7 @@ export default function OrdersPage() {
                     <div className="flex justify-between items-center pt-2">
                       <div className="flex flex-col">
                         <span className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-widest">Total</span>
-                        <span className="text-2xl font-bold text-[#1E2B4D]">${order.total.toFixed(2)}</span>
+                        <span className="text-2xl font-bold text-[#1E2B4D]">${Number(order.total).toFixed(2)}</span>
                       </div>
                       {order.status === 'Completed' ? (
                         <button className="text-[#12B4A3] font-bold text-sm underline decoration-dotted underline-offset-4">

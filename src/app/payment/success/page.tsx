@@ -30,6 +30,33 @@ export default function PaymentSuccessPage() {
     { id: 3, label: "Ready", icon: <Bell className="w-3.5 h-3.5" />, active: false },
   ]
 
+  React.useEffect(() => {
+    // Finalize order in localStorage
+    const pending = localStorage.getItem('pending_order');
+    if (pending) {
+      const orderData = JSON.parse(pending);
+      const newOrder = {
+        id: Date.now().toString(),
+        orderNumber: Math.floor(100000 + Math.random() * 900000).toString(),
+        status: 'Preparing',
+        table: orderData.table || '12',
+        date: new Date().toLocaleString('en-US', { 
+          month: 'short', 
+          day: 'numeric', 
+          year: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        }),
+        total: orderData.total,
+        items: orderData.items || []
+      };
+      
+      const existing = JSON.parse(localStorage.getItem('all_orders') || '[]');
+      localStorage.setItem('all_orders', JSON.stringify([newOrder, ...existing]));
+      localStorage.removeItem('pending_order');
+    }
+  }, []);
+
   useGSAP(() => {
     // Initial entry animation for the checkmark
     if (checkIconRef.current) {
@@ -90,7 +117,7 @@ export default function PaymentSuccessPage() {
         {/* Success Message */}
         <div className="text-center space-y-2 mb-8">
           <h1 className="text-[1.75rem] font-bold text-[#1E2B4D] tracking-tight leading-none">Payment Successful!</h1>
-          <p className="text-[#8E9AAF] font-medium text-sm">Your order #1284 is confirmed</p>
+          <p className="text-[#8E9AAF] font-medium text-sm">Your order is confirmed</p>
         </div>
 
         {/* Divider */}
@@ -164,7 +191,7 @@ export default function PaymentSuccessPage() {
             ))}
           </div>
 
-          {/* Professional "Thanks for your Rating" Card - 100% same as image, more compact */}
+          {/* Professional "Thanks for your Rating" Card */}
           <div 
             ref={successCardRef} 
             className="hidden w-full bg-[#F9FDF2] rounded-[1.8rem] py-5 px-4 border border-[#E9F3D7] flex-col items-center justify-center shadow-sm max-w-[240px] mx-auto overflow-hidden relative"
