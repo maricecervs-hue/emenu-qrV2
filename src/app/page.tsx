@@ -1,27 +1,54 @@
 'use client';
 
+import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { MapPin, Utensils, ReceiptText, List, ChevronDown, Globe, Crown } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Button } from "@/components/ui/button"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find(i => i.id === 'hero-restaurant')?.imageUrl || "https://picsum.photos/seed/menu-hero/1200/800"
+  const imageRef = React.useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      if (imageRef.current) {
+        // Move the image downwards at a fraction of the scroll speed for the parallax effect
+        gsap.to(imageRef.current, {
+          y: scrollY * 0.4,
+          duration: 0.1,
+          ease: "none",
+          overwrite: "auto"
+        })
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
     <main className="relative min-h-screen bg-[#F4F8FB] flex flex-col items-center overflow-x-hidden">
-      {/* Hero Background Image */}
-      <div className="absolute top-0 w-full h-[40vh] overflow-hidden">
-        <Image
-          src={heroImage}
-          alt="Restaurant Hero"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-          data-ai-hint="gourmet restaurant"
-        />
+      {/* Hero Background Image with Parallax Effect */}
+      <div className="absolute top-0 w-full h-[40vh] overflow-hidden z-0">
+        <div 
+          ref={imageRef}
+          className="relative w-full h-[120%] -top-[10%] will-change-transform"
+        >
+          <Image
+            src={heroImage}
+            alt="Restaurant Hero"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+            data-ai-hint="gourmet restaurant"
+          />
+        </div>
       </div>
 
       {/* Header Controls */}
