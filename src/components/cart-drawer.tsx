@@ -65,13 +65,13 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden z-[80]">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden z-[80] flex flex-col">
         <SheetHeader className="sr-only">
           <SheetTitle>Your Basket</SheetTitle>
           <SheetDescription>View and manage your selected items.</SheetDescription>
         </SheetHeader>
 
-        <div className="bg-white px-6 pt-6 pb-4 flex items-center justify-between border-b border-slate-50">
+        <div className="bg-white px-6 pt-6 pb-4 flex items-center justify-between border-b border-slate-50 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-[#E9FBF9] rounded-full flex items-center justify-center">
               <ShoppingBasket className="w-5 h-5 text-[#12B4A3]" />
@@ -91,8 +91,8 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
           </div>
         </div>
 
-        <ScrollArea className="h-full pb-32">
-          <div className="p-6 space-y-8">
+        <ScrollArea className="flex-1">
+          <div className="p-6 pb-40 space-y-8">
             {/* Cart Items */}
             <div className="space-y-4">
               {items.map((item) => (
@@ -230,7 +230,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
         </ScrollArea>
 
         {/* Checkout Footer */}
-        <div className="absolute bottom-0 w-full bg-white p-6 border-t border-slate-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        <div className="shrink-0 w-full bg-white p-6 border-t border-slate-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
           <Button 
             className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-medium text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
             onClick={onCheckout}
