@@ -24,30 +24,94 @@ interface Order {
   date: string
   items: OrderItem[]
   total: number
+  lastStatusUpdate?: number
+  completedAt?: number | null
 }
 
 export default function OrdersPage() {
   const [activeFilter, setActiveFilter] = React.useState<'All' | OrderStatus>('All')
   const [orders, setOrders] = React.useState<Order[]>([])
-  const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null)
+  const [selectedOrderId, setSelectedOrderId] = React.useState<string | null>(null)
   const [isDetailsOpen, setIsDetailsOpen] = React.useState(false)
 
+  // Load orders from localStorage
   React.useEffect(() => {
-    // Load orders from localStorage
     const savedOrders = localStorage.getItem('all_orders');
     if (savedOrders) {
-      setOrders(JSON.parse(savedOrders));
+      const parsed = JSON.parse(savedOrders);
+      // Initialize simulation fields for existing orders if missing
+      const initialized = parsed.map((o: Order) => ({
+        ...o,
+        lastStatusUpdate: o.lastStatusUpdate || Date.now(),
+        completedAt: o.status === 'Completed' ? (o.completedAt || Date.now()) : null
+      }));
+      setOrders(initialized);
     }
+  }, []);
+
+  // Mock Simulation Logic for Presentation
+  React.useEffect(() => {
+    const simulationInterval = setInterval(() => {
+      const now = Date.now();
+      
+      setOrders(currentOrders => {
+        let hasChanges = false;
+        
+        // 1. Advance statuses every 40 seconds for mock presentation
+        const updatedOrders = currentOrders.map(order => {
+          if (order.status !== 'Completed') {
+            const timeSinceUpdate = now - (order.lastStatusUpdate || now);
+            if (timeSinceUpdate >= 40000) {
+              hasChanges = true;
+              const nextStatus: OrderStatus = order.status === 'Preparing' ? 'Served' : 'Completed';
+              return {
+                ...order,
+                status: nextStatus,
+                lastStatusUpdate: now,
+                completedAt: nextStatus === 'Completed' ? now : null
+              };
+            }
+          }
+          return order;
+        });
+
+        // 2. Clear completed orders after 6 seconds
+        const finalOrders = updatedOrders.filter(order => {
+          if (order.status === 'Completed' && order.completedAt) {
+            const timeSinceCompleted = now - order.completedAt;
+            if (timeSinceCompleted >= 6000) {
+              hasChanges = true;
+              return false; // Automatically clear from presentation
+            }
+          }
+          return true;
+        });
+
+        if (hasChanges) {
+          localStorage.setItem('all_orders', JSON.stringify(finalOrders));
+          return finalOrders;
+        }
+        
+        return currentOrders;
+      });
+    }, 1000); // Check for transitions every second
+
+    return () => clearInterval(simulationInterval);
   }, []);
 
   const filteredOrders = orders.filter(order => 
     activeFilter === 'All' ? true : order.status === activeFilter
   )
 
-  const handleViewDetails = (order: Order) => {
-    setSelectedOrder(order)
+  const handleViewDetails = (id: string) => {
+    setSelectedOrderId(id)
     setIsDetailsOpen(true)
   }
+
+  // Derive selected order from live state to ensure it reflects simulation changes
+  const activeSelectedOrder = React.useMemo(() => {
+    return orders.find(o => o.id === selectedOrderId) || null
+  }, [orders, selectedOrderId])
 
   return (
     <div className="min-h-screen bg-[#F8F9FB] flex flex-col items-center overflow-x-hidden">
@@ -150,7 +214,7 @@ export default function OrdersPage() {
                         <Button 
                           variant="outline" 
                           className="rounded-full h-11 px-6 border-slate-100 text-[#12B4A3] font-semibold text-sm flex items-center gap-2 hover:bg-[#12B4A3]/5"
-                          onClick={() => handleViewDetails(order)}
+                          onClick={() => handleViewDetails(order.id)}
                         >
                           View Details
                           <ChevronRight className="w-4 h-4" />
@@ -193,11 +257,11 @@ export default function OrdersPage() {
           </div>
         </nav>
 
-        {/* Order Details Drawer */}
+        {/* Order Details Drawer - Uses live simulation data */}
         <OrderDetailsDrawer 
           isOpen={isDetailsOpen}
           onClose={() => setIsDetailsOpen(false)}
-          order={selectedOrder}
+          order={activeSelectedOrder}
         />
 
       </div>
