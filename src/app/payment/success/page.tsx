@@ -3,7 +3,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Check, Mail, Download, Heart, RotateCcw } from "lucide-react"
+import { Check, Mail, Download, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import gsap from "gsap"
@@ -43,18 +43,35 @@ export default function PaymentSuccessPage() {
       })
 
       // Calculate centering for the selected item
-      // We want to move it to the horizontal center of the gridRef
       const gridRect = gridRef.current.getBoundingClientRect()
       const itemRect = selectedItem.getBoundingClientRect()
       const xOffset = (gridRect.left + gridRect.width / 2) - (itemRect.left + itemRect.width / 2)
 
+      // Transform the selected item into the tall card style from the design
       gsap.to(selectedItem, {
         x: xOffset,
-        scale: 1.3,
+        scale: 1.1,
+        height: "160px",
+        width: "100px",
+        backgroundColor: "#ffffff",
+        borderColor: "rgba(0,0,0,0.05)",
+        borderRadius: "2.5rem",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
         duration: 0.6,
-        ease: "back.out(1.7)",
+        ease: "back.out(1.2)",
         delay: 0.1
       })
+
+      // Scale up the emoji specifically
+      const emoji = selectedItem.querySelector('.emoji-span')
+      if (emoji) {
+        gsap.to(emoji, {
+          scale: 1.5,
+          duration: 0.6,
+          ease: "back.out(1.2)",
+          delay: 0.1
+        })
+      }
 
       // Fade in appreciation message
       if (appreciationRef.current) {
@@ -62,30 +79,6 @@ export default function PaymentSuccessPage() {
           { opacity: 0, y: 10, display: 'none' },
           { opacity: 1, y: 0, display: 'flex', duration: 0.5, delay: 0.5, ease: "power2.out" }
         )
-      }
-    } else if (selectedRating === null && gridRef.current) {
-      // Reset animation
-      const items = gridRef.current.querySelectorAll('.rating-item')
-      gsap.to(items, {
-        x: 0,
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        pointerEvents: 'auto',
-        duration: 0.5,
-        ease: "power2.out",
-        stagger: 0.05
-      })
-
-      if (appreciationRef.current) {
-        gsap.to(appreciationRef.current, {
-          opacity: 0,
-          y: 10,
-          duration: 0.3,
-          onComplete: () => {
-            if (appreciationRef.current) appreciationRef.current.style.display = 'none'
-          }
-        })
       }
     }
   }, { scope: containerRef, dependencies: [selectedRating] })
@@ -95,70 +88,62 @@ export default function PaymentSuccessPage() {
       <div className="w-full max-w-md bg-white rounded-[3rem] shadow-[0_20px_60px_rgba(0,0,0,0.06)] p-8 flex flex-col items-center overflow-hidden">
         
         {/* Success Icon */}
-        <div className="w-24 h-24 bg-[#E9FBF9] rounded-full flex items-center justify-center mb-8">
-          <div className="w-16 h-16 bg-[#12B4A3] rounded-full flex items-center justify-center shadow-lg shadow-[#12B4A3]/20">
-            <Check className="w-10 h-10 text-white" strokeWidth={3} />
+        <div className="w-20 h-20 bg-[#E9FBF9] rounded-full flex items-center justify-center mb-6">
+          <div className="w-14 h-14 bg-[#12B4A3] rounded-full flex items-center justify-center shadow-lg shadow-[#12B4A3]/20">
+            <Check className="w-8 h-8 text-white" strokeWidth={3} />
           </div>
         </div>
 
         {/* Success Message */}
-        <div className="text-center space-y-3 mb-12">
-          <h1 className="text-[2rem] font-bold text-[#1E2B4D] tracking-tight leading-none">Payment Successful!</h1>
-          <p className="text-[#8E9AAF] font-medium">Thank you for dining with us</p>
+        <div className="text-center space-y-2 mb-10">
+          <h1 className="text-[1.75rem] font-bold text-[#1E2B4D] tracking-tight leading-none">Payment Successful!</h1>
+          <p className="text-[#8E9AAF] font-medium text-sm">Thank you for dining with us</p>
         </div>
 
         {/* Divider */}
-        <div className="w-full border-t border-dashed border-slate-200 mb-10" />
+        <div className="w-full border-t border-dashed border-slate-200 mb-8" />
 
         {/* Experience Section */}
-        <div className="w-full text-center space-y-6 mb-10 relative min-h-[140px]">
+        <div className="w-full text-center space-y-6 mb-8 relative min-h-[180px] flex flex-col items-center">
           <div className="space-y-1">
-            <h2 className="text-xl font-bold text-[#1E2B4D]">
+            <h2 className="text-lg font-bold text-[#1E2B4D]">
               {selectedRating === null ? "How was your experience?" : "Thank you for the rating!"}
             </h2>
-            <p className="text-xs font-semibold text-[#8E9AAF]">
+            <p className="text-[11px] font-semibold text-[#8E9AAF]">
               {selectedRating === null ? "Your feedback helps us improve" : "We've received your feedback"}
             </p>
           </div>
 
-          <div className="grid grid-cols-5 gap-2 w-full pt-2" ref={gridRef}>
+          <div className="grid grid-cols-5 gap-2 w-full pt-4 relative h-full" ref={gridRef}>
             {ratings.map((rating, index) => (
               <button
                 key={index}
+                disabled={selectedRating !== null}
                 onClick={() => setSelectedRating(index)}
                 className={cn(
-                  "rating-item flex flex-col items-center gap-2 p-2 rounded-2xl border transition-all duration-200",
+                  "rating-item flex flex-col items-center justify-center gap-3 p-2 rounded-2xl border transition-all duration-300",
                   selectedRating === index 
-                    ? "bg-[#E9FBF9] border-[#12B4A3] z-10" 
-                    : "bg-white border-slate-100 hover:border-slate-200"
+                    ? "bg-white border-slate-100 z-10" 
+                    : "bg-white border-slate-100 hover:border-slate-200",
+                  selectedRating !== null && selectedRating !== index && "opacity-0 pointer-events-none"
                 )}
               >
-                <span className="text-3xl">{rating.emoji}</span>
+                <span className="emoji-span text-3xl transition-transform">{rating.emoji}</span>
                 <span className={cn(
                   "text-[10px] font-bold",
-                  selectedRating === index ? "text-[#12B4A3]" : "text-slate-400"
+                  selectedRating === index ? "text-[#1E2B4D]" : "text-slate-400"
                 )}>
                   {rating.label}
                 </span>
               </button>
             ))}
           </div>
-
-          {selectedRating !== null && (
-            <button 
-              onClick={() => setSelectedRating(null)}
-              className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-[#12B4A3] transition-colors"
-            >
-              <RotateCcw className="w-3 h-3" />
-              Change Rating
-            </button>
-          )}
         </div>
 
         {/* Appreciation Footer - Now Conditional with GSAP Animation */}
         <div 
           ref={appreciationRef}
-          className="items-center justify-center gap-2 mb-10 hidden opacity-0"
+          className="items-center justify-center gap-2 mb-8 hidden opacity-0"
         >
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
           <span className="text-[11px] font-bold text-[#8E9AAF] uppercase tracking-wider">We appreciate your feedback</span>
