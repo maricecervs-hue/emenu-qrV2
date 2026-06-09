@@ -16,6 +16,7 @@ interface Category {
   id: string
   name: string
   icon: React.ReactNode
+  itemCount?: number
 }
 
 interface CategoryListDrawerProps {
@@ -31,8 +32,12 @@ export function CategoryListDrawer({ isOpen, onClose, categories, activeId, onSe
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent side="bottom" className="h-[60vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden z-[150]">
         <SheetHeader className="px-6 pt-8 pb-4 border-b border-slate-50">
-          <SheetTitle className="text-xl font-bold text-[#1E2B4D] tracking-tight text-left">Menu Sections</SheetTitle>
-          <SheetDescription className="text-xs font-medium text-[#8E9AAF] text-left">Select a category to jump directly to it.</SheetDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <SheetTitle className="text-xl font-bold text-[#1E2B4D] tracking-tight text-left">Menu Sections</SheetTitle>
+              <SheetDescription className="text-xs font-medium text-[#8E9AAF] text-left">Jump directly to a category.</SheetDescription>
+            </div>
+          </div>
         </SheetHeader>
         <ScrollArea className="h-full px-2 pt-2 pb-24">
           <div className="space-y-0.5">
@@ -44,29 +49,36 @@ export function CategoryListDrawer({ isOpen, onClose, categories, activeId, onSe
                   onClose()
                 }}
                 className={cn(
-                  "w-full flex items-center justify-between p-4 rounded-2xl transition-all duration-200 active:bg-slate-100 group",
+                  "w-full flex items-center justify-between p-3 rounded-2xl transition-all duration-200 active:bg-slate-100 group",
                   activeId === category.id ? "bg-slate-50" : "bg-transparent"
                 )}
               >
                 <div className="flex items-center gap-4">
                   <div className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
+                    "w-9 h-9 rounded-full flex items-center justify-center transition-colors",
                     activeId === category.id ? "bg-[#12B4A3] text-white" : "bg-slate-50 text-slate-400 group-hover:text-[#12B4A3]"
                   )}>
-                    <div className="scale-110">
+                    <div className="scale-100">
                       {category.icon}
                     </div>
                   </div>
-                  <span className={cn(
-                    "font-semibold text-base transition-colors",
-                    activeId === category.id ? "text-[#12B4A3]" : "text-[#1E2B4D]"
-                  )}>
-                    {category.name}
-                  </span>
+                  <div className="flex flex-col items-start">
+                    <span className={cn(
+                      "font-semibold text-sm transition-colors",
+                      activeId === category.id ? "text-[#12B4A3]" : "text-[#1E2B4D]"
+                    )}>
+                      {category.name}
+                    </span>
+                    {category.itemCount !== undefined && (
+                      <span className="text-[10px] font-medium text-[#8E9AAF]">
+                        {category.itemCount} items
+                      </span>
+                    )}
+                  </div>
                 </div>
                 {activeId === category.id && (
-                  <div className="w-6 h-6 rounded-full bg-[#12B4A3]/10 flex items-center justify-center animate-in zoom-in-75 duration-300">
-                    <Check className="w-3.5 h-3.5 text-[#12B4A3]" strokeWidth={3} />
+                  <div className="w-5 h-5 rounded-full bg-[#12B4A3]/10 flex items-center justify-center animate-in zoom-in-75 duration-300">
+                    <Check className="w-3 h-3 text-[#12B4A3]" strokeWidth={3} />
                   </div>
                 )}
               </button>

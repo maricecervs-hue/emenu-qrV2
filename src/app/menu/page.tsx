@@ -202,6 +202,13 @@ export default function MenuPage() {
     })).filter(section => section.items.length > 0)
   }, [])
 
+  const categoriesWithCounts = React.useMemo(() => {
+    return CATEGORIES.map(cat => ({
+      ...cat,
+      itemCount: MENU_ITEMS.filter(item => item.category === cat.id).length
+    }))
+  }, [])
+
   React.useEffect(() => {
     const handleScroll = () => {
       if (!scrollContainerRef.current) return
@@ -524,7 +531,7 @@ export default function MenuPage() {
         <CategoryListDrawer 
           isOpen={isCategoryListOpen}
           onClose={() => setIsCategoryListOpen(false)}
-          categories={CATEGORIES}
+          categories={categoriesWithCounts}
           activeId={activeCategory}
           onSelect={handleCategoryChange}
         />
