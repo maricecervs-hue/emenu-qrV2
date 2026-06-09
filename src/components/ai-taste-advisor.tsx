@@ -52,7 +52,7 @@ export function AITasteAdvisor() {
           <Sparkles className="h-6 w-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="bottom" className="h-[85vh] rounded-t-[2.5rem] bg-background border-none p-0 overflow-hidden [&>button]:hidden">
+      <SheetContent side="bottom" className="h-[85vh] rounded-t-[2.5rem] bg-background border-none p-0 overflow-hidden">
         <div className="mx-auto mt-4 h-1.5 w-12 rounded-full bg-muted" />
         <ScrollArea className="h-full">
           <div className="p-6 pb-24 space-y-8">

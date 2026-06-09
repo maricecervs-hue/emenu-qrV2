@@ -48,7 +48,7 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FB] overflow-hidden shadow-2xl flex flex-col [&>button]:hidden">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FB] overflow-hidden shadow-2xl flex flex-col">
         <SheetHeader className="sr-only">
           <SheetTitle>Order #{order.orderNumber}</SheetTitle>
           <SheetDescription>Status and bill summary for your order.</SheetDescription>

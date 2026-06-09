@@ -77,7 +77,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
   return (
     <>
       <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-        <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden shadow-2xl flex flex-col [&>button]:hidden">
+        <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden shadow-2xl flex flex-col">
           <SheetHeader className="sr-only">
             <SheetTitle>Payment</SheetTitle>
             <SheetDescription>Complete your order and payment.</SheetDescription>

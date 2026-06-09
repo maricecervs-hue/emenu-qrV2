@@ -65,7 +65,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden [&>button]:hidden">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden">
         <SheetHeader className="sr-only">
           <SheetTitle>Your Basket</SheetTitle>
           <SheetDescription>View and manage your selected items.</SheetDescription>
@@ -81,7 +81,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
               <p className="text-xs font-medium text-[#8E9AAF]">{items.length} {items.length === 1 ? 'item' : 'items'}</p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 pr-8">
             <button 
               onClick={onClose}
               className="text-[#12B4A3] font-medium text-sm underline decoration-dotted underline-offset-4"
