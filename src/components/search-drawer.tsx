@@ -45,7 +45,7 @@ const ALLERGENS = [
 
 export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
   const [searchQuery, setSearchQuery] = React.useState("")
-  const [activeAllergen, setActiveAllergen] = React.useState<string | null>(null)
+  const [activeAllergens, setActiveAllergens] = React.useState<string[]>([])
 
   const filteredItems = React.useMemo(() => {
     return items.filter(item => {
@@ -54,15 +54,23 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
       
       // For demo purposes, we'll assign random allergens to items if they don't have them
       const itemAllergen = item.id % 2 === 0 ? 'gluten' : (item.id % 3 === 0 ? 'dairy' : (item.id % 5 === 0 ? 'eggs' : 'fish'));
-      const matchesAllergen = !activeAllergen || itemAllergen === activeAllergen;
+      const matchesAllergen = activeAllergens.length === 0 || activeAllergens.includes(itemAllergen);
 
       return matchesSearch && matchesAllergen;
     })
-  }, [items, searchQuery, activeAllergen])
+  }, [items, searchQuery, activeAllergens])
 
   const getItemAllergenLabel = (id: string) => {
     const aid = Number(id) % 2 === 0 ? 'Gluten' : (Number(id) % 3 === 0 ? 'Dairy' : (Number(id) % 5 === 0 ? 'Eggs' : 'Fish'));
     return `Contains ${aid}`;
+  }
+
+  const toggleAllergen = (id: string) => {
+    setActiveAllergens(prev => 
+      prev.includes(id) 
+        ? prev.filter(a => a !== id) 
+        : [...prev, id]
+    )
   }
 
   return (
@@ -104,10 +112,10 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
           {/* Filter Chips */}
           <div className="flex gap-2.5 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-1">
             <button
-              onClick={() => setActiveAllergen(null)}
+              onClick={() => setActiveAllergens([])}
               className={cn(
                 "px-5 py-2 rounded-xl text-xs font-semibold transition-all border",
-                !activeAllergen 
+                activeAllergens.length === 0 
                   ? "bg-[#12B4A3] border-[#12B4A3] text-white" 
                   : "bg-white border-slate-100 text-slate-500"
               )}
@@ -117,10 +125,10 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
             {ALLERGENS.map((a) => (
               <button
                 key={a.id}
-                onClick={() => setActiveAllergen(a.id === activeAllergen ? null : a.id)}
+                onClick={() => toggleAllergen(a.id)}
                 className={cn(
                   "px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all border whitespace-nowrap",
-                  activeAllergen === a.id 
+                  activeAllergens.includes(a.id) 
                     ? "bg-[#12B4A3] border-[#12B4A3] text-white" 
                     : "bg-white border-slate-100 text-slate-500"
                 )}
