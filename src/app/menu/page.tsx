@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react"
@@ -327,10 +326,10 @@ export default function MenuPage() {
                 <ChevronLeft className="w-6 h-6 text-slate-800" />
               </Link>
               <div className="flex flex-col">
-                <h2 className="text-xl font-bold text-[#1E2B4D]">
+                <h2 className="text-xl font-semibold text-[#1E2B4D]">
                   {CATEGORIES.find(c => c.id === activeCategory)?.name || 'Menu'}
                 </h2>
-                <span className="text-sm font-semibold text-[#12B4A3]">
+                <span className="text-sm font-medium text-[#12B4A3]">
                   {activeCategoryItemsCount} items
                 </span>
               </div>
@@ -354,7 +353,7 @@ export default function MenuPage() {
                 className="space-y-6 scroll-mt-24" 
               >
                 <div className="flex items-center gap-4">
-                  <h3 className="text-2xl font-bold text-[#1E2B4D] whitespace-nowrap">
+                  <h3 className="text-2xl font-semibold text-[#1E2B4D] whitespace-nowrap">
                     {section.title}
                   </h3>
                   <div className="h-px flex-1 border-t border-dashed border-slate-300" />
@@ -399,7 +398,7 @@ export default function MenuPage() {
               <ShoppingCart className="w-7 h-7 text-white" />
             </Button>
             {totalCartItems > 0 && (
-              <div className="absolute -top-1 -right-1 w-6 h-6 bg-black text-white text-[10px] font-semibold rounded-full flex items-center justify-center border-2 border-white">
+              <div className="absolute -top-1 -right-1 w-6 h-6 bg-black text-white text-[10px] font-medium rounded-full flex items-center justify-center border-2 border-white">
                 {totalCartItems}
               </div>
             )}
@@ -409,11 +408,11 @@ export default function MenuPage() {
         <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40 transition-transform duration-300 ease-in-out">
           <div className="flex flex-col items-center gap-1.5 cursor-pointer">
             <Home className="w-7 h-7 text-[#12B4A3]" strokeWidth={2} />
-            <span className="text-sm font-semibold text-[#12B4A3]">Menu</span>
+            <span className="text-sm font-medium text-[#12B4A3]">Menu</span>
           </div>
           <Link href="/orders" className="flex flex-col items-center gap-1.5 cursor-pointer opacity-30 transition-opacity hover:opacity-100">
             <ClipboardList className="w-7 h-7 text-slate-500" strokeWidth={2} />
-            <span className="text-sm font-semibold text-slate-500">Orders</span>
+            <span className="text-sm font-medium text-slate-500">Orders</span>
           </Link>
         </nav>
 

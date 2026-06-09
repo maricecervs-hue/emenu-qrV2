@@ -76,7 +76,7 @@ export default function PaymentSuccessPage() {
     if (selectedRating !== null) {
       const tl = gsap.timeline();
 
-      // Fade out the current feedback header and the emoji grid
+      // Fade out current content
       tl.to([headerTextRef.current, gridRef.current], {
         opacity: 0,
         y: -10,
@@ -116,7 +116,7 @@ export default function PaymentSuccessPage() {
 
         {/* Success Message */}
         <div className="text-center space-y-2 mb-8">
-          <h1 className="text-[1.75rem] font-bold text-[#1E2B4D] tracking-tight leading-none">Payment Successful!</h1>
+          <h1 className="text-[1.75rem] font-semibold text-[#1E2B4D] tracking-tight leading-none">Payment Successful!</h1>
           <p className="text-[#8E9AAF] font-medium text-sm">Your order is confirmed</p>
         </div>
 
@@ -126,10 +126,10 @@ export default function PaymentSuccessPage() {
         {/* Order Status Timeline */}
         <div className="w-full bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100/50 mb-8 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-[#1E2B4D]">Order Status</h3>
+            <h3 className="text-sm font-semibold text-[#1E2B4D]">Order Status</h3>
             <div className="flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-full border border-slate-100 shadow-sm">
               <Clock className="w-3 h-3 text-[#12B4A3]" />
-              <span className="text-[10px] font-bold text-[#1E2B4D]">Est. 15-20 min</span>
+              <span className="text-[10px] font-semibold text-[#1E2B4D]">Est. 15-20 min</span>
             </div>
           </div>
 
@@ -156,7 +156,7 @@ export default function PaymentSuccessPage() {
                   )}
                 </div>
                 <span className={cn(
-                  "text-[10px] font-bold uppercase tracking-tight transition-colors",
+                  "text-[10px] font-semibold uppercase tracking-tight transition-colors",
                   step.active ? "text-[#1E2B4D]" : "text-slate-300"
                 )}>
                   {step.label}
@@ -171,8 +171,8 @@ export default function PaymentSuccessPage() {
           
           {/* Header text before selection */}
           <div ref={headerTextRef} className="space-y-1 mb-6">
-            <h2 className="text-lg font-bold text-[#1E2B4D]">How was your experience?</h2>
-            <p className="text-[11px] font-semibold text-[#8E9AAF]">Your feedback helps us improve</p>
+            <h2 className="text-lg font-semibold text-[#1E2B4D]">How was your experience?</h2>
+            <p className="text-[11px] font-medium text-[#8E9AAF]">Your feedback helps us improve</p>
           </div>
 
           {/* Grid before selection */}
@@ -184,7 +184,7 @@ export default function PaymentSuccessPage() {
                 className="flex flex-col items-center justify-center gap-2 p-2 rounded-xl border border-slate-100 bg-white hover:border-slate-200 transition-all duration-300 active:scale-95"
               >
                 <span className="text-2xl">{rating.emoji}</span>
-                <span className="text-[9px] font-bold text-slate-400">
+                <span className="text-[9px] font-medium text-slate-400">
                   {rating.label}
                 </span>
               </button>
@@ -196,7 +196,7 @@ export default function PaymentSuccessPage() {
             ref={successCardRef} 
             className="hidden w-full bg-[#F9FDF2] rounded-[1.8rem] py-5 px-4 border border-[#E9F3D7] flex-col items-center justify-center shadow-sm max-w-[240px] mx-auto overflow-hidden relative"
           >
-            <h2 className="text-[18px] font-bold text-[#82A24F] tracking-tight text-center leading-none mb-3">
+            <h2 className="text-[18px] font-semibold text-[#82A24F] tracking-tight text-center leading-none mb-3">
               Thanks for your Rating!
             </h2>
             <button className="text-[13px] font-medium text-[#3A5D3E] hover:opacity-80 transition-opacity mb-2">
@@ -210,14 +210,14 @@ export default function PaymentSuccessPage() {
         <div className="w-full space-y-3">
           <Button 
             variant="outline" 
-            className="w-full h-14 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-bold flex items-center justify-center gap-3 hover:bg-[#12B4A3]/5"
+            className="w-full h-14 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-medium flex items-center justify-center gap-3 hover:bg-[#12B4A3]/5"
           >
             <Mail className="w-5 h-5" />
             Email Receipt
           </Button>
 
           <Link href="/" className="block pt-2">
-            <Button className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-lg shadow-xl shadow-[#12B4A3]/20 transition-transform active:scale-95">
+            <Button className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-medium text-lg shadow-xl shadow-[#12B4A3]/20 transition-transform active:scale-95">
               Done
             </Button>
           </Link>

@@ -60,7 +60,7 @@ export function MenuCard({
       >
         <div className="flex-1 p-5 flex flex-col justify-between">
           <div className="space-y-1.5">
-            <h3 className="font-bold text-[#1E2B4D] leading-tight text-lg">
+            <h3 className="font-semibold text-[#1E2B4D] leading-tight text-lg">
               {name}
             </h3>
             <p className="text-xs text-[#8E9AAF] font-normal line-clamp-2 leading-relaxed">
@@ -69,8 +69,8 @@ export function MenuCard({
           </div>
           
           <div className="flex items-center gap-1.5 pt-2">
-            <span className="text-[#1E2B4D] font-bold text-base">$</span>
-            <span className="text-[#1E2B4D] font-bold text-xl">{price.toFixed(2)}</span>
+            <span className="text-[#1E2B4D] font-semibold text-base">$</span>
+            <span className="text-[#1E2B4D] font-semibold text-xl">{price.toFixed(2)}</span>
           </div>
         </div>
 
@@ -98,7 +98,7 @@ export function MenuCard({
                 >
                   {currentQuantity === 1 ? <Trash2 className="w-3.5 h-3.5" /> : <Minus className="w-3.5 h-3.5" />}
                 </Button>
-                <span className="text-sm font-semibold text-[#1E2B4D]">{currentQuantity}</span>
+                <span className="text-sm font-medium text-[#1E2B4D]">{currentQuantity}</span>
                 <Button 
                   variant="ghost" 
                   size="icon" 
@@ -119,7 +119,7 @@ export function MenuCard({
               <div className="flex flex-col items-center gap-1 w-[85%]">
                 <Button 
                   className={cn(
-                    "w-full h-8 rounded-full bg-[#12B4A3] hover:bg-[#109e8f] text-white font-semibold text-sm shadow-lg transition-all",
+                    "w-full h-8 rounded-full bg-[#12B4A3] hover:bg-[#109e8f] text-white font-medium text-sm shadow-lg transition-all",
                     isAdding && "scale-110 bg-[#109e8f]"
                   )}
                   onClick={handleAddClick}
@@ -127,7 +127,7 @@ export function MenuCard({
                   {isAdding ? "..." : "Add"}
                 </Button>
                 {customisable && (
-                  <span className="text-[10px] font-semibold text-white drop-shadow-md tracking-wide">
+                  <span className="text-[10px] font-medium text-white drop-shadow-md tracking-wide">
                     Customisable
                   </span>
                 )}

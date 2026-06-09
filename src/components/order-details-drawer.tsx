@@ -63,7 +63,7 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
           >
             <ChevronLeft className="w-6 h-6 text-slate-800" />
           </button>
-          <h1 className="text-xl font-bold text-[#1E2B4D]">Order #{order.orderNumber}</h1>
+          <h1 className="text-xl font-semibold text-[#1E2B4D]">Order #{order.orderNumber}</h1>
         </header>
 
         <ScrollArea className="flex-1">
@@ -72,10 +72,10 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
             {/* Order Status Card */}
             <div className="bg-white rounded-[2rem] p-8 shadow-[0_8px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-8">
               <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-[#1E2B4D]">Order Status</h2>
+                <h2 className="text-2xl font-semibold text-[#1E2B4D]">Order Status</h2>
                 <Badge className="bg-[#E9FBF9] text-[#12B4A3] border-none rounded-full px-4 py-1.5 flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 bg-[#12B4A3] rounded-full" />
-                  <span className="text-xs font-bold">Paid</span>
+                  <span className="text-xs font-semibold">Paid</span>
                 </Badge>
               </div>
 
@@ -98,7 +98,7 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
                       {step.icon}
                     </div>
                     <span className={cn(
-                      "text-xs font-bold transition-colors whitespace-nowrap",
+                      "text-xs font-semibold transition-colors whitespace-nowrap",
                       step.active ? "text-[#1E2B4D]" : "text-[#8E9AAF]"
                     )}>
                       {step.label}
@@ -110,26 +110,26 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
 
             {/* Bill Summary Card */}
             <div className="bg-white rounded-[2rem] p-8 shadow-[0_8px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-6">
-              <h2 className="text-2xl font-bold text-[#1E2B4D]">Bill Summary</h2>
+              <h2 className="text-2xl font-semibold text-[#1E2B4D]">Bill Summary</h2>
               
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium text-[#8E9AAF]">Subtotal</span>
-                  <span className="text-lg font-bold text-[#8E9AAF]">${subtotal.toFixed(2)}</span>
+                  <span className="text-lg font-normal text-[#8E9AAF]">Subtotal</span>
+                  <span className="text-lg font-semibold text-[#8E9AAF]">${subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium text-[#8E9AAF]">Taxes & Fees</span>
-                  <span className="text-lg font-bold text-[#8E9AAF]">${taxes.toFixed(2)}</span>
+                  <span className="text-lg font-normal text-[#8E9AAF]">Taxes & Fees</span>
+                  <span className="text-lg font-semibold text-[#8E9AAF]">${taxes.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium text-[#8E9AAF]">Tip</span>
-                  <span className="text-lg font-bold text-[#8E9AAF]">${tip.toFixed(2)}</span>
+                  <span className="text-lg font-normal text-[#8E9AAF]">Tip</span>
+                  <span className="text-lg font-semibold text-[#8E9AAF]">${tip.toFixed(2)}</span>
                 </div>
                 
                 <Separator className="bg-slate-50" />
                 
                 <div className="flex justify-between items-center pt-2">
-                  <span className="text-2xl font-bold text-[#1E2B4D]">Total</span>
+                  <span className="text-2xl font-semibold text-[#1E2B4D]">Total</span>
                   <span className="text-2xl font-bold text-[#1E2B4D]">${total.toFixed(2)}</span>
                 </div>
               </div>

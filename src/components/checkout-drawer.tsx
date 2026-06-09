@@ -93,7 +93,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
             >
               <ChevronLeft className="h-6 w-6 text-slate-800" />
             </Button>
-            <h2 className="text-xl font-bold text-[#1E2B4D] tracking-tight">Payment</h2>
+            <h2 className="text-xl font-semibold text-[#1E2B4D] tracking-tight">Payment</h2>
             <Button 
               variant="ghost" 
               size="icon" 
@@ -113,7 +113,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                   <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
                     <Package className="w-4 h-4 text-[#12B4A3]" />
                   </div>
-                  <h3 className="text-lg font-bold text-[#1E2B4D]">Review Order</h3>
+                  <h3 className="text-lg font-semibold text-[#1E2B4D]">Review Order</h3>
                 </div>
                 
                 <div className="space-y-3">
@@ -121,8 +121,8 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                     <div key={item.cartId} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50 flex items-start justify-between gap-4">
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-bold text-[#12B4A3] bg-[#E9FBF9] px-2 py-0.5 rounded-md">{item.quantity}x</span>
-                          <h4 className="font-bold text-[#1E2B4D] text-sm">{item.name}</h4>
+                          <span className="text-sm font-semibold text-[#12B4A3] bg-[#E9FBF9] px-2 py-0.5 rounded-md">{item.quantity}x</span>
+                          <h4 className="font-semibold text-[#1E2B4D] text-sm">{item.name}</h4>
                         </div>
                         {item.customizations && (
                           <p className="text-[10px] font-medium text-[#8E9AAF] leading-relaxed pl-8 italic">
@@ -130,7 +130,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                           </p>
                         )}
                       </div>
-                      <span className="font-bold text-[#1E2B4D] text-sm whitespace-nowrap">
+                      <span className="font-semibold text-[#1E2B4D] text-sm whitespace-nowrap">
                         $ {(item.price * item.quantity).toFixed(2)}
                       </span>
                     </div>
@@ -142,18 +142,18 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
               <div className="bg-white p-7 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-5">
                 <div className="flex justify-between items-center text-base">
                   <span className="font-normal text-slate-400">Subtotal</span>
-                  <span className="font-semibold text-[#1E2B4D]">$ {subtotal.toFixed(2)}</span>
+                  <span className="font-medium text-[#1E2B4D]">$ {subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-base">
                   <span className="font-normal text-slate-400">Taxes & Fees</span>
-                  <span className="font-semibold text-[#1E2B4D]">$ {tax.toFixed(2)}</span>
+                  <span className="font-medium text-[#1E2B4D]">$ {tax.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-base">
                   <span className="font-normal text-slate-400">Tip</span>
-                  <span className="font-semibold text-[#1E2B4D]">AED {tipAmount.toFixed(2)}</span>
+                  <span className="font-medium text-[#1E2B4D]">AED {tipAmount.toFixed(2)}</span>
                 </div>
                 <div className="pt-6 border-t border-slate-100 flex justify-between items-center">
-                  <span className="text-2xl font-bold text-[#1E2B4D]">Total</span>
+                  <span className="text-2xl font-semibold text-[#1E2B4D]">Total</span>
                   <span className="text-2xl font-bold text-[#1E2B4D]">$ {total.toFixed(2)}</span>
                 </div>
               </div>
@@ -164,8 +164,8 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                   <span className="text-5xl animate-wave origin-[70%_70%]">👋</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold text-[#1E2B4D]">Thank your server?</h3>
-                  <p className="text-sm font-semibold text-slate-400 max-w-[280px] leading-relaxed mx-auto">
+                  <h3 className="text-2xl font-semibold text-[#1E2B4D]">Thank your server?</h3>
+                  <p className="text-sm font-medium text-slate-400 max-w-[280px] leading-relaxed mx-auto">
                     Your small act of kindness goes a long way. 100% of tips go to the staff.
                   </p>
                 </div>
@@ -205,14 +205,14 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
 
                         {isCustom && isSelected ? (
                           <div className="w-full h-full flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-200">
-                            <span className="text-[10px] font-bold text-[#12B4A3] mb-1">Enter Tip</span>
+                            <span className="text-[10px] font-semibold text-[#12B4A3] mb-1">Enter Tip</span>
                             <div className="flex items-center gap-1 border-b border-[#12B4A3] pb-1">
-                              <span className="text-xs font-bold text-[#1E2B4D]">AED</span>
+                              <span className="text-xs font-semibold text-[#1E2B4D]">AED</span>
                               <Input 
                                 type="number" 
                                 value={customTipValue}
                                 onChange={(e) => setCustomTipValue(e.target.value)}
-                                className="border-none bg-transparent h-auto p-0 text-sm font-bold text-[#1E2B4D] w-12 focus-visible:ring-0 text-center"
+                                className="border-none bg-transparent h-auto p-0 text-sm font-semibold text-[#1E2B4D] w-12 focus-visible:ring-0 text-center"
                                 autoFocus
                                 onClick={(e) => e.stopPropagation()}
                               />
@@ -226,7 +226,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                             )}>
                               {tip.icon}
                             </div>
-                            <span className="text-[11px] font-bold uppercase tracking-tight">{tip.label}</span>
+                            <span className="text-[11px] font-semibold uppercase tracking-tight">{tip.label}</span>
                           </>
                         )}
                       </button>
@@ -241,13 +241,13 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
           <div className="bg-white p-6 border-t border-slate-100 flex gap-4 shadow-[0_-20px_60px_rgba(0,0,0,0.05)] shrink-0">
             <Button 
               variant="outline"
-              className="flex-1 h-14 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-bold text-base hover:bg-[#12B4A3]/5"
+              className="flex-1 h-14 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-medium text-base hover:bg-[#12B4A3]/5"
             >
               <Users className="w-5 h-5 mr-2" />
               Split Bill
             </Button>
             <Button 
-              className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-base shadow-xl shadow-[#12B4A3]/20 transition-transform active:scale-95"
+              className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-medium text-base shadow-xl shadow-[#12B4A3]/20 transition-transform active:scale-95"
               onClick={handlePay}
             >
               Pay $ {total.toFixed(2)}

@@ -55,7 +55,7 @@ export default function OrdersPage() {
         
         {/* Header */}
         <header className="pt-8 pb-6 px-6 bg-white shrink-0">
-          <h1 className="text-3xl font-extrabold text-[#1E2B4D] tracking-tight">Your Orders</h1>
+          <h1 className="text-3xl font-bold text-[#1E2B4D] tracking-tight">Your Orders</h1>
         </header>
 
         {/* Filters */}
@@ -68,7 +68,7 @@ export default function OrdersPage() {
                 key={filter}
                 onClick={() => setActiveFilter(label as any)}
                 className={cn(
-                  "px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap border-2",
+                  "px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap border-2",
                   isActive 
                     ? "bg-[#12B4A3] border-[#12B4A3] text-white shadow-lg shadow-[#12B4A3]/20" 
                     : "bg-white border-transparent text-[#8E9AAF] hover:border-slate-200"
@@ -97,20 +97,20 @@ export default function OrdersPage() {
                     {/* Top Row: ID & Status */}
                     <div className="flex justify-between items-start">
                       <div className="space-y-1">
-                        <h2 className="text-xl font-bold text-[#1E2B4D]">Order #{order.orderNumber}</h2>
+                        <h2 className="text-xl font-semibold text-[#1E2B4D]">Order #{order.orderNumber}</h2>
                         <div className="flex items-center gap-4 text-[#8E9AAF]">
                           <div className="flex items-center gap-1.5">
                             <MapPin className="w-3.5 h-3.5" />
-                            <span className="text-xs font-bold">Table {order.table}</span>
+                            <span className="text-xs font-medium">Table {order.table}</span>
                           </div>
                           <div className="flex items-center gap-1.5">
                             <Calendar className="w-3.5 h-3.5" />
-                            <span className="text-xs font-bold">{order.date}</span>
+                            <span className="text-xs font-medium">{order.date}</span>
                           </div>
                         </div>
                       </div>
                       <Badge className={cn(
-                        "rounded-xl px-3 py-1 text-[10px] font-bold uppercase tracking-wider border-none",
+                        "rounded-xl px-3 py-1 text-[10px] font-semibold uppercase tracking-wider border-none",
                         order.status === 'Preparing' ? "bg-[#FFF7ED] text-[#F97316]" : 
                         order.status === 'Served' ? "bg-[#F0FDF4] text-[#22C55E]" : 
                         "bg-[#F8FAFC] text-[#64748B]"
@@ -128,28 +128,28 @@ export default function OrdersPage() {
                           </div>
                         ))}
                         {order.items.length > 3 && (
-                          <div className="relative w-12 h-12 rounded-xl border-[3px] border-white bg-[#F1F5F9] flex items-center justify-center text-[10px] font-bold text-[#1E2B4D] shadow-sm">
+                          <div className="relative w-12 h-12 rounded-xl border-[3px] border-white bg-[#F1F5F9] flex items-center justify-center text-[10px] font-semibold text-[#1E2B4D] shadow-sm">
                             +{order.items.length - 2}
                           </div>
                         )}
                       </div>
-                      <span className="text-sm font-bold text-[#8E9AAF]">{order.items.length} items</span>
+                      <span className="text-sm font-medium text-[#8E9AAF]">{order.items.length} items</span>
                     </div>
 
                     {/* Bottom Row: Total & Action */}
                     <div className="flex justify-between items-center pt-2">
                       <div className="flex flex-col">
-                        <span className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-widest">Total</span>
+                        <span className="text-[10px] font-medium text-[#8E9AAF] uppercase tracking-widest">Total</span>
                         <span className="text-2xl font-bold text-[#1E2B4D]">${Number(order.total).toFixed(2)}</span>
                       </div>
                       {order.status === 'Completed' ? (
-                        <button className="text-[#12B4A3] font-bold text-sm underline decoration-dotted underline-offset-4">
+                        <button className="text-[#12B4A3] font-semibold text-sm underline decoration-dotted underline-offset-4">
                           Reorder
                         </button>
                       ) : (
                         <Button 
                           variant="outline" 
-                          className="rounded-full h-11 px-6 border-slate-100 text-[#12B4A3] font-bold text-sm flex items-center gap-2 hover:bg-[#12B4A3]/5"
+                          className="rounded-full h-11 px-6 border-slate-100 text-[#12B4A3] font-semibold text-sm flex items-center gap-2 hover:bg-[#12B4A3]/5"
                           onClick={() => handleViewDetails(order)}
                         >
                           View Details
@@ -167,13 +167,13 @@ export default function OrdersPage() {
                 <ShoppingBag className="w-16 h-16 text-slate-200" strokeWidth={1.5} />
               </div>
               <div className="text-center space-y-2">
-                <h3 className="text-xl font-bold text-[#1E2B4D]">No orders yet</h3>
-                <p className="text-sm font-medium text-[#8E9AAF] max-w-[200px] mx-auto leading-relaxed">
+                <h3 className="text-xl font-semibold text-[#1E2B4D]">No orders yet</h3>
+                <p className="text-sm font-normal text-[#8E9AAF] max-w-[200px] mx-auto leading-relaxed">
                   Start ordering from our menu to see your orders here!
                 </p>
               </div>
               <Link href="/menu">
-                <Button className="rounded-2xl bg-[#12B4A3] h-12 px-8 font-bold">
+                <Button className="rounded-2xl bg-[#12B4A3] h-12 px-8 font-medium">
                   Browse Menu
                 </Button>
               </Link>
@@ -185,11 +185,11 @@ export default function OrdersPage() {
         <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40">
           <Link href="/menu" className="flex flex-col items-center gap-1.5 cursor-pointer opacity-30 transition-opacity hover:opacity-100">
             <Home className="w-7 h-7 text-slate-500" strokeWidth={2} />
-            <span className="text-sm font-semibold text-slate-500">Menu</span>
+            <span className="text-sm font-medium text-slate-500">Menu</span>
           </Link>
           <div className="flex flex-col items-center gap-1.5 cursor-pointer">
             <ClipboardList className="w-7 h-7 text-[#12B4A3]" strokeWidth={2} />
-            <span className="text-sm font-semibold text-[#12B4A3]">Orders</span>
+            <span className="text-sm font-medium text-[#12B4A3]">Orders</span>
           </div>
         </nav>
 

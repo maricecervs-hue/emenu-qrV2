@@ -28,7 +28,7 @@ export default function Home() {
       <div className="relative w-full max-w-md px-6 pt-8 flex justify-between items-start z-10">
         <div className="bg-white/95 backdrop-blur-sm rounded-full px-4 py-1.5 flex items-center gap-2 shadow-sm border border-white/20">
           <Globe className="w-4 h-4 text-[#12B4A3]" />
-          <span className="text-slate-800 font-semibold text-sm">EN</span>
+          <span className="text-slate-800 font-medium text-sm">EN</span>
           <ChevronDown className="w-4 h-4 text-slate-400" />
         </div>
 
@@ -59,7 +59,7 @@ export default function Home() {
             {/* Table Indicator Pill */}
             <div className="inline-flex items-center gap-2 bg-[#E9F0F7] px-5 py-2 rounded-full">
               <MapPin className="w-4 h-4 text-red-600 fill-red-600" />
-              <span className="text-[#1E2B4D] font-semibold text-sm">Table 12</span>
+              <span className="text-[#1E2B4D] font-medium text-sm">Table 12</span>
             </div>
           </div>
 
@@ -73,7 +73,7 @@ export default function Home() {
             <Link href="/menu" className="block w-full">
               <Button 
                 variant="outline" 
-                className="w-full h-16 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-semibold text-lg flex items-center justify-center gap-3 hover:bg-[#12B4A3]/5 transition-all active:scale-95"
+                className="w-full h-16 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-medium text-lg flex items-center justify-center gap-3 hover:bg-[#12B4A3]/5 transition-all active:scale-95"
               >
                 <Utensils className="w-5 h-5" />
                 View Menu
@@ -81,7 +81,7 @@ export default function Home() {
             </Link>
 
             <Button 
-              className="w-full h-16 rounded-2xl bg-[#12B4A3] text-white font-semibold text-lg flex items-center justify-center gap-3 shadow-xl shadow-[#12B4A3]/20 hover:scale-[1.01] active:scale-95 transition-all"
+              className="w-full h-16 rounded-2xl bg-[#12B4A3] text-white font-medium text-lg flex items-center justify-center gap-3 shadow-xl shadow-[#12B4A3]/20 hover:scale-[1.01] active:scale-95 transition-all"
             >
               <ReceiptText className="w-5 h-5" />
               Pay my Bill
@@ -100,7 +100,7 @@ export default function Home() {
           </div>
           <span className="text-3xl font-bold text-[#12B4A3] tracking-tight -ml-1">eMenu</span>
         </div>
-        <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-widest">Powered by</p>
+        <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest">Powered by</p>
       </footer>
     </main>
   )

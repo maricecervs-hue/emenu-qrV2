@@ -52,13 +52,13 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
 
         {/* Top Header Bar */}
         <div className="px-6 py-2.5 flex items-center justify-between bg-white border-b border-slate-50 z-20 relative">
-          <div className="flex items-center gap-2 text-[#12B4A3] font-bold text-[10px] uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-[#12B4A3] font-medium text-[10px] uppercase tracking-wider">
             <Crown className="w-3 h-3 fill-[#12B4A3]" />
             VIP Club
           </div>
           <button 
             onClick={handleDismiss}
-            className="text-[#8E9AAF] font-bold text-[10px] hover:text-slate-600 transition-colors"
+            className="text-[#8E9AAF] font-medium text-[10px] hover:text-slate-600 transition-colors"
           >
             Not for now
           </button>
@@ -88,26 +88,26 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
                 </div>
 
                 <div className="pt-5 text-center space-y-1 mb-4">
-                  <h2 className="text-xl font-bold text-[#1E2B4D] tracking-tight leading-tight">Save Before You Pay</h2>
-                  <p className="text-[11px] font-semibold text-[#8E9AAF] leading-relaxed max-w-[220px] mx-auto">
-                    Join our <span className="text-[#1E2B4D] font-bold">VIP circle</span> for member-only deals on this order.
+                  <h2 className="text-xl font-semibold text-[#1E2B4D] tracking-tight leading-tight">Save Before You Pay</h2>
+                  <p className="text-[11px] font-medium text-[#8E9AAF] leading-relaxed max-w-[220px] mx-auto">
+                    Join our <span className="text-[#1E2B4D] font-semibold">VIP circle</span> for member-only deals on this order.
                   </p>
                 </div>
 
                 {/* Benefits List - Ultra Condensed */}
                 <div className="w-full space-y-2 mb-4 px-1">
                   {[
-                    { text: 'Unlock <span class="font-bold text-[#1E2B4D]">exclusive</span> restaurant deals' },
-                    { text: 'Get <span class="font-bold text-[#1E2B4D]">special offers</span> instantly' },
-                    { text: 'Receive <span class="font-bold text-[#1E2B4D]">VIP dining</span> discounts' },
-                    { text: 'Grab <span class="font-bold text-[#1E2B4D]">exclusive vouchers</span> fast' },
+                    { text: 'Unlock <span class="font-semibold text-[#1E2B4D]">exclusive</span> restaurant deals' },
+                    { text: 'Get <span class="font-semibold text-[#1E2B4D]">special offers</span> instantly' },
+                    { text: 'Receive <span class="font-semibold text-[#1E2B4D]">VIP dining</span> discounts' },
+                    { text: 'Grab <span class="font-semibold text-[#1E2B4D]">exclusive vouchers</span> fast' },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2.5">
                       <div className="w-4 h-4 rounded-full bg-[#E9FBF9] flex items-center justify-center shrink-0">
                         <Check className="w-2.5 h-2.5 text-[#12B4A3]" strokeWidth={3} />
                       </div>
                       <span 
-                        className="text-[10px] font-semibold text-[#8E9AAF]" 
+                        className="text-[10px] font-medium text-[#8E9AAF]" 
                         dangerouslySetInnerHTML={{ __html: item.text }}
                       />
                     </div>
@@ -120,21 +120,21 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-300 group-focus-within:text-[#12B4A3] transition-colors" />
                     <Input 
                       placeholder="Full Name" 
-                      className="h-11 pl-11 rounded-xl border-2 border-slate-100 focus-visible:ring-0 focus-visible:border-[#12B4A3] font-bold text-[#1E2B4D] placeholder:text-slate-300 text-xs"
+                      className="h-11 pl-11 rounded-xl border-2 border-slate-100 focus-visible:ring-0 focus-visible:border-[#12B4A3] font-medium text-[#1E2B4D] placeholder:text-slate-300 text-xs"
                     />
                   </div>
                   <div className="relative group">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-300 group-focus-within:text-[#12B4A3] transition-colors" />
                     <Input 
                       placeholder="Email Address" 
-                      className="h-11 pl-11 rounded-xl border-2 border-slate-100 focus-visible:ring-0 focus-visible:border-[#12B4A3] font-bold text-[#1E2B4D] placeholder:text-slate-300 text-xs"
+                      className="h-11 pl-11 rounded-xl border-2 border-slate-100 focus-visible:ring-0 focus-visible:border-[#12B4A3] font-medium text-[#1E2B4D] placeholder:text-slate-300 text-xs"
                     />
                   </div>
                   <div className="relative group">
                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-300 group-focus-within:text-[#12B4A3] transition-colors" />
                     <Input 
                       placeholder="Phone Number (Optional)" 
-                      className="h-11 pl-11 rounded-xl border-2 border-slate-100 focus-visible:ring-0 focus-visible:border-[#12B4A3] font-bold text-[#1E2B4D] placeholder:text-slate-300 text-xs"
+                      className="h-11 pl-11 rounded-xl border-2 border-slate-100 focus-visible:ring-0 focus-visible:border-[#12B4A3] font-medium text-[#1E2B4D] placeholder:text-slate-300 text-xs"
                     />
                   </div>
                 </div>
@@ -144,11 +144,11 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
             {/* Action Footer - Tightened */}
             <div className="px-6 space-y-3 mt-4 flex flex-col items-center">
               <Button 
-                className="w-full h-12 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-sm shadow-lg shadow-[#12B4A3]/20 flex items-center justify-center gap-2 transition-transform active:scale-[0.98] relative overflow-hidden group"
+                className="w-full h-12 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-medium text-sm shadow-lg shadow-[#12B4A3]/20 flex items-center justify-center gap-2 transition-transform active:scale-[0.98] relative overflow-hidden group"
                 onClick={handleSignUp}
               >
-                {/* Shiny Animation Layer - High Opacity for obvious effect */}
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/90 to-transparent skew-x-[-25deg] animate-shine pointer-events-none" />
+                {/* Shiny Animation Layer */}
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] animate-shine pointer-events-none" />
                 
                 <span className="relative flex items-center justify-center gap-2">
                   Sign Me Up For Exclusive Deals
@@ -158,7 +158,7 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
               
               <button 
                 onClick={handleDismiss}
-                className="text-[#8E9AAF] font-bold text-xs hover:text-[#1E2B4D] transition-colors"
+                className="text-[#8E9AAF] font-medium text-xs hover:text-[#1E2B4D] transition-colors"
               >
                 Not for now
               </button>
