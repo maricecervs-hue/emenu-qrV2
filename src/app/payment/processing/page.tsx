@@ -1,21 +1,28 @@
 'use client';
 
 import * as React from "react"
-import { ShieldCheck, CheckCircle2, Circle } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { ShieldCheck, CheckCircle2 } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 export default function ProcessingPaymentPage() {
+  const router = useRouter()
   const [step, setStep] = React.useState(1)
 
   React.useEffect(() => {
     const step1 = setTimeout(() => setStep(2), 2000)
     const step2 = setTimeout(() => setStep(3), 4500)
+    const final = setTimeout(() => {
+      router.push('/payment/success')
+    }, 6000)
+
     return () => {
       clearTimeout(step1)
       clearTimeout(step2)
+      clearTimeout(final)
     }
-  }, [])
+  }, [router])
 
   return (
     <main className="min-h-screen bg-white flex flex-col items-center font-body overflow-hidden">
