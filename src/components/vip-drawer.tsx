@@ -144,11 +144,16 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
             {/* Action Footer - Tightened */}
             <div className="px-6 space-y-3 mt-4 flex flex-col items-center">
               <Button 
-                className="w-full h-12 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-sm shadow-lg shadow-[#12B4A3]/20 flex items-center justify-center gap-2 transition-transform active:scale-[0.98]"
+                className="w-full h-12 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-sm shadow-lg shadow-[#12B4A3]/20 flex items-center justify-center gap-2 transition-transform active:scale-[0.98] relative overflow-hidden group"
                 onClick={handleSignUp}
               >
-                Sign Me Up For Exclusive Deals
-                <ArrowRight className="w-4 h-4" />
+                {/* Shiny Animation Layer */}
+                <div className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] animate-shine pointer-events-none" />
+                
+                <span className="relative flex items-center justify-center gap-2">
+                  Sign Me Up For Exclusive Deals
+                  <ArrowRight className="w-4 h-4" />
+                </span>
               </Button>
               
               <button 

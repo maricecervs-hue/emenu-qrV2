@@ -1,4 +1,3 @@
-
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -99,11 +98,17 @@ export default {
           '60%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(0deg)' },
         },
+        shine: {
+          '0%': { transform: 'translateX(-200%)' },
+          '30%': { transform: 'translateX(200%)' },
+          '100%': { transform: 'translateX(200%)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         wave: 'wave 2s linear infinite',
+        shine: 'shine 3s ease-in-out infinite',
       },
     },
   },
