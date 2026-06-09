@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react"
@@ -254,13 +253,13 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
         onClose={() => setIsVipOpen(false)}
         onDismiss={() => {
           setIsVipOpen(false)
-          onClose() // Finalize after dismissing VIP
+          onClose() // Finalize checkout state
         }}
         onSignUp={(data) => {
-          console.log('VIP Signup:', data)
           setIsVipOpen(false)
-          onClose() // Finalize after signing up
+          onClose() // Finalize checkout state
         }}
+        total={total}
       />
     </>
   )

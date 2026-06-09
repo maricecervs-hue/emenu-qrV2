@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { X, Crown, Check, User, Mail, Phone, ArrowRight } from "lucide-react"
 import {
   Sheet,
@@ -13,15 +14,34 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useToast } from "@/hooks/use-toast"
 
 interface VipDrawerProps {
   isOpen: boolean
   onClose: () => void
   onDismiss: () => void
   onSignUp: (data: any) => void
+  total: number
 }
 
-export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp }: VipDrawerProps) {
+export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDrawerProps) {
+  const router = useRouter()
+  const { toast } = useToast()
+
+  const handleDismiss = () => {
+    onDismiss()
+    router.push(`/payment?total=${total.toFixed(2)}`)
+  }
+
+  const handleSignUp = () => {
+    toast({
+      title: "Welcome to the VIP Club!",
+      description: "You've successfully signed up for exclusive deals.",
+    })
+    onSignUp({})
+    router.push(`/payment?total=${total.toFixed(2)}`)
+  }
+
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#FCFBF5] overflow-hidden shadow-2xl">
@@ -37,7 +57,7 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp }: VipDrawerPro
             VIP Club
           </div>
           <button 
-            onClick={onDismiss}
+            onClick={handleDismiss}
             className="text-[#8E9AAF] font-semibold text-sm hover:text-slate-600 transition-colors"
           >
             Not for now
@@ -124,14 +144,14 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp }: VipDrawerPro
             <div className="px-6 space-y-6 mt-8 flex flex-col items-center">
               <Button 
                 className="w-full h-16 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-lg shadow-xl shadow-[#12B4A3]/20 flex items-center justify-center gap-3 transition-transform active:scale-[0.98]"
-                onClick={() => onSignUp({})}
+                onClick={handleSignUp}
               >
                 Sign Me Up For Exclusive Deals
                 <ArrowRight className="w-5 h-5" />
               </Button>
               
               <button 
-                onClick={onDismiss}
+                onClick={handleDismiss}
                 className="text-[#8E9AAF] font-bold text-base hover:text-[#1E2B4D] transition-colors pb-10"
               >
                 Not for now
