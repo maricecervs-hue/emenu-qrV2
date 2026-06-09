@@ -1,5 +1,4 @@
-
-"use client"
+'use client';
 
 import * as React from "react"
 import { X, ChevronLeft, Package, Coffee, Pizza, Beef, Pencil, Users } from "lucide-react"
@@ -117,7 +116,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                       )}
                     </div>
                     <span className="font-bold text-[#1E2B4D] text-sm whitespace-nowrap">
-                      AED {(item.price * item.quantity).toFixed(2)}
+                      $ {(item.price * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 ))}
@@ -128,11 +127,11 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
             <div className="bg-white p-7 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-5">
               <div className="flex justify-between items-center text-base">
                 <span className="font-normal text-slate-400">Subtotal</span>
-                <span className="font-semibold text-[#1E2B4D]">AED {subtotal.toFixed(2)}</span>
+                <span className="font-semibold text-[#1E2B4D]">$ {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-base">
                 <span className="font-normal text-slate-400">Taxes & Fees</span>
-                <span className="font-semibold text-[#1E2B4D]">AED {tax.toFixed(2)}</span>
+                <span className="font-semibold text-[#1E2B4D]">$ {tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-base">
                 <span className="font-normal text-slate-400">Tip</span>
@@ -140,7 +139,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
               </div>
               <div className="pt-6 border-t border-slate-100 flex justify-between items-center">
                 <span className="text-2xl font-bold text-[#1E2B4D]">Total</span>
-                <span className="text-2xl font-bold text-[#1E2B4D]">AED {total.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-[#1E2B4D]">$ {total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -236,7 +235,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
             className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-base shadow-xl shadow-[#12B4A3]/20 transition-transform active:scale-95"
             onClick={onClose}
           >
-            Pay AED {total.toFixed(2)}
+            Pay $ {total.toFixed(2)}
           </Button>
         </div>
       </SheetContent>

@@ -1,5 +1,4 @@
-
-"use client"
+'use client';
 
 import * as React from "react"
 import Image from "next/image"
@@ -224,7 +223,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                     </div>
 
                     <div className="flex items-center gap-2 pt-2">
-                      <span className="text-3xl font-bold text-[#1E2B4D]">AED {item.price.toFixed(2)}</span>
+                      <span className="text-3xl font-bold text-[#1E2B4D]">$ {item.price.toFixed(2)}</span>
                       <span className="text-sm font-semibold text-[#8E9AAF]">(Base Price)</span>
                     </div>
 
@@ -335,7 +334,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                                         "text-xs font-semibold",
                                         option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
                                       )}>
-                                        {option.price > 0 ? `+ AED ${option.price.toFixed(2)}` : 'Included'}
+                                        {option.price > 0 ? `+ $ ${option.price.toFixed(2)}` : 'Included'}
                                       </span>
                                       {option.hasChildren && selectedSubOption[option.id] && option.quantity > 0 && (
                                         <span className="text-[10px] text-[#8E9AAF] font-medium flex items-center gap-1">
@@ -364,7 +363,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                                     "text-xs font-semibold mt-0.5",
                                     option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
                                   )}>
-                                    {option.price > 0 ? `+ AED ${option.price.toFixed(2)}` : 'Free'}
+                                    {option.price > 0 ? `+ $ ${option.price.toFixed(2)}` : 'Free'}
                                   </p>
                                 </div>
                                 <div className="flex items-center gap-3 bg-white px-2 py-1.5 rounded-full border border-slate-100 shadow-sm">
@@ -446,7 +445,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                             "text-sm font-semibold mt-0.5",
                             child.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
                           )}>
-                            {child.price > 0 ? `+ AED ${child.price.toFixed(2)}` : 'Included'}
+                            {child.price > 0 ? `+ $ ${child.price.toFixed(2)}` : 'Included'}
                           </p>
                         </Label>
                         <RadioGroupItem value={child.id} id={child.id} className="h-6 w-6 border-slate-300 text-[#12B4A3]" />
@@ -480,7 +479,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                 className="flex-1 h-16 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-xl shadow-xl shadow-[#12B4A3]/20 transition-all hover:scale-[1.01] active:scale-[0.98]"
                 onClick={handleAddToCart}
               >
-                {isEdit ? 'Update' : 'Add'} • AED {(item.price * quantity + customizationGroups.reduce((acc, g) => acc + g.options.reduce((oAcc, o) => oAcc + (o.price * o.quantity), 0), 0)).toFixed(2)}
+                {isEdit ? 'Update' : 'Add'} • $ {(item.price * quantity + customizationGroups.reduce((acc, g) => acc + g.options.reduce((oAcc, o) => oAcc + (o.price * o.quantity), 0), 0)).toFixed(2)}
               </Button>
             </div>
           )}

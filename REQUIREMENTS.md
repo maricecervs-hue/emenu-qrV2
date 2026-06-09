@@ -12,7 +12,7 @@
   - Clicking the main card area opens the **Item Detail/Customization Drawer**.
   - **Non-customisable items**: "Add" button adds directly to the cart with a bounce animation.
   - **Customisable items**: "+" button and "Add" button always trigger the customization drawer.
-- **Currency**: Displayed as "AED" throughout the app (e.g., "AED 36.00").
+- **Currency**: Displayed as "$" for all food/beverage items and totals.
 
 ## 3. Item Customization (Bottom Sheet)
 - **Visuals**: Full-width high-quality image with a gradient overlay for the close button.
@@ -38,16 +38,17 @@
   - List of items with price and quantity controls.
   - **Editing**: A pencil icon on each item allows returning to the Customizer to update selections.
   - **Customization Review**: Accordion-style "Review condiments & addons" for items with selections.
-  - **Price Summary**: Subtotal, Tax (8%), and Service Charge (10%) breakdown.
+  - **Price Summary**: Subtotal, Tax (8%), and Service Charge (10%) breakdown ($).
 - **Auto-Empty Logic**: Removing the last item closes the drawer and shows a "Basket Empty" toast.
 
 ## 5. Checkout & Payment
 - **Transition**: "Proceed to Checkout" triggers a smooth slide-into-view of the payment screen.
 - **Payment Features**:
-  - **Order Review**: Itemized list with customizations and quantity.
+  - **Order Review**: Itemized list with customizations and quantity ($).
   - **Floating Summary Card**: Card-based pricing breakdown (Subtotal, Taxes, Tip, Total).
   - **Animate Tipping**: A friendly waving hand emoji animation.
   - **Tipping UX**:
+    - **Currency**: Tip amounts are displayed in **AED**.
     - Grid of tip cards (AED 2, AED 4, AED 8, Custom).
     - Selected tips show an "X" button to remove.
     - "Custom" tip allows numerical entry directly inside the card.

@@ -1,5 +1,4 @@
-
-"use client"
+'use client';
 
 import Image from "next/image"
 import { Plus, Trash2, Minus } from "lucide-react"
@@ -70,7 +69,7 @@ export function MenuCard({
           </div>
           
           <div className="flex items-center gap-1.5 pt-2">
-            <span className="text-[#1E2B4D] font-bold text-base">AED</span>
+            <span className="text-[#1E2B4D] font-bold text-base">$</span>
             <span className="text-[#1E2B4D] font-bold text-xl">{price.toFixed(2)}</span>
           </div>
         </div>
