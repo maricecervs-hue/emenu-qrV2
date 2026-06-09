@@ -45,15 +45,16 @@ export default function PaymentSuccessPage() {
         }
       });
 
-      // Fade in the new "Thanks for your Rating" card
+      // Fade in the new refined "Thanks for your Rating" card
       tl.fromTo(successCardRef.current,
-        { opacity: 0, y: 10, display: 'none' },
+        { opacity: 0, scale: 0.95, y: 10, display: 'none' },
         { 
           opacity: 1, 
+          scale: 1,
           y: 0, 
           display: 'flex', 
           duration: 0.6, 
-          ease: "back.out(1.2)" 
+          ease: "back.out(1.7)" 
         }
       );
     }
@@ -147,16 +148,16 @@ export default function PaymentSuccessPage() {
             ))}
           </div>
 
-          {/* New Custom "Thanks for your Rating" Card (More compact) */}
+          {/* Refined, Professional "Thanks for your Rating" Card */}
           <div 
             ref={successCardRef} 
-            className="hidden w-full bg-[#F9FDF2] rounded-[2rem] p-5 border border-[#E9F3D7] flex-col items-center justify-center space-y-3 shadow-sm"
+            className="hidden w-full bg-[#F9FDF2] rounded-2xl py-4 px-6 border border-[#E9F3D7] flex-col items-center justify-center gap-2.5 shadow-sm max-w-[240px] mx-auto overflow-hidden relative"
           >
-            <h2 className="text-xl font-bold text-[#849F4E] tracking-tight text-center">
+            <h2 className="text-[15px] font-bold text-[#849F4E] tracking-tight text-center leading-none">
               Thanks for your Rating!
             </h2>
-            <div className="w-full border-t border-dashed border-[#DCE8C5]" />
-            <button className="text-sm font-bold text-[#3A5D3E] underline decoration-slate-300 decoration-1 underline-offset-[4px]">
+            <div className="w-8 border-t border-[#DCE8C5]" />
+            <button className="text-[10px] font-extrabold text-[#3A5D3E] uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity flex items-center gap-1.5">
               Leave a review on Google
             </button>
           </div>
