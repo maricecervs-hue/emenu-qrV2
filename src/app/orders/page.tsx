@@ -98,14 +98,14 @@ export default function OrdersPage() {
                     <div className="flex justify-between items-start">
                       <div className="space-y-1">
                         <h2 className="text-xl font-semibold text-[#1E2B4D]">Order #{order.orderNumber}</h2>
-                        <div className="flex items-center gap-4 text-[#8E9AAF]">
-                          <div className="flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5" />
-                            <span className="text-xs font-medium">Table {order.table}</span>
+                        <div className="flex items-center gap-2.5 text-[#8E9AAF] whitespace-nowrap">
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            <span className="text-[10px] font-medium leading-none">Table {order.table}</span>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5" />
-                            <span className="text-xs font-medium">{order.date}</span>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            <span className="text-[10px] font-medium leading-none">{order.date}</span>
                           </div>
                         </div>
                       </div>
