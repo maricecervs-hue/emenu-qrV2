@@ -1,8 +1,7 @@
-
 "use client"
 
 import * as React from "react"
-import { Sparkles, Loader2, Wine, UtensilsCrossed, X } from "lucide-react"
+import { Sparkles, Loader2, Wine, UtensilsCrossed } from "lucide-react"
 import { aiTasteAdvisorRecommendations, AITasteAdvisorRecommendationsOutput } from "@/ai/flows/ai-taste-advisor-recommendations"
 import { Button } from "@/components/ui/button"
 import {
@@ -53,7 +52,7 @@ export function AITasteAdvisor() {
           <Sparkles className="h-6 w-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="bottom" className="h-[85vh] rounded-t-[2.5rem] bg-background border-none p-0 overflow-hidden">
+      <SheetContent side="bottom" className="h-[85vh] rounded-t-[2.5rem] bg-background border-none p-0 overflow-hidden [&>button]:hidden">
         <div className="mx-auto mt-4 h-1.5 w-12 rounded-full bg-muted" />
         <ScrollArea className="h-full">
           <div className="p-6 pb-24 space-y-8">

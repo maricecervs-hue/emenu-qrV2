@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { X, ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, Gift, ChevronRight } from "lucide-react"
+import { ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, Gift, ChevronRight } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -65,7 +65,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden [&>button]:hidden">
         <SheetHeader className="sr-only">
           <SheetTitle>Your Basket</SheetTitle>
           <SheetDescription>View and manage your selected items.</SheetDescription>
@@ -88,14 +88,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
             >
               + Add more items
             </button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full h-8 w-8 hover:bg-slate-100"
-              onClick={onClose}
-            >
-              <X className="h-5 w-5 text-slate-400" />
-            </Button>
           </div>
         </div>
 

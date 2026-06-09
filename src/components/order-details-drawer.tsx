@@ -9,7 +9,6 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
@@ -49,7 +48,7 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FB] overflow-hidden shadow-2xl flex flex-col">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FB] overflow-hidden shadow-2xl flex flex-col [&>button]:hidden">
         <SheetHeader className="sr-only">
           <SheetTitle>Order #{order.orderNumber}</SheetTitle>
           <SheetDescription>Status and bill summary for your order.</SheetDescription>

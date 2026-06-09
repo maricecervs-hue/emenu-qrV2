@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from "react"
-import { X, ChevronLeft, Package, Coffee, Pizza, Beef, Pencil, Users } from "lucide-react"
+import { ChevronLeft, Package, Coffee, Pizza, Beef, Pencil, Users } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -77,7 +77,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
   return (
     <>
       <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-        <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden shadow-2xl flex flex-col">
+        <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden shadow-2xl flex flex-col [&>button]:hidden">
           <SheetHeader className="sr-only">
             <SheetTitle>Payment</SheetTitle>
             <SheetDescription>Complete your order and payment.</SheetDescription>
@@ -94,14 +94,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
               <ChevronLeft className="h-6 w-6 text-slate-800" />
             </Button>
             <h2 className="text-xl font-semibold text-[#1E2B4D] tracking-tight">Payment</h2>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="rounded-full h-10 w-10 hover:bg-slate-50 transition-colors"
-              onClick={onClose}
-            >
-              <X className="h-6 w-6 text-slate-400" />
-            </Button>
+            <div className="w-10" /> {/* Spacer to keep title centered */}
           </div>
 
           <ScrollArea className="flex-1">
