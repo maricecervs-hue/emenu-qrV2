@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -140,8 +141,8 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
 
             {/* Tipping Section */}
             <div className="flex flex-col items-center text-center space-y-6">
-              <div className="w-24 h-24 bg-gradient-to-br from-orange-50 to-pink-50 rounded-full flex items-center justify-center text-5xl shadow-inner border border-white">
-                👋
+              <div className="w-24 h-24 bg-gradient-to-br from-orange-50 to-pink-50 rounded-full flex items-center justify-center shadow-inner border border-white">
+                <span className="text-5xl animate-wave origin-[70%_70%]">👋</span>
               </div>
               <div className="space-y-2">
                 <h3 className="text-2xl font-bold text-[#1E2B4D]">Thank your server?</h3>
