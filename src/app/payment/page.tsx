@@ -18,6 +18,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function PaymentPage() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const [isRedirecting, setIsRedirecting] = React.useState(true)
   const total = searchParams.get('total') || '326.00'
 
@@ -52,6 +53,10 @@ export default function PaymentPage() {
     }, 2500)
     return () => clearTimeout(timer)
   }, [])
+
+  const handleProcessPayment = () => {
+    router.push(`/payment/processing?total=${total}`)
+  }
 
   if (isRedirecting) {
     return (
@@ -241,6 +246,7 @@ export default function PaymentPage() {
         <div className="p-6 border-t border-slate-50 bg-white">
           <Button 
             disabled={!isFormValid}
+            onClick={handleProcessPayment}
             className="w-full h-14 bg-[#0069B4] hover:bg-[#005CA0] disabled:bg-slate-200 disabled:text-slate-400 rounded-xl text-white font-bold text-base shadow-lg shadow-blue-900/10 transition-colors"
           >
             Pay AED {total}
