@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react"
@@ -42,21 +41,25 @@ export default function PaymentSuccessPage() {
         }
       })
 
-      // Calculate centering for the selected item
+      // Calculate centering for the selected item relative to the grid container
       const gridRect = gridRef.current.getBoundingClientRect()
       const itemRect = selectedItem.getBoundingClientRect()
-      const xOffset = (gridRect.left + gridRect.width / 2) - (itemRect.left + itemRect.width / 2)
+      
+      // Calculate the distance from the center of the item to the center of the grid
+      const gridCenterX = gridRect.left + gridRect.width / 2
+      const itemCenterX = itemRect.left + itemRect.width / 2
+      const xOffset = gridCenterX - itemCenterX
 
-      // Transform the selected item into the tall card style from the design
+      // Transform the selected item into the compact card style
       gsap.to(selectedItem, {
         x: xOffset,
-        scale: 1.1,
-        height: "160px",
-        width: "100px",
+        scale: 1,
+        height: "130px", // Reduced size
+        width: "80px",   // Reduced size
         backgroundColor: "#ffffff",
         borderColor: "rgba(0,0,0,0.05)",
-        borderRadius: "2.5rem",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
+        borderRadius: "2rem",
+        boxShadow: "0 15px 30px rgba(0,0,0,0.06)",
         duration: 0.6,
         ease: "back.out(1.2)",
         delay: 0.1
@@ -66,7 +69,7 @@ export default function PaymentSuccessPage() {
       const emoji = selectedItem.querySelector('.emoji-span')
       if (emoji) {
         gsap.to(emoji, {
-          scale: 1.5,
+          scale: 1.3,
           duration: 0.6,
           ease: "back.out(1.2)",
           delay: 0.1
@@ -104,7 +107,7 @@ export default function PaymentSuccessPage() {
         <div className="w-full border-t border-dashed border-slate-200 mb-8" />
 
         {/* Experience Section */}
-        <div className="w-full text-center space-y-6 mb-8 relative min-h-[180px] flex flex-col items-center">
+        <div className="w-full text-center space-y-6 mb-8 relative min-h-[160px] flex flex-col items-center">
           <div className="space-y-1">
             <h2 className="text-lg font-bold text-[#1E2B4D]">
               {selectedRating === null ? "How was your experience?" : "Thank you for the rating!"}
@@ -114,23 +117,23 @@ export default function PaymentSuccessPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-5 gap-2 w-full pt-4 relative h-full" ref={gridRef}>
+          <div className="grid grid-cols-5 gap-2 w-full pt-4 relative" ref={gridRef}>
             {ratings.map((rating, index) => (
               <button
                 key={index}
                 disabled={selectedRating !== null}
                 onClick={() => setSelectedRating(index)}
                 className={cn(
-                  "rating-item flex flex-col items-center justify-center gap-3 p-2 rounded-2xl border transition-all duration-300",
+                  "rating-item flex flex-col items-center justify-center gap-2 p-2 rounded-xl border transition-all duration-300",
                   selectedRating === index 
                     ? "bg-white border-slate-100 z-10" 
                     : "bg-white border-slate-100 hover:border-slate-200",
                   selectedRating !== null && selectedRating !== index && "opacity-0 pointer-events-none"
                 )}
               >
-                <span className="emoji-span text-3xl transition-transform">{rating.emoji}</span>
+                <span className="emoji-span text-2xl transition-transform">{rating.emoji}</span>
                 <span className={cn(
-                  "text-[10px] font-bold",
+                  "text-[9px] font-bold",
                   selectedRating === index ? "text-[#1E2B4D]" : "text-slate-400"
                 )}>
                   {rating.label}
@@ -140,7 +143,7 @@ export default function PaymentSuccessPage() {
           </div>
         </div>
 
-        {/* Appreciation Footer - Now Conditional with GSAP Animation */}
+        {/* Appreciation Footer */}
         <div 
           ref={appreciationRef}
           className="items-center justify-center gap-2 mb-8 hidden opacity-0"
