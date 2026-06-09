@@ -12,6 +12,7 @@ import { CustomizerDrawer } from "@/components/customizer-drawer"
 import { CheckoutDrawer } from "@/components/checkout-drawer"
 import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
+import gsap from "gsap"
 
 const CATEGORIES = [
   { id: 'bestsellers', name: 'Bestsellers', icon: <Flame className="w-4 h-4" /> },
@@ -250,7 +251,43 @@ export default function MenuPage() {
     }
   };
 
-  const handleAddToCart = (item: any, quantity: number, customizations?: string) => {
+  const animateToCart = (startRect: DOMRect) => {
+    const dot = document.createElement('div');
+    dot.style.position = 'fixed';
+    dot.style.left = `${startRect.left + startRect.width / 2}px`;
+    dot.style.top = `${startRect.top + startRect.height / 2}px`;
+    dot.style.width = '16px';
+    dot.style.height = '16px';
+    dot.style.backgroundColor = '#12B4A3';
+    dot.style.borderRadius = '50%';
+    dot.style.zIndex = '9999';
+    dot.style.pointerEvents = 'none';
+    dot.style.boxShadow = '0 0 10px rgba(18, 180, 163, 0.4)';
+    document.body.appendChild(dot);
+
+    const cartBtn = document.getElementById('floating-cart-btn');
+    if (cartBtn) {
+      const endRect = cartBtn.getBoundingClientRect();
+      gsap.to(dot, {
+        x: endRect.left + endRect.width / 2 - (startRect.left + startRect.width / 2),
+        y: endRect.top + endRect.height / 2 - (startRect.top + startRect.height / 2),
+        scale: 0.2,
+        opacity: 0.3,
+        duration: 0.7,
+        ease: "power2.inOut",
+        onComplete: () => {
+          document.body.removeChild(dot);
+          gsap.fromTo(cartBtn, { scale: 1 }, { scale: 1.25, duration: 0.15, yoyo: true, repeat: 1, ease: "back.out(2)" });
+        }
+      });
+    } else {
+      document.body.removeChild(dot);
+    }
+  };
+
+  const handleAddToCart = (item: any, quantity: number, customizations?: string, fromRect?: DOMRect) => {
+    if (fromRect) animateToCart(fromRect);
+    
     setCartItems(prev => {
       const cartId = customizations ? `${item.id}-${customizations}` : item.id
       const existing = prev.find(i => i.cartId === cartId)
@@ -370,7 +407,7 @@ export default function MenuPage() {
                       imageUrl={item.imageUrl}
                       imageHint={item.imageHint}
                       customisable={item.customisable}
-                      onAddToCart={(qty, cust) => handleAddToCart(item, qty, cust)}
+                      onAddToCart={(qty, cust, rect) => handleAddToCart(item, qty, cust, rect)}
                       currentQuantity={cartItems.filter(i => i.id === item.id).reduce((sum, i) => sum + i.quantity, 0)}
                       onUpdateQuantity={(delta) => {
                         const cartItem = cartItems.find(i => i.id === item.id)
@@ -392,6 +429,7 @@ export default function MenuPage() {
         >
           <div className="relative">
             <Button 
+              id="floating-cart-btn"
               className="w-16 h-16 rounded-full bg-[#FF5C5C] hover:bg-[#FF4D4D] shadow-2xl flex items-center justify-center p-0 transition-transform active:scale-90"
               onClick={() => setIsCartOpen(true)}
             >
@@ -443,7 +481,10 @@ export default function MenuPage() {
             onClose={() => setEditingCartItem(null)}
             item={editingBaseItem}
             customisable={editingBaseItem.customisable}
-            onAddToCart={(qty, cust) => handleUpdateCartItem(editingCartItem.cartId, editingBaseItem, qty, cust)}
+            onAddToCart={(qty, cust, rect) => {
+              handleUpdateCartItem(editingCartItem.cartId, editingBaseItem, qty, cust)
+              if (rect) animateToCart(rect)
+            }}
             isEdit
           />
         )}

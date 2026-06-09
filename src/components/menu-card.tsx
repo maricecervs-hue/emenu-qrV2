@@ -15,7 +15,7 @@ interface MenuCardProps {
   imageUrl: string
   imageHint?: string
   customisable?: boolean
-  onAddToCart: (quantity: number, customizations?: string) => void
+  onAddToCart: (quantity: number, customizations?: string, fromRect?: DOMRect) => void
   currentQuantity: number
   onUpdateQuantity: (delta: number) => void
 }
@@ -37,11 +37,12 @@ export function MenuCard({
 
   const handleAddClick = (e: React.MouseEvent) => {
     e.stopPropagation()
+    const rect = e.currentTarget.getBoundingClientRect()
     if (customisable) {
       setIsCustomizerOpen(true)
     } else {
       setIsAdding(true)
-      onAddToCart(1)
+      onAddToCart(1, undefined, rect)
       setTimeout(() => {
         setIsAdding(false)
       }, 300)
@@ -108,7 +109,10 @@ export function MenuCard({
                     if (customisable) {
                       setIsCustomizerOpen(true)
                     } else {
+                      const rect = e.currentTarget.getBoundingClientRect()
                       onUpdateQuantity(1)
+                      // We don't have the animate callback here easily, 
+                      // but usually incremental additions don't need the fly animation
                     }
                   }}
                 >

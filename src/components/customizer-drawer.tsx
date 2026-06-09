@@ -141,7 +141,9 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
     setTimeout(() => scrollToNextSection(groupId), 300)
   }
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    
     const selected = customizationGroups.flatMap(group => 
       group.options.filter(opt => opt.quantity > 0).map(opt => {
         let label = opt.name
@@ -154,7 +156,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
       })
     ).join(', ')
 
-    onAddToCart(quantity, selected || undefined)
+    onAddToCart(quantity, selected || undefined, rect)
     onClose()
   }
 
