@@ -94,7 +94,7 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
       <SheetContent 
         side="top" 
         className={cn(
-          "w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-none transition-all duration-300 ease-in-out",
+          "w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-none transition-all duration-300 ease-in-out z-[95]",
           hasInteraction ? "h-screen" : "h-auto max-h-[90vh]"
         )}
       >
