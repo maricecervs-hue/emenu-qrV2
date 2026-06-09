@@ -45,7 +45,7 @@ export default function PaymentSuccessPage() {
         }
       });
 
-      // Fade in the refined "Thanks for your Rating" card from reference image
+      // Fade in the refined "Thanks for your Rating" card
       tl.fromTo(successCardRef.current,
         { opacity: 0, scale: 0.95, y: 10, display: 'none' },
         { 
@@ -124,7 +124,7 @@ export default function PaymentSuccessPage() {
         </div>
 
         {/* Experience Section */}
-        <div className="w-full text-center min-h-[140px] flex flex-col items-center justify-center mb-8 relative">
+        <div className="w-full text-center min-h-[120px] flex flex-col items-center justify-center mb-8 relative">
           
           {/* Header text before selection */}
           <div ref={headerTextRef} className="space-y-1 mb-6">
@@ -148,15 +148,15 @@ export default function PaymentSuccessPage() {
             ))}
           </div>
 
-          {/* Professional "Thanks for your Rating" Card - 100% same as image */}
+          {/* Professional "Thanks for your Rating" Card - 100% same as image, more compact */}
           <div 
             ref={successCardRef} 
-            className="hidden w-full bg-[#F9FDF2] rounded-[1.8rem] py-6 px-4 border border-[#E9F3D7] flex-col items-center justify-center shadow-sm max-w-[280px] mx-auto overflow-hidden relative"
+            className="hidden w-full bg-[#F9FDF2] rounded-[1.8rem] py-5 px-4 border border-[#E9F3D7] flex-col items-center justify-center shadow-sm max-w-[240px] mx-auto overflow-hidden relative"
           >
-            <h2 className="text-[20px] font-bold text-[#82A24F] tracking-tight text-center leading-none mb-4">
+            <h2 className="text-[18px] font-bold text-[#82A24F] tracking-tight text-center leading-none mb-3">
               Thanks for your Rating!
             </h2>
-            <button className="text-[15px] font-medium text-[#3A5D3E] hover:opacity-80 transition-opacity mb-2">
+            <button className="text-[13px] font-medium text-[#3A5D3E] hover:opacity-80 transition-opacity mb-2">
               Leave a review on Google
             </button>
             <div className="w-[85%] border-t border-dotted border-[#D4DFBE]" />
