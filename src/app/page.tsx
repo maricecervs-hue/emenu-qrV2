@@ -6,18 +6,19 @@ import Link from "next/link"
 import { MapPin, Utensils, ReceiptText, List, ChevronDown, Globe, Crown } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Button } from "@/components/ui/button"
+import { VipDrawer } from "@/components/vip-drawer"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find(i => i.id === 'hero-restaurant')?.imageUrl || "https://picsum.photos/seed/menu-hero/1200/800"
   const imageRef = React.useRef<HTMLDivElement>(null)
+  const [isVipOpen, setIsVipOpen] = React.useState(false)
 
   useGSAP(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
       if (imageRef.current) {
-        // Move the image downwards at a fraction of the scroll speed for the parallax effect
         gsap.to(imageRef.current, {
           y: scrollY * 0.4,
           duration: 0.1,
@@ -64,6 +65,7 @@ export default function Home() {
             variant="outline" 
             size="icon" 
             className="bg-white/95 backdrop-blur-sm border-none rounded-full h-11 w-11 shadow-lg"
+            onClick={() => setIsVipOpen(true)}
           >
             <Crown className="w-5 h-5 text-slate-400" />
           </Button>
@@ -129,6 +131,16 @@ export default function Home() {
         </div>
         <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest">Powered by</p>
       </footer>
+
+      {/* VIP Drawer */}
+      <VipDrawer 
+        isOpen={isVipOpen}
+        onClose={() => setIsVipOpen(false)}
+        onDismiss={() => setIsVipOpen(false)}
+        onSignUp={() => setIsVipOpen(false)}
+        total={0}
+        showRedirection={false}
+      />
     </main>
   )
 }

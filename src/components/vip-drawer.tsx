@@ -22,15 +22,27 @@ interface VipDrawerProps {
   onDismiss: () => void
   onSignUp: (data: any) => void
   total: number
+  showRedirection?: boolean
 }
 
-export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDrawerProps) {
+export function VipDrawer({ 
+  isOpen, 
+  onClose, 
+  onDismiss, 
+  onSignUp, 
+  total,
+  showRedirection = true 
+}: VipDrawerProps) {
   const router = useRouter()
   const { toast } = useToast()
 
   const handleDismiss = () => {
     onDismiss()
-    router.push(`/payment?total=${total.toFixed(2)}`)
+    if (showRedirection) {
+      router.push(`/payment?total=${total.toFixed(2)}`)
+    } else {
+      onClose()
+    }
   }
 
   const handleSignUp = () => {
@@ -39,7 +51,11 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
       description: "You've successfully signed up for exclusive deals.",
     })
     onSignUp({})
-    router.push(`/payment?total=${total.toFixed(2)}`)
+    if (showRedirection) {
+      router.push(`/payment?total=${total.toFixed(2)}`)
+    } else {
+      onClose()
+    }
   }
 
   return (
