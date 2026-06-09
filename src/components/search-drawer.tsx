@@ -80,7 +80,8 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-screen w-full p-0 border-none bg-[#F9F9F9] flex flex-col">
+      {/* Added [&>button]:hidden to specifically hide the default close button in this sheet */}
+      <SheetContent side="bottom" className="h-screen w-full p-0 border-none bg-[#F9F9F9] flex flex-col [&>button]:hidden">
         <SheetHeader className="sr-only">
           <SheetTitle>Search Menu</SheetTitle>
         </SheetHeader>
