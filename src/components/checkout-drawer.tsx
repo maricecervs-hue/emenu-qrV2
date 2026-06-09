@@ -2,7 +2,7 @@
 "use client"
 
 import * as React from "react"
-import { X, ChevronLeft, Utensils, ShoppingBag, Truck, Users, Coffee, Pizza, Beef, Pencil, Check, Package } from "lucide-react"
+import { X, ChevronLeft, Package, Coffee, Pizza, Beef, Pencil, Users } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -13,7 +13,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 
 interface CartItem {
@@ -50,11 +49,17 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
   const total = subtotal + tax + tipAmount
 
   const tips = [
-    { amount: 2, label: 'AED 2', icon: <Coffee className="w-5 h-5" /> },
-    { amount: 4, label: 'AED 4', icon: <Pizza className="w-5 h-5" />, popular: true },
-    { amount: 8, label: 'AED 8', icon: <Beef className="w-5 h-5" /> },
+    { amount: 2, label: '฿ 2', icon: <Coffee className="w-5 h-5" /> },
+    { amount: 4, label: '฿ 4', icon: <Pizza className="w-5 h-5" />, popular: true },
+    { amount: 8, label: '฿ 8', icon: <Beef className="w-5 h-5" /> },
     { amount: 'custom', label: 'Custom', icon: <Pencil className="w-5 h-5" /> },
   ] as const
+
+  const handleClearTip = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setSelectedTip(null)
+    setCustomTipValue("")
+  }
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -152,63 +157,68 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
               </div>
 
               <div className="grid grid-cols-4 gap-3 w-full pt-4">
-                {tips.map((tip) => (
-                  <button
-                    key={tip.label}
-                    onClick={() => setSelectedTip(tip.amount === 'custom' ? 'custom' : tip.amount)}
-                    className={cn(
-                      "relative flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all gap-2 h-28",
-                      selectedTip === tip.amount 
-                        ? "bg-[#E9FBF9] border-[#12B4A3] text-[#12B4A3]" 
-                        : "bg-white border-slate-100 text-slate-400 shadow-sm"
-                    )}
-                  >
-                    {tip.amount !== 'custom' && tip.popular && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#12B4A3] text-white text-[9px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-sm z-10">
-                        Popular
-                      </div>
-                    )}
-                    <div className={cn(
-                      "w-10 h-10 rounded-full flex items-center justify-center mb-1",
-                      selectedTip === tip.amount ? "bg-[#12B4A3]/10" : "bg-slate-50"
-                    )}>
-                      {tip.icon}
-                    </div>
-                    <span className="text-[11px] font-bold uppercase tracking-tight">{tip.label}</span>
-                  </button>
-                ))}
+                {tips.map((tip) => {
+                  const isSelected = selectedTip === tip.amount
+                  const isCustom = tip.amount === 'custom'
+
+                  return (
+                    <button
+                      key={tip.label}
+                      onClick={() => setSelectedTip(isCustom ? 'custom' : tip.amount)}
+                      className={cn(
+                        "relative flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all gap-2 h-28",
+                        isSelected 
+                          ? "bg-[#E9FBF9] border-[#12B4A3] text-[#12B4A3]" 
+                          : "bg-white border-slate-100 text-slate-400 shadow-sm hover:border-slate-200"
+                      )}
+                    >
+                      {/* Popular Badge */}
+                      {!isCustom && tip.popular && (
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#12B4A3] text-white text-[8px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">
+                          Popular
+                        </div>
+                      )}
+
+                      {/* Remove Tip Button */}
+                      {isSelected && (
+                        <div 
+                          onClick={handleClearTip}
+                          className="absolute -top-2 -right-2 w-6 h-6 bg-[#FF5C5C] text-white rounded-full flex items-center justify-center shadow-md hover:scale-110 active:scale-90 transition-transform z-20"
+                        >
+                          <X className="w-3 h-3" strokeWidth={3} />
+                        </div>
+                      )}
+
+                      {isCustom && isSelected ? (
+                        <div className="w-full h-full flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-200">
+                          <span className="text-[10px] font-bold text-[#12B4A3] mb-1">Enter Tip</span>
+                          <div className="flex items-center gap-1 border-b border-[#12B4A3] pb-1">
+                            <span className="text-xs font-bold text-[#1E2B4D]">฿</span>
+                            <Input 
+                              type="number" 
+                              value={customTipValue}
+                              onChange={(e) => setCustomTipValue(e.target.value)}
+                              className="border-none bg-transparent h-auto p-0 text-sm font-bold text-[#1E2B4D] w-12 focus-visible:ring-0 text-center"
+                              autoFocus
+                              onClick={(e) => e.stopPropagation()}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div className={cn(
+                            "w-10 h-10 rounded-full flex items-center justify-center mb-1",
+                            isSelected ? "bg-[#12B4A3]/10" : "bg-slate-50"
+                          )}>
+                            {tip.icon}
+                          </div>
+                          <span className="text-[11px] font-bold uppercase tracking-tight">{tip.label}</span>
+                        </>
+                      )}
+                    </button>
+                  )
+                })}
               </div>
-
-              {selectedTip === 'custom' && (
-                <div className="w-full pt-2 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <div className="bg-white p-4 rounded-2xl border-2 border-[#12B4A3] flex items-center gap-3">
-                    <span className="text-[#1E2B4D] font-bold">฿</span>
-                    <Input 
-                      type="number" 
-                      placeholder="Enter custom amount" 
-                      value={customTipValue}
-                      onChange={(e) => setCustomTipValue(e.target.value)}
-                      className="border-none bg-transparent h-auto p-0 text-lg font-bold text-[#1E2B4D] placeholder:text-slate-200 focus-visible:ring-0"
-                      autoFocus
-                    />
-                  </div>
-                </div>
-              )}
-
-              <Button 
-                variant="outline"
-                className={cn(
-                  "w-full h-14 rounded-2xl border-slate-100 text-slate-400 font-semibold text-base transition-all",
-                  selectedTip === null && "border-[#FF5C5C] text-[#FF5C5C] bg-red-50"
-                )}
-                onClick={() => {
-                  setSelectedTip(null)
-                  setCustomTipValue("")
-                }}
-              >
-                <X className="w-4 h-4 mr-2" />
-                No Tip
-              </Button>
             </div>
           </div>
         </ScrollArea>
