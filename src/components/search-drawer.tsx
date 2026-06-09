@@ -37,10 +37,10 @@ interface SearchDrawerProps {
 }
 
 const ALLERGENS = [
-  { id: 'gluten', name: 'Gluten', icon: <Wheat className="w-3 h-3" /> },
-  { id: 'dairy', name: 'Dairy', icon: <MilkIcon className="w-3 h-3" /> },
-  { id: 'eggs', name: 'Eggs', icon: <Egg className="w-3 h-3" /> },
-  { id: 'fish', name: 'Fish', icon: <Fish className="w-3 h-3" /> },
+  { id: 'gluten', name: 'Gluten', icon: <Wheat className="w-3.5 h-3.5" /> },
+  { id: 'dairy', name: 'Dairy', icon: <MilkIcon className="w-3.5 h-3.5" /> },
+  { id: 'eggs', name: 'Eggs', icon: <Egg className="w-3.5 h-3.5" /> },
+  { id: 'fish', name: 'Fish', icon: <Fish className="w-3.5 h-3.5" /> },
 ]
 
 export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
@@ -48,11 +48,13 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
   const [activeAllergens, setActiveAllergens] = React.useState<string[]>([])
 
   const filteredItems = React.useMemo(() => {
+    if (!searchQuery && activeAllergens.length === 0) return [];
+    
     return items.filter(item => {
       const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                            item.description.toLowerCase().includes(searchQuery.toLowerCase());
       
-      // For demo purposes, we'll assign random allergens to items if they don't have them
+      // For demo purposes, we'll assign random allergens to items
       const itemAllergen = item.id % 2 === 0 ? 'gluten' : (item.id % 3 === 0 ? 'dairy' : (item.id % 5 === 0 ? 'eggs' : 'fish'));
       const matchesAllergen = activeAllergens.length === 0 || activeAllergens.includes(itemAllergen);
 
@@ -80,42 +82,44 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      {/* Added [&>button]:hidden to specifically hide the default close button in this sheet */}
-      <SheetContent side="bottom" className="h-screen w-full p-0 border-none bg-[#F9F9F9] flex flex-col [&>button]:hidden">
+      <SheetContent 
+        side="top" 
+        className="h-auto max-h-[90vh] w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-b-[2rem]"
+      >
         <SheetHeader className="sr-only">
           <SheetTitle>Search Menu</SheetTitle>
         </SheetHeader>
 
-        {/* Search Header */}
-        <div className="bg-white px-4 pt-6 pb-4 space-y-4 shadow-sm shrink-0">
+        {/* Search Header - Slide down design */}
+        <div className="px-5 pt-8 pb-5 space-y-5">
           <div className="flex items-center gap-3">
             <button 
               onClick={onClose}
-              className="w-10 h-10 rounded-xl bg-[#F4F5F7] flex items-center justify-center transition-active active:scale-90"
+              className="w-12 h-12 rounded-2xl bg-[#F8F9FA] flex items-center justify-center transition-active active:scale-90 shadow-sm border border-slate-100"
             >
-              <ChevronLeft className="w-5 h-5 text-slate-600" />
+              <ChevronLeft className="w-6 h-6 text-[#1E2B4D]" />
             </button>
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input 
                 autoFocus
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search menu items..."
-                className="h-11 pl-10 pr-4 bg-[#F4F5F7] border-none rounded-2xl text-sm font-medium placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-[#12B4A3]/20"
+                className="h-12 pl-11 pr-4 bg-white border-2 border-[#F1F3F5] rounded-2xl text-sm font-medium placeholder:text-slate-400 focus-visible:ring-2 focus-visible:ring-[#12B4A3]/10 focus-visible:border-[#12B4A3]/30"
               />
             </div>
           </div>
 
-          {/* Filter Chips */}
-          <div className="flex gap-2.5 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-1">
+          {/* Filter Chips - Exact match to screenshot 1 */}
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
             <button
               onClick={() => setActiveAllergens([])}
               className={cn(
-                "px-5 py-2 rounded-xl text-xs font-semibold transition-all border",
+                "h-10 px-5 rounded-2xl text-[13px] font-semibold transition-all border-2",
                 activeAllergens.length === 0 
-                  ? "bg-[#12B4A3] border-[#12B4A3] text-white" 
-                  : "bg-white border-slate-100 text-slate-500"
+                  ? "bg-[#12B4A3] border-[#12B4A3] text-white shadow-md shadow-[#12B4A3]/20" 
+                  : "bg-white border-[#F1F3F5] text-[#8E9AAF] hover:border-slate-200"
               )}
             >
               All
@@ -125,43 +129,46 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
                 key={a.id}
                 onClick={() => toggleAllergen(a.id)}
                 className={cn(
-                  "px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all border whitespace-nowrap",
+                  "h-10 px-4 rounded-2xl text-[13px] font-semibold flex items-center gap-2.5 transition-all border-2 whitespace-nowrap",
                   activeAllergens.includes(a.id) 
-                    ? "bg-[#12B4A3] border-[#12B4A3] text-white" 
-                    : "bg-white border-slate-100 text-slate-500"
+                    ? "bg-[#12B4A3] border-[#12B4A3] text-white shadow-md shadow-[#12B4A3]/20" 
+                    : "bg-white border-[#F1F3F5] text-[#8E9AAF] hover:border-slate-200"
                 )}
               >
-                {a.icon}
+                <span className={cn(activeAllergens.includes(a.id) ? "text-white" : "text-[#12B4A3]")}>
+                  {a.icon}
+                </span>
                 {a.name}
               </button>
             ))}
           </div>
         </div>
 
-        <ScrollArea className="flex-1 px-4 pt-6">
-          <div className="space-y-6 pb-24">
-            <div className="flex items-center justify-between px-1">
-              <h3 className="text-sm font-semibold text-[#8E9AAF]">
-                {filteredItems.length} items found
-              </h3>
-              {(searchQuery || activeAllergens.length > 0) && (
+        {/* Results Area */}
+        <ScrollArea className="flex-1 bg-[#F8F9FB] rounded-b-[2rem]">
+          <div className="px-5 py-6 space-y-6 pb-12">
+            {(searchQuery || activeAllergens.length > 0) && (
+              <div className="flex items-center justify-between px-1">
+                <h3 className="text-[13px] font-semibold text-[#8E9AAF]">
+                  {filteredItems.length} items found
+                </h3>
                 <button 
                   onClick={handleReset}
-                  className="text-xs font-medium text-[#12B4A3] underline decoration-dotted underline-offset-4"
+                  className="text-[13px] font-semibold text-[#12B4A3] underline decoration-dotted underline-offset-4"
                 >
                   Reset
                 </button>
-              )}
-            </div>
+              </div>
+            )}
 
             <div className="space-y-4">
               {filteredItems.map((item) => (
                 <div 
                   key={item.id} 
-                  className="bg-white p-3 rounded-[1.5rem] border border-slate-100 flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
+                  className="bg-white p-4 rounded-[1.8rem] border border-slate-50 flex gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.03)] group active:scale-[0.98] transition-transform"
                   onClick={onClose}
                 >
-                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden shrink-0">
+                  <div className="relative w-24 h-24 rounded-[1.2rem] overflow-hidden shrink-0 border border-slate-100">
                     <Image 
                       src={item.imageUrl} 
                       alt={item.name} 
@@ -172,13 +179,13 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
                   <div className="flex-1 flex flex-col justify-between py-1">
                     <div className="space-y-1">
                       <h4 className="text-[15px] font-bold text-[#1E2B4D] leading-tight line-clamp-1">{item.name}</h4>
-                      <p className="text-[11px] font-medium text-slate-400 line-clamp-2 leading-relaxed">
+                      <p className="text-[11px] font-medium text-[#8E9AAF] line-clamp-2 leading-relaxed">
                         {item.description}
                       </p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-base font-bold text-[#1E2B4D]">${item.price.toFixed(2)}</span>
-                      <Badge variant="outline" className="rounded-full h-5 border-[#FEF08A] bg-[#FEF9C3]/10 text-[#B45309] font-medium text-[9px] px-2.5">
+                      <span className="text-[17px] font-bold text-[#1E2B4D]">${item.price.toFixed(2)}</span>
+                      <Badge variant="outline" className="rounded-full h-5 border-[#FEF08A] bg-[#FEF9C3]/20 text-[#B45309] font-semibold text-[9px] px-2.5 uppercase tracking-wider">
                         {getItemAllergenLabel(item.id)}
                       </Badge>
                     </div>
@@ -187,10 +194,20 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
               ))}
             </div>
 
-            {filteredItems.length === 0 && (
-              <div className="flex flex-col items-center justify-center pt-20 space-y-4 opacity-50">
-                <Search className="w-12 h-12 text-slate-200" />
-                <p className="text-sm font-medium text-slate-400">No items match your search</p>
+            {filteredItems.length === 0 && (searchQuery || activeAllergens.length > 0) && (
+              <div className="flex flex-col items-center justify-center py-20 space-y-4 opacity-50">
+                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-inner">
+                  <Search className="w-10 h-10 text-slate-200" />
+                </div>
+                <p className="text-sm font-medium text-[#8E9AAF]">No items match your search</p>
+              </div>
+            )}
+
+            {!searchQuery && activeAllergens.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-20 space-y-3">
+                <p className="text-sm font-medium text-[#8E9AAF] text-center max-w-[200px]">
+                  Start typing or select a filter to find your favorite dishes
+                </p>
               </div>
             )}
           </div>
