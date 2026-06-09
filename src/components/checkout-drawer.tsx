@@ -1,8 +1,7 @@
-
 "use client"
 
 import * as React from "react"
-import { X, ChevronLeft, Utensils, ShoppingBag, Truck, Users, Coffee, Pizza, Beef, Pencil, Check } from "lucide-react"
+import { X, ChevronLeft, Utensils, ShoppingBag, Truck, Users, Coffee, Pizza, Beef, Pencil, Check, Package } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -13,17 +12,28 @@ import {
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
+
+interface CartItem {
+  id: string
+  cartId: string
+  name: string
+  price: number
+  quantity: number
+  imageUrl: string
+  customizations?: string
+}
 
 interface CheckoutDrawerProps {
   isOpen: boolean
   onClose: () => void
   onBack: () => void
   subtotal: number
+  items: CartItem[]
 }
 
-export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDrawerProps) {
-  const [orderType, setOrderType] = React.useState<'dine-in' | 'take-out' | 'delivery'>('dine-in')
+export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: CheckoutDrawerProps) {
   const [selectedTip, setSelectedTip] = React.useState<number | 'custom' | null>(4)
   const [customTipValue, setCustomTipValue] = React.useState<string>("")
   
@@ -38,12 +48,6 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
 
   const total = subtotal + tax + tipAmount
 
-  const orderTypes = [
-    { id: 'dine-in', name: 'Dine In', icon: <Utensils className="w-6 h-6" /> },
-    { id: 'take-out', name: 'Take Out', icon: <ShoppingBag className="w-6 h-6" /> },
-    { id: 'delivery', name: 'Delivery', icon: <Truck className="w-6 h-6" /> },
-  ] as const
-
   const tips = [
     { amount: 2, label: 'AED 2', icon: <Coffee className="w-5 h-5" /> },
     { amount: 4, label: 'AED 4', icon: <Pizza className="w-5 h-5" />, popular: true },
@@ -53,14 +57,14 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden shadow-2xl flex flex-col">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden shadow-2xl flex flex-col">
         <SheetHeader className="sr-only">
           <SheetTitle>Payment</SheetTitle>
           <SheetDescription>Complete your order and payment.</SheetDescription>
         </SheetHeader>
 
         {/* Header */}
-        <div className="bg-white px-6 pt-8 pb-4 flex items-center justify-between shrink-0">
+        <div className="bg-white px-6 pt-8 pb-4 flex items-center justify-between shrink-0 border-b border-slate-50">
           <Button 
             variant="ghost" 
             size="icon" 
@@ -82,23 +86,55 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
 
         <ScrollArea className="flex-1">
           <div className="p-6 pb-40 space-y-10">
+            
+            {/* Order Items Summary */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
+                  <Package className="w-4 h-4 text-[#12B4A3]" />
+                </div>
+                <h3 className="text-lg font-bold text-[#1E2B4D]">Review Order</h3>
+              </div>
+              
+              <div className="space-y-3">
+                {items.map((item) => (
+                  <div key={item.cartId} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50 flex items-start justify-between gap-4">
+                    <div className="flex-1 space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-bold text-[#12B4A3] bg-[#E9FBF9] px-2 py-0.5 rounded-md">{item.quantity}x</span>
+                        <h4 className="font-bold text-[#1E2B4D] text-sm">{item.name}</h4>
+                      </div>
+                      {item.customizations && (
+                        <p className="text-[10px] font-medium text-[#8E9AAF] leading-relaxed pl-8 italic">
+                          {item.customizations}
+                        </p>
+                      )}
+                    </div>
+                    <span className="font-bold text-[#1E2B4D] text-sm whitespace-nowrap">
+                      ฿ {(item.price * item.quantity).toFixed(2)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Price Summary Card */}
             <div className="bg-white p-7 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-5">
               <div className="flex justify-between items-center text-base">
                 <span className="font-normal text-slate-400">Subtotal</span>
-                <span className="font-semibold text-[#1E2B4D]">AED {subtotal.toFixed(2)}</span>
+                <span className="font-semibold text-[#1E2B4D]">฿ {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-base">
                 <span className="font-normal text-slate-400">Taxes & Fees</span>
-                <span className="font-semibold text-[#1E2B4D]">AED {tax.toFixed(2)}</span>
+                <span className="font-semibold text-[#1E2B4D]">฿ {tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-base">
                 <span className="font-normal text-slate-400">Tip</span>
-                <span className="font-semibold text-[#1E2B4D]">AED {tipAmount.toFixed(2)}</span>
+                <span className="font-semibold text-[#1E2B4D]">฿ {tipAmount.toFixed(2)}</span>
               </div>
               <div className="pt-6 border-t border-slate-100 flex justify-between items-center">
                 <span className="text-2xl font-bold text-[#1E2B4D]">Total</span>
-                <span className="text-2xl font-bold text-[#1E2B4D]">AED {total.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-[#1E2B4D]">฿ {total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -145,7 +181,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
               {selectedTip === 'custom' && (
                 <div className="w-full pt-2 animate-in fade-in slide-in-from-top-2 duration-300">
                   <div className="bg-white p-4 rounded-2xl border-2 border-[#12B4A3] flex items-center gap-3">
-                    <span className="text-[#1E2B4D] font-bold">AED</span>
+                    <span className="text-[#1E2B4D] font-bold">฿</span>
                     <Input 
                       type="number" 
                       placeholder="Enter custom amount" 
@@ -189,7 +225,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
             className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-base shadow-xl shadow-[#12B4A3]/20 transition-transform active:scale-95"
             onClick={onClose}
           >
-            Pay AED {total.toFixed(2)}
+            Pay ฿ {total.toFixed(2)}
           </Button>
         </div>
       </SheetContent>

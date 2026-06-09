@@ -439,6 +439,7 @@ export default function MenuPage() {
             setIsCartOpen(true)
           }}
           subtotal={subtotal}
+          items={cartItems}
         />
 
         {editingBaseItem && (
