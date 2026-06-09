@@ -73,6 +73,11 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
     )
   }
 
+  const handleReset = () => {
+    setSearchQuery("")
+    setActiveAllergens([])
+  }
+
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent side="bottom" className="h-screen w-full p-0 border-none bg-[#F9F9F9] flex flex-col">
@@ -142,9 +147,19 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
 
         <ScrollArea className="flex-1 px-4 pt-6">
           <div className="space-y-6 pb-24">
-            <h3 className="text-sm font-semibold text-[#8E9AAF] px-1">
-              {filteredItems.length} items found
-            </h3>
+            <div className="flex items-center justify-between px-1">
+              <h3 className="text-sm font-semibold text-[#8E9AAF]">
+                {filteredItems.length} items found
+              </h3>
+              {(searchQuery || activeAllergens.length > 0) && (
+                <button 
+                  onClick={handleReset}
+                  className="text-xs font-medium text-[#12B4A3] underline decoration-dotted underline-offset-4"
+                >
+                  Reset
+                </button>
+              )}
+            </div>
 
             <div className="space-y-4">
               {filteredItems.map((item) => (
