@@ -90,7 +90,7 @@ export default function PaymentSuccessPage() {
   }, { scope: containerRef, dependencies: [selectedRating] })
 
   return (
-    <main className="min-h-screen bg-[#F4F8FB] flex flex-col items-center justify-center p-6 font-body" ref={containerRef}>
+    <main className="min-h-screen bg-[#F4F8FB] flex items-center justify-center p-6 font-body" ref={containerRef}>
       <div className="w-full max-w-md bg-white rounded-[3rem] shadow-[0_20px_60px_rgba(0,0,0,0.06)] p-8 flex flex-col items-center overflow-hidden">
         
         {/* Success Icon */}
@@ -109,11 +109,11 @@ export default function PaymentSuccessPage() {
         {/* Divider */}
         <div className="w-full border-t border-dashed border-slate-200 mb-8" />
 
-        {/* Order Status Timeline - Moved to top of card */}
-        <div className="w-full bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100/50 mb-8 space-y-5">
+        {/* Order Status Timeline */}
+        <div className="w-full bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100/50 mb-8 space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-[#1E2B4D]">Order Status</h3>
-            <div className="flex items-center gap-1.5 bg-white px-2 py-1 rounded-full border border-slate-100 shadow-sm">
+            <div className="flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-full border border-slate-100 shadow-sm">
               <Clock className="w-3 h-3 text-[#12B4A3]" />
               <span className="text-[10px] font-bold text-[#1E2B4D]">Est. 15-20 min</span>
             </div>
@@ -121,10 +121,10 @@ export default function PaymentSuccessPage() {
 
           <div className="relative flex justify-between items-center px-2">
             {/* Progress Line Background */}
-            <div className="absolute top-1/2 left-4 right-4 h-1 bg-slate-200 -translate-y-1/2 rounded-full" />
+            <div className="absolute top-5 left-8 right-8 h-1 bg-slate-200 rounded-full" />
             
             {/* Active Progress Line */}
-            <div className="absolute top-1/2 left-4 w-[25%] h-1 bg-[#12B4A3] -translate-y-1/2 rounded-full transition-all duration-1000" />
+            <div className="absolute top-5 left-8 w-[25%] h-1 bg-[#12B4A3] rounded-full transition-all duration-1000" />
 
             {orderSteps.map((step) => (
               <div key={step.id} className="relative z-10 flex flex-col items-center gap-2">
