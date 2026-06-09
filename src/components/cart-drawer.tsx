@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, Gift, ChevronRight } from "lucide-react"
+import { ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, ChevronRight } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -225,25 +225,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 <span className="text-lg font-semibold text-[#1E2B4D]">Total</span>
                 <span className="text-2xl font-bold text-[#12B4A3]">$ {total.toFixed(2)}</span>
               </div>
-            </div>
-
-            {/* VIP Banner */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-[#FFFBEB] to-[#FEF3C7] p-5 rounded-[2rem] border border-[#FDE68A]/30 flex items-center justify-between">
-              <div className="absolute -left-2 -top-2 opacity-10">
-                <Gift className="w-20 h-20 rotate-12" />
-              </div>
-              <div className="flex items-center gap-4 relative">
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm text-2xl">
-                  🎁
-                </div>
-                <div>
-                  <h4 className="text-[10px] font-semibold text-[#1E2B4D] uppercase tracking-wider">Unlock VIP Perks</h4>
-                  <p className="text-[10px] font-medium text-[#B45309]">Join VIP for extra perks</p>
-                </div>
-              </div>
-              <Button className="h-9 px-4 rounded-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium text-[10px] shadow-sm">
-                Become a VIP
-              </Button>
             </div>
           </div>
         </ScrollArea>
