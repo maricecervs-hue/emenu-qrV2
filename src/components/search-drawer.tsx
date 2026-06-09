@@ -53,7 +53,7 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
     setActiveAllergens([])
   }, [])
 
-  // Clear search state when drawer is closed
+  // Clear search state when drawer is closed (via Back button)
   React.useEffect(() => {
     if (!isOpen) {
       handleReset()
@@ -187,7 +187,7 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
                     className="bg-white p-4 rounded-[1.8rem] border border-slate-50 flex gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.02)] active:scale-[0.98] transition-transform cursor-pointer"
                     onClick={() => {
                       if (onItemClick) onItemClick(item);
-                      onClose();
+                      // Specifically NOT calling onClose() here to keep search drawer open behind Customizer
                     }}
                   >
                     <div className="relative w-24 h-24 rounded-[1.2rem] overflow-hidden shrink-0 border border-slate-50">
