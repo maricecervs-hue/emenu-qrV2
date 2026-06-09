@@ -7,6 +7,7 @@ import { Home, ClipboardList, ChevronRight, MapPin, Calendar, ShoppingBag } from
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { OrderDetailsDrawer } from "@/components/order-details-drawer"
 
 type OrderStatus = 'Preparing' | 'Served' | 'Completed'
 
@@ -28,6 +29,8 @@ interface Order {
 export default function OrdersPage() {
   const [activeFilter, setActiveFilter] = React.useState<'All' | OrderStatus>('All')
   const [orders, setOrders] = React.useState<Order[]>([])
+  const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null)
+  const [isDetailsOpen, setIsDetailsOpen] = React.useState(false)
 
   React.useEffect(() => {
     // Load orders from localStorage
@@ -40,6 +43,11 @@ export default function OrdersPage() {
   const filteredOrders = orders.filter(order => 
     activeFilter === 'All' ? true : order.status === activeFilter
   )
+
+  const handleViewDetails = (order: Order) => {
+    setSelectedOrder(order)
+    setIsDetailsOpen(true)
+  }
 
   return (
     <div className="min-h-screen bg-[#F8F9FB] flex flex-col items-center overflow-x-hidden">
@@ -142,6 +150,7 @@ export default function OrdersPage() {
                         <Button 
                           variant="outline" 
                           className="rounded-full h-11 px-6 border-slate-100 text-[#12B4A3] font-bold text-sm flex items-center gap-2 hover:bg-[#12B4A3]/5"
+                          onClick={() => handleViewDetails(order)}
                         >
                           View Details
                           <ChevronRight className="w-4 h-4" />
@@ -183,6 +192,13 @@ export default function OrdersPage() {
             <span className="text-sm font-semibold text-[#12B4A3]">Orders</span>
           </div>
         </nav>
+
+        {/* Order Details Drawer */}
+        <OrderDetailsDrawer 
+          isOpen={isDetailsOpen}
+          onClose={() => setIsDetailsOpen(false)}
+          order={selectedOrder}
+        />
 
       </div>
     </div>
