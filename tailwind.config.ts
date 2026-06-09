@@ -100,7 +100,7 @@ export default {
         },
         shine: {
           '0%': { transform: 'translateX(-200%)' },
-          '30%': { transform: 'translateX(200%)' },
+          '50%': { transform: 'translateX(200%)' },
           '100%': { transform: 'translateX(200%)' },
         },
       },
@@ -108,7 +108,7 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         wave: 'wave 2s linear infinite',
-        shine: 'shine 3s ease-in-out infinite',
+        shine: 'shine 2s ease-in-out infinite',
       },
     },
   },

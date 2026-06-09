@@ -147,8 +147,8 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
                 className="w-full h-12 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-sm shadow-lg shadow-[#12B4A3]/20 flex items-center justify-center gap-2 transition-transform active:scale-[0.98] relative overflow-hidden group"
                 onClick={handleSignUp}
               >
-                {/* Shiny Animation Layer */}
-                <div className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] animate-shine pointer-events-none" />
+                {/* Shiny Animation Layer - High Opacity for obvious effect */}
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/90 to-transparent skew-x-[-25deg] animate-shine pointer-events-none" />
                 
                 <span className="relative flex items-center justify-center gap-2">
                   Sign Me Up For Exclusive Deals
