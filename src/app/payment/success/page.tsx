@@ -14,6 +14,7 @@ export default function PaymentSuccessPage() {
   const gridRef = React.useRef<HTMLDivElement>(null)
   const successCardRef = React.useRef<HTMLDivElement>(null)
   const headerTextRef = React.useRef<HTMLDivElement>(null)
+  const checkIconRef = React.useRef<HTMLDivElement>(null)
 
   const ratings = [
     { label: "Poor", emoji: "😔" },
@@ -30,6 +31,21 @@ export default function PaymentSuccessPage() {
   ]
 
   useGSAP(() => {
+    // Initial entry animation for the checkmark
+    if (checkIconRef.current) {
+      gsap.fromTo(checkIconRef.current, 
+        { scale: 0, opacity: 0 },
+        { 
+          scale: 1, 
+          opacity: 1, 
+          duration: 0.8, 
+          ease: "back.out(1.7)",
+          delay: 0.2
+        }
+      )
+    }
+
+    // Animation when rating is selected
     if (selectedRating !== null) {
       const tl = gsap.timeline();
 
@@ -65,7 +81,7 @@ export default function PaymentSuccessPage() {
       <div className="w-full max-w-md bg-white rounded-[3rem] shadow-[0_20px_60px_rgba(0,0,0,0.06)] p-8 flex flex-col items-center overflow-hidden">
         
         {/* Success Icon */}
-        <div className="w-20 h-20 bg-[#E9FBF9] rounded-full flex items-center justify-center mb-6">
+        <div ref={checkIconRef} className="w-20 h-20 bg-[#E9FBF9] rounded-full flex items-center justify-center mb-6">
           <div className="w-14 h-14 bg-[#12B4A3] rounded-full flex items-center justify-center shadow-lg shadow-[#12B4A3]/20">
             <Check className="w-8 h-8 text-white" strokeWidth={3} />
           </div>
