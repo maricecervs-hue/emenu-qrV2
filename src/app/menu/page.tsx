@@ -205,9 +205,14 @@ export default function MenuPage() {
       if (!scrollContainerRef.current) return
       const currentScrollY = scrollContainerRef.current.scrollTop
       
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+      // Threshold at the very top
+      if (currentScrollY <= 10) {
+        setIsNavVisible(true)
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling Down - Hide
         setIsNavVisible(false)
       } else if (currentScrollY < lastScrollY) {
+        // Scrolling Up - Show
         setIsNavVisible(true)
       }
       setLastScrollY(currentScrollY)
@@ -250,6 +255,8 @@ export default function MenuPage() {
     const element = document.getElementById(`section-${id}`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // When jumping to a category, we often want the nav visible to see where we landed
+      setIsNavVisible(true);
       setTimeout(() => setIsManualScrolling(false), 800);
     }
   };
@@ -356,9 +363,13 @@ export default function MenuPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center overflow-x-hidden">
       <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative h-screen overflow-hidden">
+        
+        {/* Sliding Header Container */}
         <div 
-          ref={scrollContainerRef}
-          className="flex-1 overflow-y-auto scrollbar-hide pb-32"
+          className={cn(
+            "fixed top-0 w-full max-w-md bg-white z-[60] transition-transform duration-300 ease-in-out border-b border-slate-50",
+            isNavVisible ? "translate-y-0" : "-translate-y-full"
+          )}
         >
           <header className="pt-6 pb-2 px-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -382,20 +393,23 @@ export default function MenuPage() {
             </button>
           </header>
 
-          <div className="sticky top-0 z-50 bg-white">
-            <CategoryNav 
-              categories={CATEGORIES} 
-              active={activeCategory} 
-              onChange={handleCategoryChange} 
-            />
-          </div>
+          <CategoryNav 
+            categories={CATEGORIES} 
+            active={activeCategory} 
+            onChange={handleCategoryChange} 
+          />
+        </div>
 
+        <div 
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto scrollbar-hide pb-40 pt-[140px]"
+        >
           <div className="px-4 space-y-10 py-6">
             {filteredItems.map((section) => (
               <div 
                 key={section.id} 
                 id={`section-${section.id}`} 
-                className="space-y-6 scroll-mt-24" 
+                className="space-y-6 scroll-mt-36" 
               >
                 <div className="flex items-center gap-4">
                   <h3 className="text-2xl font-semibold text-[#1E2B4D] whitespace-nowrap">
@@ -451,7 +465,13 @@ export default function MenuPage() {
           </div>
         </div>
 
-        <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40 transition-transform duration-300 ease-in-out">
+        {/* Sliding Bottom Navigation */}
+        <nav 
+          className={cn(
+            "fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40 transition-transform duration-300 ease-in-out",
+            isNavVisible ? "translate-y-0" : "translate-y-full"
+          )}
+        >
           <div className="flex flex-col items-center gap-1.5 cursor-pointer">
             <Home className="w-7 h-7 text-[#12B4A3]" strokeWidth={2} />
             <span className="text-sm font-medium text-[#12B4A3]">Menu</span>
