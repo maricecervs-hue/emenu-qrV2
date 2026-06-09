@@ -65,7 +65,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden z-[80]">
         <SheetHeader className="sr-only">
           <SheetTitle>Your Basket</SheetTitle>
           <SheetDescription>View and manage your selected items.</SheetDescription>

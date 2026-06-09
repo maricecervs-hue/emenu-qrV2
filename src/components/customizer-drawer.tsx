@@ -172,7 +172,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         }, 300)
       }
     }}>
-      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden">
+      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden z-[100]">
         <SheetHeader className="sr-only">
           <SheetTitle>{item.name}</SheetTitle>
           <SheetDescription>{item.description}</SheetDescription>

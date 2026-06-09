@@ -431,7 +431,7 @@ export default function MenuPage() {
 
         <div 
           className={cn(
-            "fixed bottom-28 right-6 z-50 transition-all duration-300 ease-in-out",
+            "fixed bottom-28 right-6 z-[70] transition-all duration-300 ease-in-out",
             (cartItems.length === 0) ? "translate-y-24 opacity-0 scale-0 pointer-events-none" : "translate-y-0 opacity-100 scale-100 pointer-events-auto"
           )}
         >

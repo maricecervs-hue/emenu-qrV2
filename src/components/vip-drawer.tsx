@@ -44,7 +44,7 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-[#FCFBF5] overflow-hidden shadow-2xl">
+      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-[#FCFBF5] overflow-hidden shadow-2xl z-[110]">
         <SheetHeader className="sr-only">
           <SheetTitle>VIP Club</SheetTitle>
           <SheetDescription>Join our VIP circle for exclusive deals.</SheetDescription>
