@@ -441,18 +441,18 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
           </ScrollArea>
 
           {view === 'main' && (
-            <div className="w-full bg-white p-6 border-t border-slate-100/50 flex items-center gap-4 shadow-[0_-20px_50px_rgba(0,0,0,0.06)] z-10">
-              <div className="flex items-center gap-6 bg-slate-50 px-6 py-4 rounded-2xl border border-slate-100">
+            <div className="w-full bg-white px-4 py-4 border-t border-slate-100/50 flex items-center gap-3 shadow-[0_-20px_50px_rgba(0,0,0,0.06)] z-10 shrink-0">
+              <div className="flex items-center gap-4 bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100 shrink-0">
                 <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="text-[#1E2B4D] hover:scale-125 transition-transform active:scale-90">
                   <Minus className="w-5 h-5" strokeWidth={3} />
                 </button>
-                <span className="text-2xl font-semibold text-[#1E2B4D] min-w-[28px] text-center">{quantity}</span>
+                <span className="text-xl font-bold text-[#1E2B4D] min-w-[20px] text-center">{quantity}</span>
                 <button onClick={() => setQuantity(quantity + 1)} className="text-[#1E2B4D] hover:scale-125 transition-transform active:scale-90">
                   <Plus className="w-5 h-5" strokeWidth={3} />
                 </button>
               </div>
               <Button 
-                className="flex-1 h-16 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-semibold text-xl shadow-xl shadow-[#12B4A3]/20 transition-all hover:scale-[1.01] active:scale-[0.98]"
+                className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-base shadow-xl shadow-[#12B4A3]/20 transition-all hover:scale-[1.01] active:scale-[0.98] px-2 whitespace-nowrap overflow-hidden"
                 onClick={handleAddToCart}
               >
                 {isEdit ? 'Update' : 'Add'} • $ {(item.price * quantity + customizationGroups.reduce((acc, g) => acc + g.options.reduce((oAcc, o) => oAcc + (o.price * o.quantity), 0), 0)).toFixed(2)}
