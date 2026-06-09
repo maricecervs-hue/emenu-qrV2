@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
 interface CheckoutDrawerProps {
@@ -24,9 +25,17 @@ interface CheckoutDrawerProps {
 export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDrawerProps) {
   const [orderType, setOrderType] = React.useState<'dine-in' | 'take-out' | 'delivery'>('dine-in')
   const [selectedTip, setSelectedTip] = React.useState<number | 'custom' | null>(4)
+  const [customTipValue, setCustomTipValue] = React.useState<string>("")
   
   const tax = subtotal * 0.18 // Matching the 18% approx in the screenshot
-  const tipAmount = typeof selectedTip === 'number' ? selectedTip : 0
+  
+  const tipAmount = React.useMemo(() => {
+    if (selectedTip === 'custom') {
+      return parseFloat(customTipValue) || 0
+    }
+    return typeof selectedTip === 'number' ? selectedTip : 0
+  }, [selectedTip, customTipValue])
+
   const total = subtotal + tax + tipAmount
 
   const orderTypes = [
@@ -133,13 +142,32 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
                 ))}
               </div>
 
+              {selectedTip === 'custom' && (
+                <div className="w-full pt-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <div className="bg-white p-4 rounded-2xl border-2 border-[#12B4A3] flex items-center gap-3">
+                    <span className="text-[#1E2B4D] font-bold">AED</span>
+                    <Input 
+                      type="number" 
+                      placeholder="Enter custom amount" 
+                      value={customTipValue}
+                      onChange={(e) => setCustomTipValue(e.target.value)}
+                      className="border-none bg-transparent h-auto p-0 text-lg font-bold text-[#1E2B4D] placeholder:text-slate-200 focus-visible:ring-0"
+                      autoFocus
+                    />
+                  </div>
+                </div>
+              )}
+
               <Button 
                 variant="outline"
                 className={cn(
                   "w-full h-14 rounded-2xl border-slate-100 text-slate-400 font-semibold text-base transition-all",
                   selectedTip === null && "border-[#FF5C5C] text-[#FF5C5C] bg-red-50"
                 )}
-                onClick={() => setSelectedTip(null)}
+                onClick={() => {
+                  setSelectedTip(null)
+                  setCustomTipValue("")
+                }}
               >
                 <X className="w-4 h-4 mr-2" />
                 No Tip
