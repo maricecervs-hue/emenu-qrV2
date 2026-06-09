@@ -10,6 +10,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { CartDrawer } from "@/components/cart-drawer"
 import { CustomizerDrawer } from "@/components/customizer-drawer"
 import { CheckoutDrawer } from "@/components/checkout-drawer"
+import { SearchDrawer } from "@/components/search-drawer"
 import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
 import gsap from "gsap"
@@ -163,6 +164,7 @@ export default function MenuPage() {
   const [lastScrollY, setLastScrollY] = React.useState(0)
   const [isCartOpen, setIsCartOpen] = React.useState(false)
   const [isCheckoutOpen, setIsCheckoutOpen] = React.useState(false)
+  const [isSearchOpen, setIsSearchOpen] = React.useState(false)
   const [editingCartItem, setEditingCartItem] = React.useState<any>(null)
   const [cartItems, setCartItems] = React.useState<{
     id: string
@@ -363,7 +365,7 @@ export default function MenuPage() {
                 <ChevronLeft className="w-6 h-6 text-slate-800" />
               </Link>
               <div className="flex flex-col">
-                <h2 className="text-xl font-semibold text-[#1E2B4D]">
+                <h2 className="text-xl font-medium text-[#1E2B4D]">
                   {CATEGORIES.find(c => c.id === activeCategory)?.name || 'Menu'}
                 </h2>
                 <span className="text-sm font-medium text-[#12B4A3]">
@@ -371,7 +373,12 @@ export default function MenuPage() {
                 </span>
               </div>
             </div>
-            <Search className="w-6 h-6 text-slate-800" />
+            <button 
+              onClick={() => setIsSearchOpen(true)}
+              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-50 transition-colors"
+            >
+              <Search className="w-6 h-6 text-slate-800" />
+            </button>
           </header>
 
           <div className="sticky top-0 z-50 bg-white">
@@ -473,6 +480,12 @@ export default function MenuPage() {
           }}
           subtotal={subtotal}
           items={cartItems}
+        />
+
+        <SearchDrawer 
+          isOpen={isSearchOpen}
+          onClose={() => setIsSearchOpen(false)}
+          items={MENU_ITEMS}
         />
 
         {editingBaseItem && (
