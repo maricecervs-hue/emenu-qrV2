@@ -22,13 +22,13 @@ export default function PaymentPage() {
   const [isRedirecting, setIsRedirecting] = React.useState(true)
   const total = searchParams.get('total') || '326.00'
 
-  // Form state
+  // Form state with default test data
   const [formData, setFormData] = React.useState({
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
-    cardholderName: '',
-    email: ''
+    cardNumber: '4242 4242 4242 4242',
+    expiryDate: '12/26',
+    cvv: '123',
+    cardholderName: 'Jane Doe',
+    email: 'jane.doe@example.com'
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
