@@ -48,6 +48,18 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
   const [searchQuery, setSearchQuery] = React.useState("")
   const [activeAllergens, setActiveAllergens] = React.useState<string[]>([])
 
+  const handleReset = React.useCallback(() => {
+    setSearchQuery("")
+    setActiveAllergens([])
+  }, [])
+
+  // Clear search state when drawer is closed
+  React.useEffect(() => {
+    if (!isOpen) {
+      handleReset()
+    }
+  }, [isOpen, handleReset])
+
   const filteredItems = React.useMemo(() => {
     if (!searchQuery && activeAllergens.length === 0) return [];
     
@@ -73,11 +85,6 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
         ? prev.filter(a => a !== id) 
         : [...prev, id]
     )
-  }
-
-  const handleReset = () => {
-    setSearchQuery("")
-    setActiveAllergens([])
   }
 
   const hasInteraction = searchQuery.length > 0 || activeAllergens.length > 0
