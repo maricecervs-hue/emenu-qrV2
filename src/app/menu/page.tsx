@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react"
@@ -405,20 +406,15 @@ export default function MenuPage() {
           </div>
         </div>
 
-        <nav 
-          className={cn(
-            "fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40 transition-transform duration-300 ease-in-out",
-            !isNavVisible && "translate-y-full"
-          )}
-        >
+        <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40 transition-transform duration-300 ease-in-out">
           <div className="flex flex-col items-center gap-1.5 cursor-pointer">
             <Home className="w-7 h-7 text-[#12B4A3]" strokeWidth={2} />
             <span className="text-sm font-semibold text-[#12B4A3]">Menu</span>
           </div>
-          <div className="flex flex-col items-center gap-1.5 cursor-pointer opacity-30">
+          <Link href="/orders" className="flex flex-col items-center gap-1.5 cursor-pointer opacity-30 transition-opacity hover:opacity-100">
             <ClipboardList className="w-7 h-7 text-slate-500" strokeWidth={2} />
             <span className="text-sm font-semibold text-slate-500">Orders</span>
-          </div>
+          </Link>
         </nav>
 
         <CartDrawer 
