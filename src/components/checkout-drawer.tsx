@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -43,14 +44,14 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden shadow-2xl">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden shadow-2xl flex flex-col">
         <SheetHeader className="sr-only">
           <SheetTitle>Payment</SheetTitle>
           <SheetDescription>Complete your order and payment.</SheetDescription>
         </SheetHeader>
 
         {/* Header */}
-        <div className="bg-white px-6 pt-8 pb-4 flex items-center justify-between">
+        <div className="bg-white px-6 pt-8 pb-4 flex items-center justify-between shrink-0">
           <Button 
             variant="ghost" 
             size="icon" 
@@ -70,8 +71,8 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
           </Button>
         </div>
 
-        <ScrollArea className="h-full pb-32">
-          <div className="p-6 space-y-10">
+        <ScrollArea className="flex-1">
+          <div className="p-6 pb-40 space-y-10">
             {/* Price Summary Card */}
             <div className="bg-white p-7 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-5">
               <div className="flex justify-between items-center text-base">
@@ -148,7 +149,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
         </ScrollArea>
 
         {/* Footer Actions */}
-        <div className="absolute bottom-0 w-full bg-white p-6 border-t border-slate-100 flex gap-4 shadow-[0_-20px_60px_rgba(0,0,0,0.05)]">
+        <div className="bg-white p-6 border-t border-slate-100 flex gap-4 shadow-[0_-20px_60px_rgba(0,0,0,0.05)] shrink-0">
           <Button 
             variant="outline"
             className="flex-1 h-14 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-bold text-base hover:bg-[#12B4A3]/5"
