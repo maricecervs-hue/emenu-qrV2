@@ -209,10 +209,10 @@ export default function MenuPage() {
       if (currentScrollY <= 10) {
         setIsNavVisible(true)
       } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling Down - Hide
+        // Scrolling Down - Hide Header + Footer, but keep Category Nav
         setIsNavVisible(false)
       } else if (currentScrollY < lastScrollY) {
-        // Scrolling Up - Show
+        // Scrolling Up - Show All
         setIsNavVisible(true)
       }
       setLastScrollY(currentScrollY)
@@ -255,7 +255,6 @@ export default function MenuPage() {
     const element = document.getElementById(`section-${id}`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // When jumping to a category, we often want the nav visible to see where we landed
       setIsNavVisible(true);
       setTimeout(() => setIsManualScrolling(false), 800);
     }
@@ -364,14 +363,14 @@ export default function MenuPage() {
     <div className="min-h-screen bg-white flex flex-col items-center overflow-x-hidden">
       <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative h-screen overflow-hidden">
         
-        {/* Sliding Header Container */}
-        <div 
+        {/* Sliding Search Header - Only visible on scroll up */}
+        <header 
           className={cn(
-            "fixed top-0 w-full max-w-md bg-white z-[60] transition-transform duration-300 ease-in-out border-b border-slate-50",
+            "fixed top-0 w-full max-w-md bg-white z-[65] transition-transform duration-300 ease-in-out border-slate-50",
             isNavVisible ? "translate-y-0" : "-translate-y-full"
           )}
         >
-          <header className="pt-6 pb-2 px-4 flex items-center justify-between">
+          <div className="pt-6 pb-2 px-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/">
                 <ChevronLeft className="w-6 h-6 text-slate-800" />
@@ -391,8 +390,16 @@ export default function MenuPage() {
             >
               <Search className="w-6 h-6 text-slate-800" />
             </button>
-          </header>
+          </div>
+        </header>
 
+        {/* Category Nav - Always visible, shifts to top when header is hidden */}
+        <div 
+          className={cn(
+            "fixed w-full max-w-md bg-white z-[60] transition-all duration-300 ease-in-out border-b border-slate-200",
+            isNavVisible ? "top-[80px]" : "top-0"
+          )}
+        >
           <CategoryNav 
             categories={CATEGORIES} 
             active={activeCategory} 
@@ -443,6 +450,7 @@ export default function MenuPage() {
           </div>
         </div>
 
+        {/* Floating Cart Button */}
         <div 
           className={cn(
             "fixed bottom-28 right-6 z-[70] transition-all duration-300 ease-in-out",
