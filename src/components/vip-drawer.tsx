@@ -44,13 +44,12 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-[#FCFBF5] overflow-hidden shadow-2xl z-[110]">
+      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-[#FCFBF5] overflow-hidden shadow-2xl z-[150]">
         <SheetHeader className="sr-only">
           <SheetTitle>VIP Club</SheetTitle>
           <SheetDescription>Join our VIP circle for exclusive deals.</SheetDescription>
         </SheetHeader>
 
-        {/* Top Header Bar */}
         <div className="px-6 py-2.5 flex items-center justify-between bg-white border-b border-slate-50 z-20 relative">
           <div className="flex items-center gap-2 text-[#12B4A3] font-medium text-[10px] uppercase tracking-wider">
             <Crown className="w-3 h-3 fill-[#12B4A3]" />
@@ -66,7 +65,6 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
 
         <ScrollArea className="h-full">
           <div className="flex flex-col pb-10">
-            {/* Hero Image Section - Highly Condensed */}
             <div className="relative w-full h-[14vh]">
               <Image 
                 src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2340&auto=format&fit=crop"
@@ -79,10 +77,8 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
               <div className="absolute inset-0 bg-black/5" />
             </div>
 
-            {/* Overlapping Card Section */}
             <div className="relative px-5 -mt-8 z-10">
               <div className="bg-white rounded-[2rem] p-5 pb-6 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex flex-col items-center">
-                {/* Floating Crown Badge */}
                 <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-12 h-12 bg-[#F97316] rounded-full border-[4px] border-white flex items-center justify-center shadow-lg">
                   <Crown className="w-6 h-6 text-white fill-white" />
                 </div>
@@ -94,7 +90,6 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
                   </p>
                 </div>
 
-                {/* Benefits List - Ultra Condensed */}
                 <div className="w-full space-y-2 mb-4 px-1">
                   {[
                     { text: 'Unlock <span class="font-semibold text-[#1E2B4D]">exclusive</span> restaurant deals' },
@@ -114,7 +109,6 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
                   ))}
                 </div>
 
-                {/* Form Inputs - Reduced Height */}
                 <div className="w-full space-y-2">
                   <div className="relative group">
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-300 group-focus-within:text-[#12B4A3] transition-colors" />
@@ -141,13 +135,11 @@ export function VipDrawer({ isOpen, onClose, onDismiss, onSignUp, total }: VipDr
               </div>
             </div>
 
-            {/* Action Footer - Tightened */}
             <div className="px-6 space-y-3 mt-4 flex flex-col items-center">
               <Button 
                 className="w-full h-12 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-medium text-sm shadow-lg shadow-[#12B4A3]/20 flex items-center justify-center gap-2 transition-transform active:scale-[0.98] relative overflow-hidden group"
                 onClick={handleSignUp}
               >
-                {/* Shiny Animation Layer */}
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] animate-shine pointer-events-none" />
                 
                 <span className="relative flex items-center justify-center gap-2">

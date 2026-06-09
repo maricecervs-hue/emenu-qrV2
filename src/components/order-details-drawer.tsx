@@ -33,10 +33,9 @@ interface OrderDetailsDrawerProps {
 export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawerProps) {
   if (!order) return null;
 
-  // Calculate bill details (simulated since we only have total in localStorage)
   const total = Number(order.total);
-  const tip = 0; // Default or could be stored
-  const subtotal = total / 1.18; // Reverse calculation for demo
+  const tip = 0;
+  const subtotal = total / 1.18;
   const taxes = total - subtotal - tip;
 
   const steps = [
@@ -48,13 +47,12 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FB] overflow-hidden shadow-2xl flex flex-col">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FB] overflow-hidden shadow-2xl flex flex-col z-[160]">
         <SheetHeader className="sr-only">
           <SheetTitle>Order #{order.orderNumber}</SheetTitle>
           <SheetDescription>Status and bill summary for your order.</SheetDescription>
         </SheetHeader>
 
-        {/* Header */}
         <header className="px-6 pt-8 pb-4 bg-white flex items-center justify-center relative shrink-0">
           <button 
             onClick={onClose}
@@ -67,8 +65,6 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
 
         <ScrollArea className="flex-1">
           <div className="p-6 space-y-6">
-            
-            {/* Order Status Card */}
             <div className="bg-white rounded-[2rem] p-8 shadow-[0_8px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-8">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-semibold text-[#1E2B4D]">Order Status</h2>
@@ -79,7 +75,6 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
               </div>
 
               <div className="relative flex justify-between items-start px-2">
-                {/* Connecting Lines */}
                 <div className="absolute top-7 left-10 right-10 h-0.5 bg-slate-100 -z-0" />
                 <div 
                   className="absolute top-7 left-10 h-0.5 bg-[#12B4A3] -z-0 transition-all duration-700" 
@@ -107,7 +102,6 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
               </div>
             </div>
 
-            {/* Bill Summary Card */}
             <div className="bg-white rounded-[2rem] p-8 shadow-[0_8px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-6">
               <h2 className="text-2xl font-semibold text-[#1E2B4D]">Bill Summary</h2>
               
@@ -133,7 +127,6 @@ export function OrderDetailsDrawer({ isOpen, onClose, order }: OrderDetailsDrawe
                 </div>
               </div>
             </div>
-
           </div>
         </ScrollArea>
       </SheetContent>

@@ -38,7 +38,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
   const [customTipValue, setCustomTipValue] = React.useState<string>("")
   const [isVipOpen, setIsVipOpen] = React.useState(false)
   
-  const tax = subtotal * 0.18 // Matching the 18% approx in the screenshot
+  const tax = subtotal * 0.18
   
   const tipAmount = React.useMemo(() => {
     if (selectedTip === 'custom') {
@@ -63,7 +63,6 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
   }
 
   const handlePay = () => {
-    // Save draft order to localStorage before moving to payment flow
     const pendingOrder = {
       items: items.map(i => ({ id: i.id, imageUrl: i.imageUrl, name: i.name })),
       total: total,
@@ -77,13 +76,12 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
   return (
     <>
       <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-        <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden shadow-2xl flex flex-col z-[90]">
+        <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden shadow-2xl flex flex-col z-[130]">
           <SheetHeader className="sr-only">
             <SheetTitle>Payment</SheetTitle>
             <SheetDescription>Complete your order and payment.</SheetDescription>
           </SheetHeader>
 
-          {/* Header */}
           <div className="bg-white px-6 pt-8 pb-4 flex items-center justify-between shrink-0 border-b border-slate-50">
             <Button 
               variant="ghost" 
@@ -94,13 +92,11 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
               <ChevronLeft className="h-6 w-6 text-slate-800" />
             </Button>
             <h2 className="text-xl font-medium text-[#1E2B4D] tracking-tight">Payment</h2>
-            <div className="w-10" /> {/* Spacer to keep title centered */}
+            <div className="w-10" />
           </div>
 
           <ScrollArea className="flex-1">
             <div className="p-6 pb-40 space-y-10">
-              
-              {/* Order Items Summary */}
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
@@ -131,7 +127,6 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                 </div>
               </div>
 
-              {/* Price Summary Card */}
               <div className="bg-white p-7 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-5">
                 <div className="flex justify-between items-center text-base">
                   <span className="font-normal text-slate-400">Subtotal</span>
@@ -151,7 +146,6 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                 </div>
               </div>
 
-              {/* Tipping Section */}
               <div className="flex flex-col items-center text-center space-y-6">
                 <div className="w-24 h-24 bg-gradient-to-br from-orange-50 to-pink-50 rounded-full flex items-center justify-center shadow-inner border border-white">
                   <span className="text-5xl animate-wave origin-[70%_70%]">👋</span>
@@ -179,14 +173,12 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                             : "bg-white border-slate-100 text-slate-400 shadow-sm hover:border-slate-200"
                         )}
                       >
-                        {/* Popular Badge */}
                         {!isCustom && tip.popular && (
                           <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#12B4A3] text-white text-[8px] font-medium px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">
                             Popular
                           </div>
                         )}
 
-                        {/* Remove Tip Button */}
                         {isSelected && (
                           <div 
                             onClick={handleClearTip}
@@ -230,7 +222,6 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
             </div>
           </ScrollArea>
 
-          {/* Footer Actions */}
           <div className="bg-white p-6 border-t border-slate-100 flex gap-4 shadow-[0_-20px_60px_rgba(0,0,0,0.05)] shrink-0">
             <Button 
               variant="outline"
@@ -254,11 +245,11 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
         onClose={() => setIsVipOpen(false)}
         onDismiss={() => {
           setIsVipOpen(false)
-          onClose() // Finalize checkout state
+          onClose()
         }}
         onSignUp={(data) => {
           setIsVipOpen(false)
-          onClose() // Finalize checkout state
+          onClose()
         }}
         total={total}
       />

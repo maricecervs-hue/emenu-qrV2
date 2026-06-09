@@ -14,7 +14,6 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
-// Custom Milk icon matching the screenshot design
 const MilkIcon = ({ className }: { className?: string }) => (
   <svg 
     viewBox="0 0 24 24" 
@@ -53,7 +52,6 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
     setActiveAllergens([])
   }, [])
 
-  // Clear search state when drawer is closed (via Back button)
   React.useEffect(() => {
     if (!isOpen) {
       handleReset()
@@ -94,7 +92,7 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
       <SheetContent 
         side="top" 
         className={cn(
-          "w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-none transition-all duration-300 ease-in-out z-[95]",
+          "w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-none transition-all duration-300 ease-in-out z-[110]",
           hasInteraction ? "h-screen" : "h-auto max-h-[90vh]"
         )}
       >
@@ -102,7 +100,6 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
           <SheetTitle>Search Menu</SheetTitle>
         </SheetHeader>
 
-        {/* Search Header - Straight Bottom Edge */}
         <div className="px-5 pt-6 pb-5 space-y-4 bg-white shrink-0 border-b border-slate-100">
           <div className="flex items-center gap-3">
             <button 
@@ -164,7 +161,6 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
           </div>
         </div>
 
-        {/* Results Area - Appears and fills height on interaction */}
         {hasInteraction && (
           <ScrollArea className="flex-1 bg-[#F8F9FB] animate-in fade-in duration-300">
             <div className="px-5 py-6 space-y-6 pb-24 min-h-full">
@@ -187,7 +183,6 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
                     className="bg-white p-4 rounded-[1.8rem] border border-slate-50 flex gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.02)] active:scale-[0.98] transition-transform cursor-pointer"
                     onClick={() => {
                       if (onItemClick) onItemClick(item);
-                      // Specifically NOT calling onClose() here to keep search drawer open behind Customizer
                     }}
                   >
                     <div className="relative w-24 h-24 rounded-[1.2rem] overflow-hidden shrink-0 border border-slate-50">

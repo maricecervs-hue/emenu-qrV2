@@ -82,7 +82,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
     }
   ])
 
-  // Mock sub-options for nested customization
   const subOptions = {
     'opt7': [
       { id: 'sc1', name: 'Mozzarella Fill', price: 0 },
@@ -172,7 +171,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         }, 300)
       }
     }}>
-      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden z-[100]">
+      <SheetContent side="bottom" className="h-[92vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden z-[140]">
         <SheetHeader className="sr-only">
           <SheetTitle>{item.name}</SheetTitle>
           <SheetDescription>{item.description}</SheetDescription>

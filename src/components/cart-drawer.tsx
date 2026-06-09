@@ -65,7 +65,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden z-[80] flex flex-col">
+      <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden z-[120] flex flex-col">
         <SheetHeader className="sr-only">
           <SheetTitle>Your Basket</SheetTitle>
           <SheetDescription>View and manage your selected items.</SheetDescription>
@@ -93,7 +93,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
 
         <ScrollArea className="flex-1">
           <div className="p-6 pb-40 space-y-8">
-            {/* Cart Items */}
             <div className="space-y-4">
               {items.map((item) => (
                 <div key={item.cartId} className="bg-white p-4 rounded-[1.5rem] shadow-[0_8px_20px_rgba(0,0,0,0.03)] border border-slate-50 space-y-3">
@@ -153,7 +152,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
               ))}
             </div>
 
-            {/* Recommendations */}
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <h3 className="text-lg font-semibold text-[#1E2B4D]">You might also like</h3>
@@ -179,7 +177,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
               </div>
             </div>
 
-            {/* Actions */}
             <div className="space-y-3">
               <button className="w-full bg-white p-4 rounded-2xl flex items-center justify-between shadow-sm border border-slate-50 group active:bg-slate-50 transition-colors">
                 <div className="flex items-center gap-3">
@@ -206,7 +203,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
               </div>
             </div>
 
-            {/* Price Summary */}
             <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-50 space-y-4">
               <div className="flex justify-between items-center text-sm">
                 <span className="font-medium text-[#8E9AAF]">Subtotal</span>
@@ -229,7 +225,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
           </div>
         </ScrollArea>
 
-        {/* Checkout Footer */}
         <div className="shrink-0 w-full bg-white p-6 border-t border-slate-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
           <Button 
             className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-medium text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
