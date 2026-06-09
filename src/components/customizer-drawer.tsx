@@ -188,14 +188,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-full h-8 w-8 hover:bg-white"
-                    onClick={onClose}
-                  >
-                    <X className="h-4 w-4 text-slate-900" />
-                  </Button>
                 </div>
 
                 <div className="p-6 space-y-8 pb-32">
