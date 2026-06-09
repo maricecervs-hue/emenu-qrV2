@@ -34,6 +34,7 @@ interface SearchDrawerProps {
   isOpen: boolean
   onClose: () => void
   items: any[]
+  onItemClick?: (item: any) => void
 }
 
 const ALLERGENS = [
@@ -43,7 +44,7 @@ const ALLERGENS = [
   { id: 'fish', name: 'Fish', icon: <Fish className="w-3.5 h-3.5" /> },
 ]
 
-export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
+export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDrawerProps) {
   const [searchQuery, setSearchQuery] = React.useState("")
   const [activeAllergens, setActiveAllergens] = React.useState<string[]>([])
 
@@ -176,8 +177,11 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
                 {filteredItems.map((item) => (
                   <div 
                     key={item.id} 
-                    className="bg-white p-4 rounded-[1.8rem] border border-slate-50 flex gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.02)] active:scale-[0.98] transition-transform"
-                    onClick={onClose}
+                    className="bg-white p-4 rounded-[1.8rem] border border-slate-50 flex gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.02)] active:scale-[0.98] transition-transform cursor-pointer"
+                    onClick={() => {
+                      if (onItemClick) onItemClick(item);
+                      onClose();
+                    }}
                   >
                     <div className="relative w-24 h-24 rounded-[1.2rem] overflow-hidden shrink-0 border border-slate-50">
                       <Image 

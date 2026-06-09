@@ -70,7 +70,7 @@ const MENU_ITEMS = [
     description: 'The perfect balance of ham and sweet pineapple chunks.',
     price: 32.00,
     imageUrl: PlaceHolderImages.find(i => i.id === 'pizza-hawaiian')?.imageUrl || "",
-    imageHint: "hawaiian pizza",
+    imageHint: "pizza-hawaiian",
     category: 'pizza',
     customisable: true
   },
@@ -80,7 +80,7 @@ const MENU_ITEMS = [
     description: 'Crispy baguette slices with roasted garlic butter and herbs.',
     price: 12.00,
     imageUrl: PlaceHolderImages.find(i => i.id === 'garlic-bread')?.imageUrl || "",
-    imageHint: "garlic bread",
+    imageHint: "garlic-bread",
     category: 'sides',
     customisable: false
   },
@@ -100,7 +100,7 @@ const MENU_ITEMS = [
     description: 'Deep fried golden potatoes served with classic ketchup.',
     price: 8.00,
     imageUrl: PlaceHolderImages.find(i => i.id === 'french-fries')?.imageUrl || "",
-    imageHint: "french fries",
+    imageHint: "french-fries",
     category: 'sides',
     customisable: false
   },
@@ -166,6 +166,7 @@ export default function MenuPage() {
   const [isCheckoutOpen, setIsCheckoutOpen] = React.useState(false)
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
   const [editingCartItem, setEditingCartItem] = React.useState<any>(null)
+  const [selectedCustomizerItem, setSelectedCustomizerItem] = React.useState<any>(null)
   const [cartItems, setCartItems] = React.useState<{
     id: string
     cartId: string 
@@ -486,6 +487,7 @@ export default function MenuPage() {
           isOpen={isSearchOpen}
           onClose={() => setIsSearchOpen(false)}
           items={MENU_ITEMS}
+          onItemClick={(item) => setSelectedCustomizerItem(item)}
         />
 
         {editingBaseItem && (
@@ -499,6 +501,18 @@ export default function MenuPage() {
               if (rect) animateToCart(rect)
             }}
             isEdit
+          />
+        )}
+
+        {selectedCustomizerItem && (
+          <CustomizerDrawer 
+            isOpen={!!selectedCustomizerItem}
+            onClose={() => setSelectedCustomizerItem(null)}
+            item={selectedCustomizerItem}
+            customisable={selectedCustomizerItem.customisable}
+            onAddToCart={(qty, cust, rect) => {
+              handleAddToCart(selectedCustomizerItem, qty, cust, rect)
+            }}
           />
         )}
       </div>
