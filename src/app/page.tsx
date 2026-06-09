@@ -52,7 +52,7 @@ export default function Home() {
         </div>
 
         {/* The Card */}
-        <div className="bg-white rounded-[3.5rem] pt-20 pb-12 px-8 shadow-[0_20px_60px_rgba(0,0,0,0.06)] flex flex-col items-center text-center space-y-8 mb-12">
+        <div className="bg-white rounded-[2.5rem] pt-20 pb-12 px-8 shadow-[0_20px_60px_rgba(0,0,0,0.06)] flex flex-col items-center text-center space-y-8 mb-12">
           <div className="space-y-4">
             <h1 className="text-[2.5rem] font-bold text-[#1E2B4D] tracking-tight leading-none">Blue Plate</h1>
             
