@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen bg-[#F4F8FB] flex flex-col items-center overflow-x-hidden">
       {/* Hero Background Image with Parallax Effect */}
-      <div className="absolute top-0 w-full h-[40vh] overflow-hidden z-0">
+      <div className="absolute top-0 w-full h-[40vh] overflow-hidden z-0 rounded-bl-[30px] rounded-br-[30px]">
         <div 
           ref={imageRef}
           className="relative w-full h-[120%] -top-[10%] will-change-transform"
