@@ -49,9 +49,9 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
   const total = subtotal + tax + tipAmount
 
   const tips = [
-    { amount: 2, label: '฿ 2', icon: <Coffee className="w-5 h-5" /> },
-    { amount: 4, label: '฿ 4', icon: <Pizza className="w-5 h-5" />, popular: true },
-    { amount: 8, label: '฿ 8', icon: <Beef className="w-5 h-5" /> },
+    { amount: 2, label: 'AED 2', icon: <Coffee className="w-5 h-5" /> },
+    { amount: 4, label: 'AED 4', icon: <Pizza className="w-5 h-5" />, popular: true },
+    { amount: 8, label: 'AED 8', icon: <Beef className="w-5 h-5" /> },
     { amount: 'custom', label: 'Custom', icon: <Pencil className="w-5 h-5" /> },
   ] as const
 
@@ -117,7 +117,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                       )}
                     </div>
                     <span className="font-bold text-[#1E2B4D] text-sm whitespace-nowrap">
-                      ฿ {(item.price * item.quantity).toFixed(2)}
+                      AED {(item.price * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 ))}
@@ -128,19 +128,19 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
             <div className="bg-white p-7 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-5">
               <div className="flex justify-between items-center text-base">
                 <span className="font-normal text-slate-400">Subtotal</span>
-                <span className="font-semibold text-[#1E2B4D]">฿ {subtotal.toFixed(2)}</span>
+                <span className="font-semibold text-[#1E2B4D]">AED {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-base">
                 <span className="font-normal text-slate-400">Taxes & Fees</span>
-                <span className="font-semibold text-[#1E2B4D]">฿ {tax.toFixed(2)}</span>
+                <span className="font-semibold text-[#1E2B4D]">AED {tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-base">
                 <span className="font-normal text-slate-400">Tip</span>
-                <span className="font-semibold text-[#1E2B4D]">฿ {tipAmount.toFixed(2)}</span>
+                <span className="font-semibold text-[#1E2B4D]">AED {tipAmount.toFixed(2)}</span>
               </div>
               <div className="pt-6 border-t border-slate-100 flex justify-between items-center">
                 <span className="text-2xl font-bold text-[#1E2B4D]">Total</span>
-                <span className="text-2xl font-bold text-[#1E2B4D]">฿ {total.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-[#1E2B4D]">AED {total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -193,7 +193,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                         <div className="w-full h-full flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-200">
                           <span className="text-[10px] font-bold text-[#12B4A3] mb-1">Enter Tip</span>
                           <div className="flex items-center gap-1 border-b border-[#12B4A3] pb-1">
-                            <span className="text-xs font-bold text-[#1E2B4D]">฿</span>
+                            <span className="text-xs font-bold text-[#1E2B4D]">AED</span>
                             <Input 
                               type="number" 
                               value={customTipValue}
@@ -236,7 +236,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
             className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-base shadow-xl shadow-[#12B4A3]/20 transition-transform active:scale-95"
             onClick={onClose}
           >
-            Pay ฿ {total.toFixed(2)}
+            Pay AED {total.toFixed(2)}
           </Button>
         </div>
       </SheetContent>

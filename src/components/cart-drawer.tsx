@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -120,7 +121,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                         </button>
                       </div>
                       <div className="flex items-center gap-1">
-                        <span className="text-[#12B4A3] font-bold text-lg">฿ {item.price.toFixed(2)}</span>
+                        <span className="text-[#12B4A3] font-bold text-lg">AED {item.price.toFixed(2)}</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 bg-[#F8F9FA] px-2 py-1.5 rounded-full border border-slate-100">
@@ -176,7 +177,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                     <div className="p-3 space-y-2 flex-1 flex flex-col justify-between">
                       <p className="text-xs font-semibold text-[#1E2B4D] leading-tight line-clamp-2">{rec.name}</p>
                       <div className="flex items-center justify-between">
-                        <span className="text-[#12B4A3] font-bold text-sm">฿ {rec.price.toFixed(2)}</span>
+                        <span className="text-[#12B4A3] font-bold text-sm">AED {rec.price.toFixed(2)}</span>
                         <Button size="icon" className="w-7 h-7 rounded-full bg-[#12B4A3] hover:bg-[#109E8F]">
                           <Plus className="w-4 h-4" />
                         </Button>
@@ -218,20 +219,20 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
             <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-50 space-y-4">
               <div className="flex justify-between items-center text-sm">
                 <span className="font-semibold text-[#8E9AAF]">Subtotal</span>
-                <span className="font-bold text-[#1E2B4D]">฿ {subtotal.toFixed(2)}</span>
+                <span className="font-bold text-[#1E2B4D]">AED {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-sm">
                 <span className="font-semibold text-[#8E9AAF]">Tax (8%)</span>
-                <span className="font-bold text-[#1E2B4D]">฿ {tax.toFixed(2)}</span>
+                <span className="font-bold text-[#1E2B4D]">AED {tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-sm">
                 <span className="font-semibold text-[#8E9AAF]">Service Charge (10%)</span>
-                <span className="font-bold text-[#1E2B4D]">฿ {serviceCharge.toFixed(2)}</span>
+                <span className="font-bold text-[#1E2B4D]">AED {serviceCharge.toFixed(2)}</span>
               </div>
               <Separator className="bg-slate-50" />
               <div className="flex justify-between items-center">
                 <span className="text-lg font-bold text-[#1E2B4D]">Total</span>
-                <span className="text-2xl font-bold text-[#12B4A3]">฿ {total.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-[#12B4A3]">AED {total.toFixed(2)}</span>
               </div>
             </div>
 
