@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Check, Mail, Download, Heart } from "lucide-react"
+import { Check, Mail, Package, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import gsap from "gsap"
@@ -166,8 +166,8 @@ export default function PaymentSuccessPage() {
             variant="outline" 
             className="w-full h-14 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-bold flex items-center justify-center gap-3 hover:bg-[#12B4A3]/5"
           >
-            <Download className="w-5 h-5" />
-            Download
+            <Package className="w-5 h-5" />
+            Track Order
           </Button>
 
           <Link href="/" className="block pt-2">
