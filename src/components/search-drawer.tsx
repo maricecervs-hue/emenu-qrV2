@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { Search, ChevronLeft, Wheat, Egg, Fish } from "lucide-react"
+import { Search, ChevronLeft, Wheat, Egg, Fish, XCircle } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -85,13 +85,17 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent 
         side="top" 
-        className="h-auto max-h-[90vh] w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-none overflow-hidden"
+        className={cn(
+          "w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-none transition-all duration-300",
+          hasInteraction ? "h-screen" : "h-auto max-h-[90vh]"
+        )}
       >
         <SheetHeader className="sr-only">
           <SheetTitle>Search Menu</SheetTitle>
         </SheetHeader>
 
-        <div className="px-5 pt-6 pb-5 space-y-4 bg-white">
+        {/* Search Header Container */}
+        <div className="px-5 pt-6 pb-5 space-y-4 bg-white shrink-0">
           <div className="flex items-center gap-3">
             <button 
               onClick={onClose}
@@ -107,8 +111,16 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search menu items..."
-                className="h-11 pl-10 pr-4 bg-white border-2 border-[#E9FBF9] rounded-2xl text-[13px] font-medium placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-[#12B4A3]/20 focus-visible:border-[#12B4A3]/30"
+                className="h-11 pl-10 pr-10 bg-white border-2 border-[#E9FBF9] rounded-2xl text-[13px] font-medium placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-[#12B4A3]/20 focus-visible:border-[#12B4A3]/30"
               />
+              {searchQuery && (
+                <button 
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 active:scale-90 transition-all"
+                >
+                  <XCircle className="w-5 h-5 fill-slate-200 text-white" />
+                </button>
+              )}
             </div>
           </div>
 
@@ -144,65 +156,67 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
           </div>
         </div>
 
-        {hasInteraction && (
-          <ScrollArea className="flex-1 bg-[#F8F9FB] border-t border-slate-100">
-            <div className="px-5 py-6 space-y-6 pb-12">
-              <div className="flex items-center justify-between px-1">
-                <h3 className="text-[11px] font-bold text-[#8E9AAF] uppercase tracking-wider">
-                  {filteredItems.length} items found
-                </h3>
-                <button 
-                  onClick={handleReset}
-                  className="text-[11px] font-bold text-[#12B4A3] underline decoration-dotted underline-offset-4"
-                >
-                  Clear All
-                </button>
-              </div>
-
-              <div className="grid gap-4">
-                {filteredItems.map((item) => (
-                  <div 
-                    key={item.id} 
-                    className="bg-white p-4 rounded-[1.8rem] border border-slate-50 flex gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.02)] active:scale-[0.98] transition-transform"
-                    onClick={onClose}
-                  >
-                    <div className="relative w-24 h-24 rounded-[1.2rem] overflow-hidden shrink-0 border border-slate-50">
-                      <Image 
-                        src={item.imageUrl} 
-                        alt={item.name} 
-                        fill 
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="flex-1 flex flex-col justify-between py-1">
-                      <div className="space-y-1">
-                        <h4 className="text-[15px] font-bold text-[#1E2B4D] leading-tight line-clamp-1">{item.name}</h4>
-                        <p className="text-[11px] font-medium text-[#8E9AAF] line-clamp-2 leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <span className="text-[17px] font-bold text-[#1E2B4D]">${item.price.toFixed(2)}</span>
-                        <Badge variant="outline" className="rounded-full h-5 border-[#FEF08A] bg-[#FEF9C3]/20 text-[#B45309] font-semibold text-[9px] px-2.5 uppercase tracking-wider">
-                          {getItemAllergenLabel(item.id)}
-                        </Badge>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {filteredItems.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-20 space-y-4 opacity-40">
-                  <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-inner">
-                    <Search className="w-10 h-10 text-slate-200" />
-                  </div>
-                  <p className="text-sm font-medium text-[#8E9AAF]">No matching items</p>
-                </div>
-              )}
+        {/* Results Area */}
+        <ScrollArea className={cn(
+          "flex-1 bg-[#F8F9FB] border-t border-slate-100 transition-opacity duration-300",
+          hasInteraction ? "opacity-100" : "opacity-0 pointer-events-none"
+        )}>
+          <div className="px-5 py-6 space-y-6 pb-24 min-h-full">
+            <div className="flex items-center justify-between px-1">
+              <h3 className="text-[13px] font-bold text-[#1E2B4D] tracking-tight">
+                <span className="text-[#1E2B4D]">{filteredItems.length}</span> items found
+              </h3>
+              <button 
+                onClick={handleReset}
+                className="text-[11px] font-bold text-[#12B4A3] underline decoration-dotted underline-offset-4"
+              >
+                Clear All
+              </button>
             </div>
-          </ScrollArea>
-        )}
+
+            <div className="grid gap-4">
+              {filteredItems.map((item) => (
+                <div 
+                  key={item.id} 
+                  className="bg-white p-4 rounded-[1.8rem] border border-slate-50 flex gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.02)] active:scale-[0.98] transition-transform"
+                  onClick={onClose}
+                >
+                  <div className="relative w-24 h-24 rounded-[1.2rem] overflow-hidden shrink-0 border border-slate-50">
+                    <Image 
+                      src={item.imageUrl} 
+                      alt={item.name} 
+                      fill 
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 flex flex-col justify-between py-1">
+                    <div className="space-y-1">
+                      <h4 className="text-[15px] font-bold text-[#1E2B4D] leading-tight line-clamp-1">{item.name}</h4>
+                      <p className="text-[11px] font-medium text-[#8E9AAF] line-clamp-2 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[17px] font-bold text-[#1E2B4D]">${item.price.toFixed(2)}</span>
+                      <Badge variant="outline" className="rounded-full h-5 border-[#FEF08A] bg-[#FEF9C3]/20 text-[#B45309] font-semibold text-[9px] px-2.5 uppercase tracking-wider">
+                        {getItemAllergenLabel(item.id)}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {filteredItems.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-20 space-y-4 opacity-40">
+                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-inner">
+                  <Search className="w-10 h-10 text-slate-200" />
+                </div>
+                <p className="text-sm font-medium text-[#8E9AAF]">No matching items</p>
+              </div>
+            )}
+          </div>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   )
