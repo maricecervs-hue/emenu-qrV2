@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from "react"
-import { ChevronLeft, Package, Coffee, Pizza, Beef, Pencil, Users } from "lucide-react"
+import { ChevronLeft, Package, Coffee, Pizza, Beef, Pencil, Users, X } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -93,7 +93,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
             >
               <ChevronLeft className="h-6 w-6 text-slate-800" />
             </Button>
-            <h2 className="text-xl font-semibold text-[#1E2B4D] tracking-tight">Payment</h2>
+            <h2 className="text-xl font-medium text-[#1E2B4D] tracking-tight">Payment</h2>
             <div className="w-10" /> {/* Spacer to keep title centered */}
           </div>
 
@@ -106,7 +106,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                   <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
                     <Package className="w-4 h-4 text-[#12B4A3]" />
                   </div>
-                  <h3 className="text-lg font-semibold text-[#1E2B4D]">Review Order</h3>
+                  <h3 className="text-lg font-medium text-[#1E2B4D]">Review Order</h3>
                 </div>
                 
                 <div className="space-y-3">
@@ -114,8 +114,8 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                     <div key={item.cartId} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50 flex items-start justify-between gap-4">
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-semibold text-[#12B4A3] bg-[#E9FBF9] px-2 py-0.5 rounded-md">{item.quantity}x</span>
-                          <h4 className="font-semibold text-[#1E2B4D] text-sm">{item.name}</h4>
+                          <span className="text-sm font-medium text-[#12B4A3] bg-[#E9FBF9] px-2 py-0.5 rounded-md">{item.quantity}x</span>
+                          <h4 className="font-medium text-[#1E2B4D] text-sm">{item.name}</h4>
                         </div>
                         {item.customizations && (
                           <p className="text-[10px] font-medium text-[#8E9AAF] leading-relaxed pl-8 italic">
@@ -123,7 +123,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                           </p>
                         )}
                       </div>
-                      <span className="font-semibold text-[#1E2B4D] text-sm whitespace-nowrap">
+                      <span className="font-medium text-[#1E2B4D] text-sm whitespace-nowrap">
                         $ {(item.price * item.quantity).toFixed(2)}
                       </span>
                     </div>
@@ -146,8 +146,8 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                   <span className="font-medium text-[#1E2B4D]">AED {tipAmount.toFixed(2)}</span>
                 </div>
                 <div className="pt-6 border-t border-slate-100 flex justify-between items-center">
-                  <span className="text-2xl font-semibold text-[#1E2B4D]">Total</span>
-                  <span className="text-2xl font-bold text-[#1E2B4D]">$ {total.toFixed(2)}</span>
+                  <span className="text-2xl font-medium text-[#1E2B4D]">Total</span>
+                  <span className="text-2xl font-semibold text-[#1E2B4D]">$ {total.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -157,7 +157,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                   <span className="text-5xl animate-wave origin-[70%_70%]">👋</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-semibold text-[#1E2B4D]">Thank your server?</h3>
+                  <h3 className="text-2xl font-medium text-[#1E2B4D]">Thank your server?</h3>
                   <p className="text-sm font-medium text-slate-400 max-w-[280px] leading-relaxed mx-auto">
                     Your small act of kindness goes a long way. 100% of tips go to the staff.
                   </p>
@@ -181,7 +181,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                       >
                         {/* Popular Badge */}
                         {!isCustom && tip.popular && (
-                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#12B4A3] text-white text-[8px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">
+                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#12B4A3] text-white text-[8px] font-medium px-2 py-1 rounded-lg uppercase tracking-wider shadow-sm z-10">
                             Popular
                           </div>
                         )}
@@ -198,14 +198,14 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
 
                         {isCustom && isSelected ? (
                           <div className="w-full h-full flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-200">
-                            <span className="text-[10px] font-semibold text-[#12B4A3] mb-1">Enter Tip</span>
+                            <span className="text-[10px] font-medium text-[#12B4A3] mb-1">Enter Tip</span>
                             <div className="flex items-center gap-1 border-b border-[#12B4A3] pb-1">
-                              <span className="text-xs font-semibold text-[#1E2B4D]">AED</span>
+                              <span className="text-xs font-medium text-[#1E2B4D]">AED</span>
                               <Input 
                                 type="number" 
                                 value={customTipValue}
                                 onChange={(e) => setCustomTipValue(e.target.value)}
-                                className="border-none bg-transparent h-auto p-0 text-sm font-semibold text-[#1E2B4D] w-12 focus-visible:ring-0 text-center"
+                                className="border-none bg-transparent h-auto p-0 text-sm font-medium text-[#1E2B4D] w-12 focus-visible:ring-0 text-center"
                                 autoFocus
                                 onClick={(e) => e.stopPropagation()}
                               />
@@ -219,7 +219,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                             )}>
                               {tip.icon}
                             </div>
-                            <span className="text-[11px] font-semibold uppercase tracking-tight">{tip.label}</span>
+                            <span className="text-[11px] font-medium uppercase tracking-tight">{tip.label}</span>
                           </>
                         )}
                       </button>
