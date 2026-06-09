@@ -54,7 +54,6 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
       const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                            item.description.toLowerCase().includes(searchQuery.toLowerCase());
       
-      // For demo purposes, we'll assign semi-random allergens to items based on ID
       const itemAllergen = item.id % 2 === 0 ? 'gluten' : (item.id % 3 === 0 ? 'dairy' : (item.id % 5 === 0 ? 'eggs' : 'fish'));
       const matchesAllergen = activeAllergens.length === 0 || activeAllergens.includes(itemAllergen);
 
@@ -86,16 +85,14 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent 
         side="top" 
-        className="h-auto max-h-[90vh] w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-b-[2.5rem] overflow-hidden"
+        className="h-auto max-h-[90vh] w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-none overflow-hidden"
       >
         <SheetHeader className="sr-only">
           <SheetTitle>Search Menu</SheetTitle>
         </SheetHeader>
 
-        {/* Condensed Search Header - Matches Screenshot 100% */}
         <div className="px-5 pt-6 pb-5 space-y-4 bg-white">
           <div className="flex items-center gap-3">
-            {/* Back Button - Condensed Rounded Square */}
             <button 
               onClick={onClose}
               className="w-11 h-11 rounded-2xl bg-[#F1F3F5] flex items-center justify-center transition-all active:scale-90 border border-slate-100 shrink-0"
@@ -103,7 +100,6 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
               <ChevronLeft className="w-5 h-5 text-[#495057]" />
             </button>
             
-            {/* Search Input Pill - Condensed */}
             <div className="relative flex-1">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input 
@@ -116,7 +112,6 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
             </div>
           </div>
 
-          {/* Filter Chips Row - Tightened */}
           <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5">
             <button
               onClick={() => setActiveAllergens([])}
@@ -149,7 +144,6 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
           </div>
         </div>
 
-        {/* Results Area - Appears only when searching */}
         {hasInteraction && (
           <ScrollArea className="flex-1 bg-[#F8F9FB] border-t border-slate-100">
             <div className="px-5 py-6 space-y-6 pb-12">
