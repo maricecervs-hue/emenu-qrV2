@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Check, Mail, Package, Heart, UtensilsCrossed, Bell, Clock } from "lucide-react"
+import { Check, Mail, Heart, UtensilsCrossed, Bell, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import gsap from "gsap"
@@ -51,7 +51,6 @@ export default function PaymentSuccessPage() {
       const gridRect = gridRef.current.getBoundingClientRect()
       const itemRect = selectedItem.getBoundingClientRect()
       
-      // Calculate the distance from the center of the item to the center of the grid
       const gridCenterX = gridRect.left + gridRect.width / 2
       const itemCenterX = itemRect.left + itemRect.width / 2
       const xOffset = gridCenterX - itemCenterX
@@ -71,7 +70,6 @@ export default function PaymentSuccessPage() {
         delay: 0.1
       })
 
-      // Scale up the emoji specifically
       const emoji = selectedItem.querySelector('.emoji-span')
       if (emoji) {
         gsap.to(emoji, {
@@ -82,7 +80,6 @@ export default function PaymentSuccessPage() {
         })
       }
 
-      // Fade in appreciation message
       if (appreciationRef.current) {
         gsap.fromTo(appreciationRef.current,
           { opacity: 0, y: 10, display: 'none' },
@@ -111,6 +108,53 @@ export default function PaymentSuccessPage() {
 
         {/* Divider */}
         <div className="w-full border-t border-dashed border-slate-200 mb-8" />
+
+        {/* Order Status Timeline - Moved to top of card */}
+        <div className="w-full bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100/50 mb-8 space-y-5">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-bold text-[#1E2B4D]">Order Status</h3>
+            <div className="flex items-center gap-1.5 bg-white px-2 py-1 rounded-full border border-slate-100 shadow-sm">
+              <Clock className="w-3 h-3 text-[#12B4A3]" />
+              <span className="text-[10px] font-bold text-[#1E2B4D]">Est. 15-20 min</span>
+            </div>
+          </div>
+
+          <div className="relative flex justify-between items-center px-2">
+            {/* Progress Line Background */}
+            <div className="absolute top-1/2 left-4 right-4 h-1 bg-slate-200 -translate-y-1/2 rounded-full" />
+            
+            {/* Active Progress Line */}
+            <div className="absolute top-1/2 left-4 w-[25%] h-1 bg-[#12B4A3] -translate-y-1/2 rounded-full transition-all duration-1000" />
+
+            {orderSteps.map((step) => (
+              <div key={step.id} className="relative z-10 flex flex-col items-center gap-2">
+                <div className={cn(
+                  "w-10 h-10 rounded-full flex items-center justify-center border-[3px] transition-all duration-500",
+                  step.active 
+                    ? "bg-[#12B4A3] border-white shadow-[0_0_15px_rgba(18,180,163,0.3)] scale-110" 
+                    : "bg-white border-slate-100"
+                )}>
+                  <div className={cn(
+                    "transition-colors",
+                    step.active ? "text-white" : "text-slate-300"
+                  )}>
+                    {step.icon}
+                  </div>
+                  
+                  {step.active && (
+                    <div className="absolute inset-0 rounded-full bg-[#12B4A3] animate-ping opacity-20" />
+                  )}
+                </div>
+                <span className={cn(
+                  "text-[10px] font-bold uppercase tracking-tight transition-colors",
+                  step.active ? "text-[#1E2B4D]" : "text-slate-300"
+                )}>
+                  {step.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Experience Section */}
         <div className="w-full text-center space-y-6 mb-8 relative min-h-[160px] flex flex-col items-center">
@@ -156,53 +200,6 @@ export default function PaymentSuccessPage() {
         >
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
           <span className="text-[11px] font-bold text-[#8E9AAF] uppercase tracking-wider">We appreciate your feedback</span>
-        </div>
-
-        {/* Order Status Timeline */}
-        <div className="w-full bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100/50 mb-8 space-y-5">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-[#1E2B4D]">Order Status</h3>
-            <div className="flex items-center gap-1.5 bg-white px-2 py-1 rounded-full border border-slate-100 shadow-sm">
-              <Clock className="w-3 h-3 text-[#12B4A3]" />
-              <span className="text-[10px] font-bold text-[#1E2B4D]">Est. 15-20 min</span>
-            </div>
-          </div>
-
-          <div className="relative flex justify-between items-center px-2">
-            {/* Progress Line Background */}
-            <div className="absolute top-1/2 left-4 right-4 h-1 bg-slate-200 -translate-y-1/2 rounded-full" />
-            
-            {/* Active Progress Line */}
-            <div className="absolute top-1/2 left-4 w-[25%] h-1 bg-[#12B4A3] -translate-y-1/2 rounded-full transition-all duration-1000" />
-
-            {orderSteps.map((step, i) => (
-              <div key={step.id} className="relative z-10 flex flex-col items-center gap-2">
-                <div className={cn(
-                  "w-10 h-10 rounded-full flex items-center justify-center border-[3px] transition-all duration-500",
-                  step.active 
-                    ? "bg-[#12B4A3] border-white shadow-[0_0_15px_rgba(18,180,163,0.3)] scale-110" 
-                    : "bg-white border-slate-100"
-                )}>
-                  <div className={cn(
-                    "transition-colors",
-                    step.active ? "text-white" : "text-slate-300"
-                  )}>
-                    {step.icon}
-                  </div>
-                  
-                  {step.active && (
-                    <div className="absolute inset-0 rounded-full bg-[#12B4A3] animate-ping opacity-20" />
-                  )}
-                </div>
-                <span className={cn(
-                  "text-[10px] font-bold uppercase tracking-tight transition-colors",
-                  step.active ? "text-[#1E2B4D]" : "text-slate-300"
-                )}>
-                  {step.label}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Action Buttons */}
