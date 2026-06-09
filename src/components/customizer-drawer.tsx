@@ -218,22 +218,22 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                 <div className="p-6 space-y-8 pb-32">
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <h2 className="text-3xl font-extrabold text-[#1E2B4D] leading-tight tracking-tight">{item.name}</h2>
-                      <p className="text-base text-[#8E9AAF] font-medium leading-relaxed">{item.description}</p>
+                      <h2 className="text-3xl font-bold text-[#1E2B4D] leading-tight tracking-tight">{item.name}</h2>
+                      <p className="text-base text-[#8E9AAF] font-normal leading-relaxed">{item.description}</p>
                     </div>
 
                     <div className="flex items-center gap-2 pt-2">
-                      <span className="text-3xl font-black text-[#1E2B4D]">฿ {item.price.toFixed(2)}</span>
-                      <span className="text-sm font-bold text-[#8E9AAF]">(Base Price)</span>
+                      <span className="text-3xl font-bold text-[#1E2B4D]">฿ {item.price.toFixed(2)}</span>
+                      <span className="text-sm font-semibold text-[#8E9AAF]">(Base Price)</span>
                     </div>
 
                     <div className="bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100/50 space-y-5">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Flame className="w-5 h-5 text-orange-500 fill-orange-500" />
-                          <h3 className="text-lg font-black text-[#1E2B4D]">Nutritional Info</h3>
+                          <h3 className="text-lg font-bold text-[#1E2B4D]">Nutritional Info</h3>
                         </div>
-                        <span className="text-xs font-bold text-[#8E9AAF]">Per serving</span>
+                        <span className="text-xs font-semibold text-[#8E9AAF]">Per serving</span>
                       </div>
 
                       <div className="grid grid-cols-4 gap-3">
@@ -244,8 +244,8 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                           { val: '38g', label: 'Fat' }
                         ].map((stat, i) => (
                           <div key={i} className="bg-white rounded-2xl p-4 flex flex-col items-center justify-center border border-slate-50 shadow-sm">
-                            <span className="text-xl font-black text-[#1E2B4D]">{stat.val}</span>
-                            <span className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-wider">{stat.label}</span>
+                            <span className="text-xl font-bold text-[#1E2B4D]">{stat.val}</span>
+                            <span className="text-[10px] font-semibold text-[#8E9AAF] uppercase tracking-wider">{stat.label}</span>
                           </div>
                         ))}
                       </div>
@@ -254,16 +254,16 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                     <div className="bg-[#FFFBEB] rounded-[2rem] p-6 border border-[#FEF08A] space-y-4">
                       <div className="flex items-center gap-2">
                         <AlertTriangle className="w-5 h-5 text-orange-500 fill-orange-500/10" />
-                        <h3 className="text-xl font-black text-[#1E2B4D]">Allergen Information</h3>
+                        <h3 className="text-xl font-bold text-[#1E2B4D]">Allergen Information</h3>
                       </div>
                       <div className="flex flex-wrap gap-3">
                         <div className="bg-white px-4 py-2.5 rounded-xl shadow-sm border border-[#FEF08A] flex items-center gap-2">
                           <Wheat className="w-4 h-4 text-orange-600" />
-                          <span className="text-sm font-bold text-[#1E2B4D]">Gluten</span>
+                          <span className="text-sm font-semibold text-[#1E2B4D]">Gluten</span>
                         </div>
                         <div className="bg-white px-4 py-2.5 rounded-xl shadow-sm border border-[#FEF08A] flex items-center gap-2">
                           <Beef className="w-4 h-4 text-orange-600" />
-                          <span className="text-sm font-bold text-[#1E2B4D]">Meat</span>
+                          <span className="text-sm font-semibold text-[#1E2B4D]">Meat</span>
                         </div>
                       </div>
                     </div>
@@ -285,9 +285,9 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                         <div className="flex items-center justify-between">
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-xl font-black text-[#1E2B4D]">{group.name}</h3>
+                              <h3 className="text-xl font-bold text-[#1E2B4D]">{group.name}</h3>
                               {group.required && !selected && (
-                                <Badge variant="outline" className="h-5 text-[8px] px-2 border-orange-200 text-orange-600 bg-white font-black uppercase tracking-widest">
+                                <Badge variant="outline" className="h-5 text-[8px] px-2 border-orange-200 text-orange-600 bg-white font-bold uppercase tracking-widest">
                                   Required
                                 </Badge>
                               )}
@@ -297,7 +297,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                                 </div>
                               )}
                             </div>
-                            {group.description && <p className="text-xs font-bold text-[#8E9AAF] mt-0.5">{group.description}</p>}
+                            {group.description && <p className="text-xs font-semibold text-[#8E9AAF] mt-0.5">{group.description}</p>}
                           </div>
                         </div>
 
@@ -326,19 +326,19 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                                 <div className="flex-1">
                                   <Label htmlFor={option.id} className="cursor-pointer">
                                     <div className="flex items-center gap-2">
-                                      <span className="text-base font-bold text-[#1E2B4D] group-hover/item:text-[#12B4A3] transition-colors">{option.name}</span>
+                                      <span className="text-base font-semibold text-[#1E2B4D] group-hover/item:text-[#12B4A3] transition-colors">{option.name}</span>
                                       {option.hasChildren && <ChevronRight className="w-4 h-4 text-[#12B4A3] group-hover/item:translate-x-1 transition-transform" />}
                                     </div>
                                     <div className="flex items-center gap-1.5 mt-0.5">
                                       <span className={cn(
-                                        "text-xs font-bold",
+                                        "text-xs font-semibold",
                                         option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
                                       )}>
                                         {option.price > 0 ? `+ ฿ ${option.price.toFixed(2)}` : 'Included'}
                                       </span>
                                       {option.hasChildren && selectedSubOption[option.id] && option.quantity > 0 && (
                                         <span className="text-[10px] text-[#8E9AAF] font-medium flex items-center gap-1">
-                                          • <span className="font-bold text-[#1E2B4D]">
+                                          • <span className="font-semibold text-[#1E2B4D]">
                                             {subOptions[option.id as keyof typeof subOptions]?.find(s => s.id === selectedSubOption[option.id])?.name}
                                           </span>
                                         </span>
@@ -358,9 +358,9 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                                 className="flex items-center justify-between py-4 border-b border-slate-200/50 last:border-0"
                               >
                                 <div className="flex-1">
-                                  <span className="text-base font-bold text-[#1E2B4D]">{option.name}</span>
+                                  <span className="text-base font-semibold text-[#1E2B4D]">{option.name}</span>
                                   <p className={cn(
-                                    "text-xs font-bold mt-0.5",
+                                    "text-xs font-semibold mt-0.5",
                                     option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
                                   )}>
                                     {option.price > 0 ? `+ ฿ ${option.price.toFixed(2)}` : 'Free'}
@@ -373,7 +373,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                                   >
                                     <Minus className="w-4 h-4" strokeWidth={3} />
                                   </button>
-                                  <span className="text-sm font-black text-[#1E2B4D] min-w-[16px] text-center">{option.quantity}</span>
+                                  <span className="text-sm font-bold text-[#1E2B4D] min-w-[16px] text-center">{option.quantity}</span>
                                   <button 
                                     onClick={() => updateOptionQuantity(group.id, option.id, 1)}
                                     className="w-8 h-8 rounded-full flex items-center justify-center text-[#1E2B4D] hover:bg-slate-50 transition-colors"
@@ -394,7 +394,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                       <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
                         <MessageSquare className="w-4 h-4 text-[#12B4A3]" />
                       </div>
-                      <h3 className="text-lg font-black text-[#1E2B4D]">Special Requests</h3>
+                      <h3 className="text-lg font-bold text-[#1E2B4D]">Special Requests</h3>
                     </div>
                     <Textarea 
                       placeholder="For example: less spicy, no sugar, allergy notes..."
@@ -415,8 +415,8 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                     <ChevronLeft className="w-5 h-5 text-[#1E2B4D]" />
                   </Button>
                   <div>
-                    <h3 className="text-2xl font-black text-[#1E2B4D]">{activeOption?.name} Options</h3>
-                    <p className="text-sm font-bold text-[#8E9AAF]">Please select one</p>
+                    <h3 className="text-2xl font-bold text-[#1E2B4D]">{activeOption?.name} Options</h3>
+                    <p className="text-sm font-semibold text-[#8E9AAF]">Please select one</p>
                   </div>
                 </div>
 
@@ -440,9 +440,9 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                         }}
                       >
                         <Label htmlFor={child.id} className="flex-1 cursor-pointer">
-                          <p className="text-lg font-bold text-[#1E2B4D]">{child.name}</p>
+                          <p className="text-lg font-semibold text-[#1E2B4D]">{child.name}</p>
                           <p className={cn(
-                            "text-sm font-bold mt-0.5",
+                            "text-sm font-semibold mt-0.5",
                             child.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
                           )}>
                             {child.price > 0 ? `+ ฿ ${child.price.toFixed(2)}` : 'Included'}
@@ -455,7 +455,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                 </div>
                 
                 <Button 
-                  className="w-full h-16 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-black text-xl shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-95"
+                  className="w-full h-16 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-xl shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-95"
                   onClick={() => setView('main')}
                 >
                   Confirm Choice
@@ -470,13 +470,13 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                 <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="text-[#1E2B4D] hover:scale-125 transition-transform active:scale-90">
                   <Minus className="w-5 h-5" strokeWidth={3} />
                 </button>
-                <span className="text-2xl font-black text-[#1E2B4D] min-w-[28px] text-center">{quantity}</span>
+                <span className="text-2xl font-bold text-[#1E2B4D] min-w-[28px] text-center">{quantity}</span>
                 <button onClick={() => setQuantity(quantity + 1)} className="text-[#1E2B4D] hover:scale-125 transition-transform active:scale-90">
                   <Plus className="w-5 h-5" strokeWidth={3} />
                 </button>
               </div>
               <Button 
-                className="flex-1 h-16 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-black text-xl shadow-xl shadow-[#12B4A3]/20 transition-all hover:scale-[1.01] active:scale-[0.98]"
+                className="flex-1 h-16 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-xl shadow-xl shadow-[#12B4A3]/20 transition-all hover:scale-[1.01] active:scale-[0.98]"
                 onClick={handleAddToCart}
               >
                 {isEdit ? 'Update' : 'Add'} • ฿ {(item.price * quantity + customizationGroups.reduce((acc, g) => acc + g.options.reduce((oAcc, o) => oAcc + (o.price * o.quantity), 0), 0)).toFixed(2)}

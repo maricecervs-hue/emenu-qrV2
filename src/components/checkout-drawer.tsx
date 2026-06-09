@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -60,7 +59,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
           >
             <ChevronLeft className="h-6 w-6 text-slate-800" />
           </Button>
-          <h2 className="text-xl font-black text-[#1E2B4D] tracking-tight">Payment</h2>
+          <h2 className="text-xl font-bold text-[#1E2B4D] tracking-tight">Payment</h2>
           <Button 
             variant="ghost" 
             size="icon" 
@@ -76,20 +75,20 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
             {/* Price Summary Card */}
             <div className="bg-white p-7 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-5">
               <div className="flex justify-between items-center text-base">
-                <span className="font-medium text-slate-400">Subtotal</span>
-                <span className="font-bold text-[#1E2B4D]">AED {subtotal.toFixed(2)}</span>
+                <span className="font-normal text-slate-400">Subtotal</span>
+                <span className="font-semibold text-[#1E2B4D]">AED {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-base">
-                <span className="font-medium text-slate-400">Taxes & Fees</span>
-                <span className="font-bold text-[#1E2B4D]">AED {tax.toFixed(2)}</span>
+                <span className="font-normal text-slate-400">Taxes & Fees</span>
+                <span className="font-semibold text-[#1E2B4D]">AED {tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-base">
-                <span className="font-medium text-slate-400">Tip</span>
-                <span className="font-bold text-[#1E2B4D]">AED {tipAmount.toFixed(2)}</span>
+                <span className="font-normal text-slate-400">Tip</span>
+                <span className="font-semibold text-[#1E2B4D]">AED {tipAmount.toFixed(2)}</span>
               </div>
               <div className="pt-6 border-t border-slate-100 flex justify-between items-center">
-                <span className="text-2xl font-black text-[#1E2B4D]">Total</span>
-                <span className="text-2xl font-black text-[#1E2B4D]">AED {total.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-[#1E2B4D]">Total</span>
+                <span className="text-2xl font-bold text-[#1E2B4D]">AED {total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -99,8 +98,8 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
                 👋
               </div>
               <div className="space-y-2">
-                <h3 className="text-2xl font-black text-[#1E2B4D]">Thank your server?</h3>
-                <p className="text-sm font-bold text-slate-400 max-w-[280px] leading-relaxed mx-auto">
+                <h3 className="text-2xl font-bold text-[#1E2B4D]">Thank your server?</h3>
+                <p className="text-sm font-semibold text-slate-400 max-w-[280px] leading-relaxed mx-auto">
                   Your small act of kindness goes a long way. 100% of tips go to the staff.
                 </p>
               </div>
@@ -118,7 +117,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
                     )}
                   >
                     {tip.amount !== 'custom' && tip.popular && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#12B4A3] text-white text-[9px] font-black px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-sm z-10">
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#12B4A3] text-white text-[9px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-sm z-10">
                         Popular
                       </div>
                     )}
@@ -128,7 +127,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
                     )}>
                       {tip.icon}
                     </div>
-                    <span className="text-[11px] font-black uppercase tracking-tight">{tip.label}</span>
+                    <span className="text-[11px] font-bold uppercase tracking-tight">{tip.label}</span>
                   </button>
                 ))}
               </div>
@@ -136,7 +135,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
               <Button 
                 variant="outline"
                 className={cn(
-                  "w-full h-14 rounded-2xl border-slate-100 text-slate-400 font-bold text-base transition-all",
+                  "w-full h-14 rounded-2xl border-slate-100 text-slate-400 font-semibold text-base transition-all",
                   selectedTip === null && "border-[#FF5C5C] text-[#FF5C5C] bg-red-50"
                 )}
                 onClick={() => setSelectedTip(null)}
@@ -152,13 +151,13 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal }: CheckoutDr
         <div className="absolute bottom-0 w-full bg-white p-6 border-t border-slate-100 flex gap-4 shadow-[0_-20px_60px_rgba(0,0,0,0.05)]">
           <Button 
             variant="outline"
-            className="flex-1 h-14 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-black text-base hover:bg-[#12B4A3]/5"
+            className="flex-1 h-14 rounded-2xl border-2 border-[#12B4A3] text-[#12B4A3] font-bold text-base hover:bg-[#12B4A3]/5"
           >
             <Users className="w-5 h-5 mr-2" />
             Split Bill
           </Button>
           <Button 
-            className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-black text-base shadow-xl shadow-[#12B4A3]/20 transition-transform active:scale-95"
+            className="flex-1 h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-base shadow-xl shadow-[#12B4A3]/20 transition-transform active:scale-95"
             onClick={onClose}
           >
             Pay AED {total.toFixed(2)}

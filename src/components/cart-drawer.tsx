@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -78,14 +77,14 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
               <ShoppingBasket className="w-5 h-5 text-[#12B4A3]" />
             </div>
             <div>
-              <h2 className="text-xl font-extrabold text-[#1E2B4D]">Your basket</h2>
-              <p className="text-xs font-bold text-[#8E9AAF]">{items.length} {items.length === 1 ? 'item' : 'items'}</p>
+              <h2 className="text-xl font-bold text-[#1E2B4D]">Your basket</h2>
+              <p className="text-xs font-semibold text-[#8E9AAF]">{items.length} {items.length === 1 ? 'item' : 'items'}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <button 
               onClick={onClose}
-              className="text-[#12B4A3] font-bold text-sm underline decoration-dotted underline-offset-4"
+              className="text-[#12B4A3] font-semibold text-sm underline decoration-dotted underline-offset-4"
             >
               + Add more items
             </button>
@@ -112,7 +111,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                     </div>
                     <div className="flex-1 space-y-1">
                       <div className="flex items-start justify-between gap-2">
-                        <h3 className="font-extrabold text-[#1E2B4D] leading-tight text-sm line-clamp-1">{item.name}</h3>
+                        <h3 className="font-bold text-[#1E2B4D] leading-tight text-sm line-clamp-1">{item.name}</h3>
                         <button 
                           onClick={() => onEdit(item)}
                           className="p-1 rounded-full bg-slate-50 hover:bg-slate-100 transition-colors"
@@ -121,7 +120,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                         </button>
                       </div>
                       <div className="flex items-center gap-1">
-                        <span className="text-[#12B4A3] font-black text-lg">฿ {item.price.toFixed(2)}</span>
+                        <span className="text-[#12B4A3] font-bold text-lg">฿ {item.price.toFixed(2)}</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 bg-[#F8F9FA] px-2 py-1.5 rounded-full border border-slate-100">
@@ -131,7 +130,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                       >
                         {item.quantity === 1 ? <Trash2 className="w-4 h-4" /> : <Minus className="w-4 h-4" strokeWidth={3} />}
                       </button>
-                      <span className="text-sm font-black text-[#1E2B4D] min-w-[12px] text-center">{item.quantity}</span>
+                      <span className="text-sm font-bold text-[#1E2B4D] min-w-[12px] text-center">{item.quantity}</span>
                       <button 
                         onClick={() => onUpdateQuantity(item.cartId, 1)}
                         className="w-8 h-8 rounded-full flex items-center justify-center text-[#1E2B4D] hover:bg-white transition-colors"
@@ -144,14 +143,14 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                   {item.customizations && (
                     <Accordion type="single" collapsible className="w-full">
                       <AccordionItem value="customizations" className="border-none">
-                        <AccordionTrigger className="py-0 hover:no-underline text-[10px] font-bold text-[#12B4A3] flex items-center gap-1.5 h-auto">
+                        <AccordionTrigger className="py-0 hover:no-underline text-[10px] font-semibold text-[#12B4A3] flex items-center gap-1.5 h-auto">
                           <span>Review condiments & addons</span>
                         </AccordionTrigger>
                         <AccordionContent className="pt-2 pb-0">
                           <div className="bg-[#F8F9FA] rounded-xl p-3 space-y-1 border border-slate-100">
                             <div className="flex justify-between items-center">
-                              <span className="text-[10px] font-bold text-[#8E9AAF]">Selected:</span>
-                              <span className="text-[10px] font-black text-[#1E2B4D]">{item.customizations}</span>
+                              <span className="text-[10px] font-semibold text-[#8E9AAF]">Selected:</span>
+                              <span className="text-[10px] font-bold text-[#1E2B4D]">{item.customizations}</span>
                             </div>
                           </div>
                         </AccordionContent>
@@ -165,7 +164,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
             {/* Recommendations */}
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <h3 className="text-lg font-extrabold text-[#1E2B4D]">You might also like</h3>
+                <h3 className="text-lg font-bold text-[#1E2B4D]">You might also like</h3>
                 <div className="h-px flex-1 border-t border-dashed border-slate-200" />
               </div>
               <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-2 px-2">
@@ -175,9 +174,9 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                       <Image src={rec.imageUrl} alt={rec.name} fill className="object-cover" />
                     </div>
                     <div className="p-3 space-y-2 flex-1 flex flex-col justify-between">
-                      <p className="text-xs font-bold text-[#1E2B4D] leading-tight line-clamp-2">{rec.name}</p>
+                      <p className="text-xs font-semibold text-[#1E2B4D] leading-tight line-clamp-2">{rec.name}</p>
                       <div className="flex items-center justify-between">
-                        <span className="text-[#12B4A3] font-black text-sm">฿ {rec.price.toFixed(2)}</span>
+                        <span className="text-[#12B4A3] font-bold text-sm">฿ {rec.price.toFixed(2)}</span>
                         <Button size="icon" className="w-7 h-7 rounded-full bg-[#12B4A3] hover:bg-[#109E8F]">
                           <Plus className="w-4 h-4" />
                         </Button>
@@ -196,8 +195,8 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                     <Plus className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-black text-[#1E2B4D]">Add a Note</p>
-                    <p className="text-[10px] font-bold text-[#8E9AAF]">Any special requests?</p>
+                    <p className="text-sm font-bold text-[#1E2B4D]">Add a Note</p>
+                    <p className="text-[10px] font-semibold text-[#8E9AAF]">Any special requests?</p>
                   </div>
                 </div>
                 <ChevronRight className="w-4 h-4 text-slate-300" />
@@ -207,9 +206,9 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 <Ticket className="w-5 h-5 text-slate-300" />
                 <Input 
                   placeholder="Enter discount code" 
-                  className="border-none bg-transparent h-auto p-0 text-sm font-bold text-[#1E2B4D] placeholder:text-slate-300 focus-visible:ring-0"
+                  className="border-none bg-transparent h-auto p-0 text-sm font-semibold text-[#1E2B4D] placeholder:text-slate-300 focus-visible:ring-0"
                 />
-                <button className="text-[#12B4A3] font-bold text-sm underline decoration-dotted underline-offset-4">
+                <button className="text-[#12B4A3] font-semibold text-sm underline decoration-dotted underline-offset-4">
                   Apply
                 </button>
               </div>
@@ -218,21 +217,21 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
             {/* Price Summary */}
             <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-50 space-y-4">
               <div className="flex justify-between items-center text-sm">
-                <span className="font-bold text-[#8E9AAF]">Subtotal</span>
-                <span className="font-black text-[#1E2B4D]">฿ {subtotal.toFixed(2)}</span>
+                <span className="font-semibold text-[#8E9AAF]">Subtotal</span>
+                <span className="font-bold text-[#1E2B4D]">฿ {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-sm">
-                <span className="font-bold text-[#8E9AAF]">Tax (8%)</span>
-                <span className="font-black text-[#1E2B4D]">฿ {tax.toFixed(2)}</span>
+                <span className="font-semibold text-[#8E9AAF]">Tax (8%)</span>
+                <span className="font-bold text-[#1E2B4D]">฿ {tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center text-sm">
-                <span className="font-bold text-[#8E9AAF]">Service Charge (10%)</span>
-                <span className="font-black text-[#1E2B4D]">฿ {serviceCharge.toFixed(2)}</span>
+                <span className="font-semibold text-[#8E9AAF]">Service Charge (10%)</span>
+                <span className="font-bold text-[#1E2B4D]">฿ {serviceCharge.toFixed(2)}</span>
               </div>
               <Separator className="bg-slate-50" />
               <div className="flex justify-between items-center">
-                <span className="text-lg font-black text-[#1E2B4D]">Total</span>
-                <span className="text-2xl font-black text-[#12B4A3]">฿ {total.toFixed(2)}</span>
+                <span className="text-lg font-bold text-[#1E2B4D]">Total</span>
+                <span className="text-2xl font-bold text-[#12B4A3]">฿ {total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -246,11 +245,11 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                   🎁
                 </div>
                 <div>
-                  <h4 className="text-[10px] font-black text-[#1E2B4D] uppercase tracking-wider">Unlock VIP Perks</h4>
-                  <p className="text-[10px] font-bold text-[#B45309]">Join VIP for extra perks</p>
+                  <h4 className="text-[10px] font-bold text-[#1E2B4D] uppercase tracking-wider">Unlock VIP Perks</h4>
+                  <p className="text-[10px] font-semibold text-[#B45309]">Join VIP for extra perks</p>
                 </div>
               </div>
-              <Button className="h-9 px-4 rounded-full bg-yellow-400 hover:bg-yellow-500 text-black font-black text-[10px] shadow-sm">
+              <Button className="h-9 px-4 rounded-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-[10px] shadow-sm">
                 Become a VIP
               </Button>
             </div>
@@ -260,7 +259,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
         {/* Checkout Footer */}
         <div className="absolute bottom-0 w-full bg-white p-6 border-t border-slate-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
           <Button 
-            className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-black text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
+            className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
             onClick={onCheckout}
           >
             Proceed to Checkout
