@@ -123,7 +123,7 @@ export default function PaymentSuccessPage() {
         </div>
 
         {/* Experience Section */}
-        <div className="w-full text-center min-h-[160px] flex flex-col items-center justify-center mb-8 relative">
+        <div className="w-full text-center min-h-[140px] flex flex-col items-center justify-center mb-8 relative">
           
           {/* Header text before selection */}
           <div ref={headerTextRef} className="space-y-1 mb-6">
@@ -147,16 +147,16 @@ export default function PaymentSuccessPage() {
             ))}
           </div>
 
-          {/* New Custom "Thanks for your Rating" Card (100% Match to Design) */}
+          {/* New Custom "Thanks for your Rating" Card (More compact) */}
           <div 
             ref={successCardRef} 
-            className="hidden w-full bg-[#F9FDF2] rounded-[2.5rem] p-8 border border-[#E9F3D7] flex-col items-center justify-center space-y-4 shadow-sm"
+            className="hidden w-full bg-[#F9FDF2] rounded-[2rem] p-5 border border-[#E9F3D7] flex-col items-center justify-center space-y-3 shadow-sm"
           >
-            <h2 className="text-2xl font-bold text-[#849F4E] tracking-tight text-center">
+            <h2 className="text-xl font-bold text-[#849F4E] tracking-tight text-center">
               Thanks for your Rating!
             </h2>
             <div className="w-full border-t border-dashed border-[#DCE8C5]" />
-            <button className="text-lg font-bold text-[#3A5D3E] underline decoration-slate-300 decoration-1 underline-offset-[6px]">
+            <button className="text-sm font-bold text-[#3A5D3E] underline decoration-slate-300 decoration-1 underline-offset-[4px]">
               Leave a review on Google
             </button>
           </div>
