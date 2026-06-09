@@ -3,7 +3,7 @@
 import * as React from "react"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
-import { LayoutGrid } from "lucide-react"
+import { List } from "lucide-react"
 
 interface Category {
   id: string
@@ -42,7 +42,7 @@ export function CategoryNav({ categories, active, onChange, onOpenList }: Catego
         className="h-[60px] px-5 border-r border-slate-100 flex items-center justify-center shrink-0 active:bg-slate-50 transition-colors group"
         aria-label="Open categories list"
       >
-        <LayoutGrid className="w-6 h-6 text-[#1E2B4D] transition-transform group-active:scale-90" />
+        <List className="w-6 h-6 text-[#1E2B4D] transition-transform group-active:scale-90" />
       </button>
       
       <ScrollArea className="flex-1 whitespace-nowrap">
