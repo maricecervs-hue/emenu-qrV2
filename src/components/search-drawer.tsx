@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { Search, ChevronLeft, XCircle, Wheat, Egg, Fish } from "lucide-react"
+import { Search, ChevronLeft, Wheat, Egg, Fish } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -101,16 +101,8 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search menu items..."
-                className="h-11 pl-10 pr-10 bg-[#F4F5F7] border-none rounded-2xl text-sm font-medium placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-[#12B4A3]/20"
+                className="h-11 pl-10 pr-4 bg-[#F4F5F7] border-none rounded-2xl text-sm font-medium placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-[#12B4A3]/20"
               />
-              {searchQuery && (
-                <button 
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400"
-                >
-                  <XCircle className="w-4 h-4 fill-slate-200 text-slate-400" />
-                </button>
-              )}
             </div>
           </div>
 
