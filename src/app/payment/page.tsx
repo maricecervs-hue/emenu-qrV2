@@ -21,6 +21,30 @@ export default function PaymentPage() {
   const [isRedirecting, setIsRedirecting] = React.useState(true)
   const total = searchParams.get('total') || '326.00'
 
+  // Form state
+  const [formData, setFormData] = React.useState({
+    cardNumber: '',
+    expiryDate: '',
+    cvv: '',
+    cardholderName: '',
+    email: ''
+  })
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target
+    setFormData(prev => ({ ...prev, [id]: value }))
+  }
+
+  const isFormValid = React.useMemo(() => {
+    return (
+      formData.cardNumber.trim().length >= 12 &&
+      formData.expiryDate.trim().length >= 4 &&
+      formData.cvv.trim().length >= 3 &&
+      formData.cardholderName.trim().length > 0 &&
+      formData.email.trim().includes('@')
+    )
+  }, [formData])
+
   React.useEffect(() => {
     // Simulate the redirection delay before showing the payment form
     const timer = setTimeout(() => {
@@ -110,9 +134,12 @@ export default function PaymentPage() {
               
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Card Number</Label>
+                  <Label htmlFor="cardNumber" className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Card Number</Label>
                   <div className="relative">
                     <Input 
+                      id="cardNumber"
+                      value={formData.cardNumber}
+                      onChange={handleInputChange}
                       placeholder="1234 5678 9012 3456" 
                       className="h-12 border-slate-200 rounded-xl font-medium text-slate-800"
                     />
@@ -128,15 +155,21 @@ export default function PaymentPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Expiry Date</Label>
+                    <Label htmlFor="expiryDate" className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Expiry Date</Label>
                     <Input 
+                      id="expiryDate"
+                      value={formData.expiryDate}
+                      onChange={handleInputChange}
                       placeholder="MM/YY" 
                       className="h-12 border-slate-200 rounded-xl font-medium text-slate-800"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">CVV</Label>
+                    <Label htmlFor="cvv" className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">CVV</Label>
                     <Input 
+                      id="cvv"
+                      value={formData.cvv}
+                      onChange={handleInputChange}
                       placeholder="123" 
                       className="h-12 border-slate-200 rounded-xl font-medium text-slate-800"
                     />
@@ -144,8 +177,11 @@ export default function PaymentPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Cardholder Name</Label>
+                  <Label htmlFor="cardholderName" className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Cardholder Name</Label>
                   <Input 
+                    id="cardholderName"
+                    value={formData.cardholderName}
+                    onChange={handleInputChange}
                     placeholder="John Smith" 
                     className="h-12 border-slate-200 rounded-xl font-medium text-slate-800"
                   />
@@ -159,8 +195,11 @@ export default function PaymentPage() {
               
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Email Address</Label>
+                  <Label htmlFor="email" className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Email Address</Label>
                   <Input 
+                    id="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="john@example.com" 
                     className="h-12 border-slate-200 rounded-xl font-medium text-slate-800"
                   />
@@ -200,7 +239,10 @@ export default function PaymentPage() {
 
         {/* Footer Pay Button */}
         <div className="p-6 border-t border-slate-50 bg-white">
-          <Button className="w-full h-14 bg-[#0069B4] hover:bg-[#005CA0] rounded-xl text-white font-bold text-base shadow-lg shadow-blue-900/10">
+          <Button 
+            disabled={!isFormValid}
+            className="w-full h-14 bg-[#0069B4] hover:bg-[#005CA0] disabled:bg-slate-200 disabled:text-slate-400 rounded-xl text-white font-bold text-base shadow-lg shadow-blue-900/10 transition-colors"
+          >
             Pay AED {total}
           </Button>
         </div>
