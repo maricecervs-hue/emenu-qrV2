@@ -1,8 +1,7 @@
-
 'use client';
 
 import * as React from "react"
-import { ChevronLeft, Search, Flame, Pizza as PizzaIcon, Utensils, IceCream, Coffee, ShoppingCart, Home, ClipboardList } from "lucide-react"
+import { ChevronLeft, Search, Flame, Pizza as PizzaIcon, Utensils, IceCream, Coffee, ShoppingCart, Home, ClipboardList, LayoutGrid } from "lucide-react"
 import Link from "next/link"
 import { CategoryNav } from "@/components/category-nav"
 import { MenuCard } from "@/components/menu-card"
@@ -12,6 +11,7 @@ import { CartDrawer } from "@/components/cart-drawer"
 import { CustomizerDrawer } from "@/components/customizer-drawer"
 import { CheckoutDrawer } from "@/components/checkout-drawer"
 import { SearchDrawer } from "@/components/search-drawer"
+import { CategoryListDrawer } from "@/components/category-list-drawer"
 import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
 import gsap from "gsap"
@@ -166,6 +166,7 @@ export default function MenuPage() {
   const [isCartOpen, setIsCartOpen] = React.useState(false)
   const [isCheckoutOpen, setIsCheckoutOpen] = React.useState(false)
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
+  const [isCategoryListOpen, setIsCategoryListOpen] = React.useState(false)
   const [editingCartItem, setEditingCartItem] = React.useState<any>(null)
   const [selectedCustomizerItem, setSelectedCustomizerItem] = React.useState<any>(null)
   const [cartItems, setCartItems] = React.useState<{
@@ -405,6 +406,7 @@ export default function MenuPage() {
             categories={CATEGORIES} 
             active={activeCategory} 
             onChange={handleCategoryChange} 
+            onOpenList={() => setIsCategoryListOpen(true)}
           />
         </div>
 
@@ -454,7 +456,7 @@ export default function MenuPage() {
         {/* Floating Cart Button */}
         <div 
           className={cn(
-            "fixed bottom-28 right-6 z-[115] transition-all duration-300 ease-in-out",
+            "fixed bottom-28 right-6 z-[70] transition-all duration-300 ease-in-out",
             (cartItems.length === 0) ? "translate-y-24 opacity-0 scale-0 pointer-events-none" : "translate-y-0 opacity-100 scale-100 pointer-events-auto"
           )}
         >
@@ -517,6 +519,14 @@ export default function MenuPage() {
           onClose={() => setIsSearchOpen(false)}
           items={MENU_ITEMS}
           onItemClick={(item) => setSelectedCustomizerItem(item)}
+        />
+
+        <CategoryListDrawer 
+          isOpen={isCategoryListOpen}
+          onClose={() => setIsCategoryListOpen(false)}
+          categories={CATEGORIES}
+          activeId={activeCategory}
+          onSelect={handleCategoryChange}
         />
 
         {editingBaseItem && (
