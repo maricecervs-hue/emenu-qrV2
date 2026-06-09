@@ -86,42 +86,42 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent 
         side="top" 
-        className="h-auto max-h-[95vh] w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-b-[2rem] overflow-hidden"
+        className="h-auto max-h-[90vh] w-full max-w-md mx-auto p-0 border-none bg-white flex flex-col [&>button]:hidden shadow-2xl rounded-b-[2.5rem] overflow-hidden"
       >
         <SheetHeader className="sr-only">
           <SheetTitle>Search Menu</SheetTitle>
         </SheetHeader>
 
-        {/* Search Header - Matches Screenshot 100% */}
-        <div className="px-5 pt-10 pb-6 space-y-5 bg-white">
+        {/* Condensed Search Header - Matches Screenshot 100% */}
+        <div className="px-5 pt-6 pb-5 space-y-4 bg-white">
           <div className="flex items-center gap-3">
-            {/* Back Button - Rounded Square per screenshot */}
+            {/* Back Button - Condensed Rounded Square */}
             <button 
               onClick={onClose}
-              className="w-12 h-12 rounded-2xl bg-[#F1F3F5] flex items-center justify-center transition-all active:scale-90 border border-slate-100"
+              className="w-11 h-11 rounded-2xl bg-[#F1F3F5] flex items-center justify-center transition-all active:scale-90 border border-slate-100 shrink-0"
             >
-              <ChevronLeft className="w-6 h-6 text-[#495057]" />
+              <ChevronLeft className="w-5 h-5 text-[#495057]" />
             </button>
             
-            {/* Search Input Pill */}
+            {/* Search Input Pill - Condensed */}
             <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input 
                 autoFocus
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search menu items..."
-                className="h-12 pl-11 pr-4 bg-white border-2 border-[#F1F3F5] rounded-2xl text-sm font-medium placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-[#12B4A3]/20 focus-visible:border-[#12B4A3]/30"
+                className="h-11 pl-10 pr-4 bg-white border-2 border-[#E9FBF9] rounded-2xl text-[13px] font-medium placeholder:text-slate-400 focus-visible:ring-1 focus-visible:ring-[#12B4A3]/20 focus-visible:border-[#12B4A3]/30"
               />
             </div>
           </div>
 
-          {/* Filter Chips Row */}
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+          {/* Filter Chips Row - Tightened */}
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5">
             <button
               onClick={() => setActiveAllergens([])}
               className={cn(
-                "h-10 px-5 rounded-2xl text-[13px] font-semibold transition-all border-2",
+                "h-9 px-5 rounded-2xl text-[12px] font-bold transition-all border-2",
                 activeAllergens.length === 0 
                   ? "bg-[#12B4A3] border-[#12B4A3] text-white" 
                   : "bg-white border-[#F1F3F5] text-[#8E9AAF] hover:border-slate-200"
@@ -134,7 +134,7 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
                 key={a.id}
                 onClick={() => toggleAllergen(a.id)}
                 className={cn(
-                  "h-10 px-4 rounded-2xl text-[13px] font-semibold flex items-center gap-2 transition-all border-2 whitespace-nowrap",
+                  "h-9 px-4 rounded-2xl text-[12px] font-bold flex items-center gap-1.5 transition-all border-2 whitespace-nowrap",
                   activeAllergens.includes(a.id) 
                     ? "bg-[#12B4A3] border-[#12B4A3] text-white" 
                     : "bg-white border-[#F1F3F5] text-[#8E9AAF] hover:border-slate-200"
@@ -143,23 +143,23 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
                 <span className={cn("transition-colors", activeAllergens.includes(a.id) ? "text-white" : "text-[#12B4A3]")}>
                   {a.icon}
                 </span>
-                <span className="ml-1.5">{a.name}</span>
+                <span>{a.name}</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Results Area - Slide-out background for results */}
-        {hasInteraction ? (
+        {/* Results Area - Appears only when searching */}
+        {hasInteraction && (
           <ScrollArea className="flex-1 bg-[#F8F9FB] border-t border-slate-100">
             <div className="px-5 py-6 space-y-6 pb-12">
               <div className="flex items-center justify-between px-1">
-                <h3 className="text-[12px] font-semibold text-[#8E9AAF] uppercase tracking-wider">
+                <h3 className="text-[11px] font-bold text-[#8E9AAF] uppercase tracking-wider">
                   {filteredItems.length} items found
                 </h3>
                 <button 
                   onClick={handleReset}
-                  className="text-[12px] font-bold text-[#12B4A3] underline decoration-dotted underline-offset-4"
+                  className="text-[11px] font-bold text-[#12B4A3] underline decoration-dotted underline-offset-4"
                 >
                   Clear All
                 </button>
@@ -208,9 +208,6 @@ export function SearchDrawer({ isOpen, onClose, items }: SearchDrawerProps) {
               )}
             </div>
           </ScrollArea>
-        ) : (
-          /* Empty bottom area when no search active */
-          <div className="h-20 bg-white w-full" />
         )}
       </SheetContent>
     </Sheet>
