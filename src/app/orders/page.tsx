@@ -60,7 +60,7 @@ export default function OrdersPage() {
 
         {/* Filters */}
         <div className="px-6 py-4 flex gap-3 overflow-x-auto scrollbar-hide bg-[#F8F9FB] shrink-0">
-          {['All Orders', 'Preparing', 'Served'].map((filter) => {
+          {['All Orders', 'Preparing', 'Served', 'Completed'].map((filter) => {
             const label = filter === 'All Orders' ? 'All' : filter
             const isActive = activeFilter === label
             return (
