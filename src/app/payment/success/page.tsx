@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Check, Mail, Heart, UtensilsCrossed, Bell, Clock } from "lucide-react"
+import { Check, Mail, Clock, UtensilsCrossed, Bell } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import gsap from "gsap"
@@ -11,8 +11,9 @@ import { useGSAP } from "@gsap/react"
 export default function PaymentSuccessPage() {
   const [selectedRating, setSelectedRating] = React.useState<number | null>(null)
   const containerRef = React.useRef<HTMLDivElement>(null)
-  const appreciationRef = React.useRef<HTMLDivElement>(null)
   const gridRef = React.useRef<HTMLDivElement>(null)
+  const successCardRef = React.useRef<HTMLDivElement>(null)
+  const headerTextRef = React.useRef<HTMLDivElement>(null)
 
   const ratings = [
     { label: "Poor", emoji: "😔" },
@@ -29,63 +30,32 @@ export default function PaymentSuccessPage() {
   ]
 
   useGSAP(() => {
-    if (selectedRating !== null && gridRef.current) {
-      const items = gridRef.current.querySelectorAll('.rating-item')
-      const selectedItem = items[selectedRating] as HTMLElement
-      
-      // Animate the unselected items away
-      items.forEach((item, index) => {
-        if (index !== selectedRating) {
-          gsap.to(item, {
-            opacity: 0,
-            scale: 0.5,
-            y: 20,
-            duration: 0.4,
-            pointerEvents: 'none',
-            ease: "power2.inOut"
-          })
+    if (selectedRating !== null) {
+      const tl = gsap.timeline();
+
+      // Fade out the current feedback header and the emoji grid
+      tl.to([headerTextRef.current, gridRef.current], {
+        opacity: 0,
+        y: -10,
+        duration: 0.4,
+        ease: "power2.in",
+        onComplete: () => {
+          if (headerTextRef.current) headerTextRef.current.style.display = 'none';
+          if (gridRef.current) gridRef.current.style.display = 'none';
         }
-      })
+      });
 
-      // Calculate centering for the selected item relative to the grid container
-      const gridRect = gridRef.current.getBoundingClientRect()
-      const itemRect = selectedItem.getBoundingClientRect()
-      
-      const gridCenterX = gridRect.left + gridRect.width / 2
-      const itemCenterX = itemRect.left + itemRect.width / 2
-      const xOffset = gridCenterX - itemCenterX
-
-      // Transform the selected item into the compact card style
-      gsap.to(selectedItem, {
-        x: xOffset,
-        scale: 1,
-        height: "130px",
-        width: "80px",
-        backgroundColor: "#ffffff",
-        borderColor: "rgba(0,0,0,0.05)",
-        borderRadius: "2rem",
-        boxShadow: "0 15px 30px rgba(0,0,0,0.06)",
-        duration: 0.6,
-        ease: "back.out(1.2)",
-        delay: 0.1
-      })
-
-      const emoji = selectedItem.querySelector('.emoji-span')
-      if (emoji) {
-        gsap.to(emoji, {
-          scale: 1.3,
-          duration: 0.6,
-          ease: "back.out(1.2)",
-          delay: 0.1
-        })
-      }
-
-      if (appreciationRef.current) {
-        gsap.fromTo(appreciationRef.current,
-          { opacity: 0, y: 10, display: 'none' },
-          { opacity: 1, y: 0, display: 'flex', duration: 0.5, delay: 0.5, ease: "power2.out" }
-        )
-      }
+      // Fade in the new "Thanks for your Rating" card
+      tl.fromTo(successCardRef.current,
+        { opacity: 0, y: 10, display: 'none' },
+        { 
+          opacity: 1, 
+          y: 0, 
+          display: 'flex', 
+          duration: 0.6, 
+          ease: "back.out(1.2)" 
+        }
+      );
     }
   }, { scope: containerRef, dependencies: [selectedRating] })
 
@@ -109,7 +79,7 @@ export default function PaymentSuccessPage() {
         {/* Divider */}
         <div className="w-full border-t border-dashed border-slate-200 mb-8" />
 
-        {/* Order Status Timeline */}
+        {/* Order Status Timeline (Top Priority) */}
         <div className="w-full bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100/50 mb-8 space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-[#1E2B4D]">Order Status</h3>
@@ -120,10 +90,7 @@ export default function PaymentSuccessPage() {
           </div>
 
           <div className="relative flex justify-between items-center px-2">
-            {/* Progress Line Background */}
             <div className="absolute top-5 left-8 right-8 h-1 bg-slate-200 rounded-full" />
-            
-            {/* Active Progress Line */}
             <div className="absolute top-5 left-8 w-[25%] h-1 bg-[#12B4A3] rounded-full transition-all duration-1000" />
 
             {orderSteps.map((step) => (
@@ -140,7 +107,6 @@ export default function PaymentSuccessPage() {
                   )}>
                     {step.icon}
                   </div>
-                  
                   {step.active && (
                     <div className="absolute inset-0 rounded-full bg-[#12B4A3] animate-ping opacity-20" />
                   )}
@@ -157,49 +123,43 @@ export default function PaymentSuccessPage() {
         </div>
 
         {/* Experience Section */}
-        <div className="w-full text-center space-y-6 mb-8 relative min-h-[160px] flex flex-col items-center">
-          <div className="space-y-1">
-            <h2 className="text-lg font-bold text-[#1E2B4D]">
-              {selectedRating === null ? "How was your experience?" : "Thank you for the rating!"}
-            </h2>
-            <p className="text-[11px] font-semibold text-[#8E9AAF]">
-              {selectedRating === null ? "Your feedback helps us improve" : "We've received your feedback"}
-            </p>
+        <div className="w-full text-center min-h-[160px] flex flex-col items-center justify-center mb-8 relative">
+          
+          {/* Header text before selection */}
+          <div ref={headerTextRef} className="space-y-1 mb-6">
+            <h2 className="text-lg font-bold text-[#1E2B4D]">How was your experience?</h2>
+            <p className="text-[11px] font-semibold text-[#8E9AAF]">Your feedback helps us improve</p>
           </div>
 
-          <div className="grid grid-cols-5 gap-2 w-full pt-4 relative" ref={gridRef}>
+          {/* Grid before selection */}
+          <div className="grid grid-cols-5 gap-2 w-full" ref={gridRef}>
             {ratings.map((rating, index) => (
               <button
                 key={index}
-                disabled={selectedRating !== null}
                 onClick={() => setSelectedRating(index)}
-                className={cn(
-                  "rating-item flex flex-col items-center justify-center gap-2 p-2 rounded-xl border transition-all duration-300",
-                  selectedRating === index 
-                    ? "bg-white border-slate-100 z-10" 
-                    : "bg-white border-slate-100 hover:border-slate-200",
-                  selectedRating !== null && selectedRating !== index && "opacity-0 pointer-events-none"
-                )}
+                className="flex flex-col items-center justify-center gap-2 p-2 rounded-xl border border-slate-100 bg-white hover:border-slate-200 transition-all duration-300 active:scale-95"
               >
-                <span className="emoji-span text-2xl transition-transform">{rating.emoji}</span>
-                <span className={cn(
-                  "text-[9px] font-bold",
-                  selectedRating === index ? "text-[#1E2B4D]" : "text-slate-400"
-                )}>
+                <span className="text-2xl">{rating.emoji}</span>
+                <span className="text-[9px] font-bold text-slate-400">
                   {rating.label}
                 </span>
               </button>
             ))}
           </div>
-        </div>
 
-        {/* Appreciation Footer */}
-        <div 
-          ref={appreciationRef}
-          className="items-center justify-center gap-2 mb-8 hidden opacity-0"
-        >
-          <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-          <span className="text-[11px] font-bold text-[#8E9AAF] uppercase tracking-wider">We appreciate your feedback</span>
+          {/* New Custom "Thanks for your Rating" Card (100% Match to Design) */}
+          <div 
+            ref={successCardRef} 
+            className="hidden w-full bg-[#F9FDF2] rounded-[2.5rem] p-8 border border-[#E9F3D7] flex-col items-center justify-center space-y-4 shadow-sm"
+          >
+            <h2 className="text-2xl font-bold text-[#849F4E] tracking-tight text-center">
+              Thanks for your Rating!
+            </h2>
+            <div className="w-full border-t border-dashed border-[#DCE8C5]" />
+            <button className="text-lg font-bold text-[#3A5D3E] underline decoration-slate-300 decoration-1 underline-offset-[6px]">
+              Leave a review on Google
+            </button>
+          </div>
         </div>
 
         {/* Action Buttons */}
