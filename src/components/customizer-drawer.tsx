@@ -160,6 +160,9 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
   }
 
   const activeOption = customizationGroups.flatMap(g => g.options).find(o => o.id === activeParentId)
+  const requiredMissingCount = customizationGroups.filter(g => g.required && !isGroupSelected(g)).length
+  const totalPrice = (item.price * quantity + customizationGroups.reduce((acc, g) => acc + g.options.reduce((oAcc, o) => oAcc + (o.price * o.quantity), 0), 0)).toFixed(2)
+  const isButtonDisabled = requiredMissingCount > 0
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => {
@@ -449,10 +452,19 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                 </button>
               </div>
               <Button 
-                className="flex-1 h-12 rounded-2xl bg-[#12B4A3] text-white font-bold text-sm"
+                disabled={isButtonDisabled}
+                className={cn(
+                  "flex-1 h-12 rounded-2xl font-bold text-sm transition-all duration-300",
+                  isButtonDisabled 
+                    ? "bg-[#F1F3F5] text-[#ADB5BD] border border-slate-100" 
+                    : "bg-[#12B4A3] text-white shadow-lg shadow-[#12B4A3]/20"
+                )}
                 onClick={handleAddToCart}
               >
-                {isEdit ? 'Update' : 'Add'} • $ {(item.price * quantity + customizationGroups.reduce((acc, g) => acc + g.options.reduce((oAcc, o) => oAcc + (o.price * o.quantity), 0), 0)).toFixed(2)}
+                {isButtonDisabled 
+                  ? `Make ${requiredMissingCount} required selection - Add $${totalPrice}`
+                  : `${isEdit ? 'Update' : 'Add'} • $${totalPrice}`
+                }
               </Button>
             </div>
           )}
