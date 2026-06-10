@@ -75,7 +75,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
             <SheetDescription>View and manage your selected items.</SheetDescription>
           </SheetHeader>
 
-          {/* Full Width Header Section */}
+          {/* Header Section */}
           <div className="bg-white px-6 pt-8 pb-4 border-b border-slate-50 shrink-0 relative">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -101,7 +101,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
           <ScrollArea className="flex-1 bg-[#F8F9FA]">
             <div className="pb-40">
               
-              {/* Items List - Full Bleed Design */}
+              {/* Items List */}
               <div className="bg-white border-b border-slate-100">
                 {items.map((item, idx) => (
                   <div key={item.cartId} className={cn(
@@ -175,7 +175,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 ))}
               </div>
 
-              {/* Recommendations Section */}
+              {/* Recommendations */}
               <div className="bg-white border-y border-slate-100 mt-4 p-6 space-y-4">
                 <div className="flex items-center gap-4">
                   <h3 className="text-lg font-bold text-[#1E2B4D]">You might also like</h3>
@@ -204,7 +204,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 </ScrollArea>
               </div>
 
-              {/* Note Section - Full Bleed */}
+              {/* Note Section */}
               <div className="bg-white border-y border-slate-100 mt-4 px-6 py-5 flex items-center justify-between active:bg-slate-50 transition-colors cursor-pointer group">
                 <div className="flex items-center gap-4">
                   <Pencil className="w-5 h-5 text-slate-300 group-active:text-[#12B4A3] transition-colors" />
@@ -216,7 +216,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 <ChevronRight className="w-5 h-5 text-slate-200" />
               </div>
 
-              {/* Promo Section - Full Bleed */}
+              {/* Promo Section */}
               <div className="bg-white border-y border-slate-100 mt-4 px-6 py-5 flex items-center gap-4">
                 <Ticket className="w-5 h-5 text-slate-300 shrink-0" />
                 <Input 
@@ -228,7 +228,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 </button>
               </div>
 
-              {/* Summary Section - Professional Full Bleed */}
+              {/* Summary Section */}
               <div className="bg-white border-y border-slate-100 mt-4 px-6 py-8 space-y-5">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
