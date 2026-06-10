@@ -86,12 +86,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 </p>
               </div>
             </div>
-            <button 
-              onClick={onClose}
-              className="text-[#12B4A3] font-bold text-xs border-b border-dashed border-[#12B4A3] pb-0.5"
-            >
-              + Add more
-            </button>
+            {/* Link button removed per user request */}
           </div>
 
           <ScrollArea className="flex-1 bg-[#F8F9FA]">
