@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from "react"
-import { ChevronLeft, Search, Flame, Pizza as PizzaIcon, Utensils, IceCream, Coffee, ShoppingCart, Home, ClipboardList, LayoutGrid } from "lucide-react"
+import { Search, Flame, Pizza as PizzaIcon, Utensils, IceCream, Coffee, ShoppingCart, Home, ClipboardList } from "lucide-react"
 import Link from "next/link"
 import { CategoryNav } from "@/components/category-nav"
 import { MenuCard } from "@/components/menu-card"
@@ -372,26 +372,21 @@ export default function MenuPage() {
     <div className="min-h-screen bg-white flex flex-col items-center overflow-x-hidden">
       <div className="w-full max-w-md bg-white min-h-screen flex flex-col relative h-screen overflow-hidden">
         
-        {/* Sliding Search Header - Only visible on scroll up */}
+        {/* Sliding Header - Back arrow removed as redundant */}
         <header 
           className={cn(
             "fixed top-0 w-full max-w-md bg-white z-[65] transition-transform duration-300 ease-in-out border-slate-50",
             isNavVisible ? "translate-y-0" : "-translate-y-full"
           )}
         >
-          <div className="pt-6 pb-2 px-4 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/">
-                <ChevronLeft className="w-6 h-6 text-slate-800" />
-              </Link>
-              <div className="flex flex-col">
-                <h2 className="text-xl font-medium text-[#1E2B4D]">
-                  {CATEGORIES.find(c => c.id === activeCategory)?.name || 'Menu'}
-                </h2>
-                <span className="text-sm font-medium text-[#12B4A3]">
-                  {activeCategoryItemsCount} items
-                </span>
-              </div>
+          <div className="pt-6 pb-2 px-6 flex items-center justify-between">
+            <div className="flex flex-col">
+              <h2 className="text-xl font-medium text-[#1E2B4D]">
+                {CATEGORIES.find(c => c.id === activeCategory)?.name || 'Menu'}
+              </h2>
+              <span className="text-sm font-medium text-[#12B4A3]">
+                {activeCategoryItemsCount} items
+              </span>
             </div>
             <button 
               onClick={() => setIsSearchOpen(true)}
