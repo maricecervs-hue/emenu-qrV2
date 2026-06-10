@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react"
@@ -22,6 +21,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { cn } from "@/lib/utils"
 
 interface CartItem {
   id: string
