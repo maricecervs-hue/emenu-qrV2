@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react"
@@ -201,9 +200,9 @@ export function SearchDrawer({ isOpen, onClose, items, onItemClick }: SearchDraw
                           {item.description}
                         </p>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className="text-[17px] font-bold text-[#1E2B4D]">${item.price.toFixed(2)}</span>
-                        <Badge variant="outline" className="rounded-full h-5 border-[#FEF08A] bg-[#FEF9C3]/20 text-[#B45309] font-semibold text-[9px] px-2.5 uppercase tracking-wider">
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <span className="text-[17px] font-bold text-[#1E2B4D] shrink-0">${item.price.toFixed(2)}</span>
+                        <Badge variant="outline" className="rounded-full h-auto py-0.5 border-[#FEF08A] bg-[#FEF9C3]/20 text-[#B45309] font-semibold text-[9px] px-2.5 uppercase tracking-wider whitespace-normal text-center">
                           {getItemAllergenLabel(item.id)}
                         </Badge>
                       </div>
