@@ -460,10 +460,11 @@ export default function MenuPage() {
           </div>
         </div>
 
-        {/* Floating Cart Button */}
+        {/* Floating Cart Button - Dynamically adjusts bottom position based on navbar visibility */}
         <div 
           className={cn(
-            "fixed bottom-28 right-6 z-[70] transition-all duration-300 ease-in-out",
+            "fixed right-6 z-[70] transition-all duration-300 ease-in-out",
+            isNavVisible ? "bottom-28" : "bottom-8",
             (cartItems.length === 0) ? "translate-y-24 opacity-0 scale-0 pointer-events-none" : "translate-y-0 opacity-100 scale-100 pointer-events-auto"
           )}
         >
