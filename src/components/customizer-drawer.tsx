@@ -465,7 +465,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                 onClick={handleAddToCart}
               >
                 {isButtonDisabled 
-                  ? `Make ${requiredMissingCount} required selection - Add $${totalPrice}`
+                  ? `Make ${requiredMissingCount} required selection - ${isEdit ? 'Update' : 'Add'} $${totalPrice}`
                   : `${isEdit ? 'Update' : 'Add'} • $${totalPrice}`
                 }
               </Button>
