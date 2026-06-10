@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, ChevronRight, X, ChevronDown } from "lucide-react"
+import { ShoppingBasket, Plus, Minus, Trash2, Pencil, Ticket, ChevronRight, X } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -67,7 +67,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
     <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <SheetContent 
         side="bottom" 
-        className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden z-[120] w-full max-w-md mx-auto inset-x-0 [&>button]:hidden"
+        className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-white overflow-hidden z-[120] w-full max-w-md mx-auto inset-x-0 [&>button]:hidden"
       >
         <div className="w-full h-full flex flex-col">
           <SheetHeader className="sr-only">
@@ -75,8 +75,8 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
             <SheetDescription>View and manage your selected items.</SheetDescription>
           </SheetHeader>
 
-          {/* Header Section */}
-          <div className="bg-white px-6 pt-8 pb-4 shrink-0 relative">
+          {/* Full Width Header Section */}
+          <div className="bg-white px-6 pt-8 pb-4 border-b border-slate-50 shrink-0 relative">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-[#E9FBF9] rounded-full flex items-center justify-center">
@@ -98,15 +98,18 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
             </div>
           </div>
 
-          <ScrollArea className="flex-1">
-            <div className="px-5 py-6 space-y-8 pb-40">
+          <ScrollArea className="flex-1 bg-[#F8F9FA]">
+            <div className="pb-40">
               
-              {/* Items List */}
-              <div className="space-y-4">
-                {items.map((item) => (
-                  <div key={item.cartId} className="bg-white rounded-[1.5rem] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.03)] border border-slate-50 flex flex-col gap-3">
+              {/* Items List - Full Bleed Design */}
+              <div className="bg-white border-b border-slate-100">
+                {items.map((item, idx) => (
+                  <div key={item.cartId} className={cn(
+                    "px-6 py-5 flex flex-col gap-3",
+                    idx !== items.length - 1 && "border-b border-slate-50"
+                  )}>
                     <div className="flex gap-4">
-                      <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0">
+                      <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-slate-50">
                         <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
                       </div>
                       
@@ -124,28 +127,27 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                         <div className="flex items-end justify-between">
                           <span className="text-[#12B4A3] font-bold text-base">$ {item.price.toFixed(2)}</span>
                           
-                          <div className="flex items-center gap-2.5">
+                          <div className="flex items-center gap-3 bg-slate-50 px-2 py-1.5 rounded-full border border-slate-100 shadow-sm">
                             <button 
-                              onClick={() => onRemove(item.cartId)}
-                              className="w-8 h-8 rounded-full flex items-center justify-center text-[#FF5C5C] border border-[#FF5C5C]/20 hover:bg-red-50 transition-colors"
+                              onClick={() => onUpdateQuantity(item.cartId, -1)}
+                              className={cn(
+                                "w-7 h-7 rounded-full flex items-center justify-center transition-colors",
+                                item.quantity === 1 ? "text-[#FF5C5C]" : "text-[#1E2B4D]"
+                              )}
                             >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              {item.quantity === 1 ? (
+                                <Trash2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+                              ) : (
+                                <Minus className="w-3.5 h-3.5" strokeWidth={3} />
+                              )}
                             </button>
-                            <div className="flex items-center gap-3 bg-slate-50 px-2 py-1 rounded-full border border-slate-100 shadow-sm">
-                              <button 
-                                onClick={() => onUpdateQuantity(item.cartId, -1)}
-                                className="w-6 h-6 rounded-full flex items-center justify-center text-[#1E2B4D]"
-                              >
-                                <Minus className="w-3 h-3" strokeWidth={3} />
-                              </button>
-                              <span className="text-sm font-bold text-[#1E2B4D] min-w-[14px] text-center">{item.quantity}</span>
-                              <button 
-                                onClick={() => onUpdateQuantity(item.cartId, 1)}
-                                className="w-6 h-6 rounded-full flex items-center justify-center text-[#1E2B4D]"
-                              >
-                                <Plus className="w-3 h-3" strokeWidth={3} />
-                              </button>
-                            </div>
+                            <span className="text-sm font-bold text-[#1E2B4D] min-w-[18px] text-center">{item.quantity}</span>
+                            <button 
+                              onClick={() => onUpdateQuantity(item.cartId, 1)}
+                              className="w-7 h-7 rounded-full flex items-center justify-center text-[#1E2B4D]"
+                            >
+                              <Plus className="w-3.5 h-3.5" strokeWidth={3} />
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -173,22 +175,22 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 ))}
               </div>
 
-              {/* Recommendations */}
-              <div className="space-y-4">
+              {/* Recommendations Section */}
+              <div className="bg-white border-y border-slate-100 mt-4 p-6 space-y-4">
                 <div className="flex items-center gap-4">
                   <h3 className="text-lg font-bold text-[#1E2B4D]">You might also like</h3>
                   <div className="h-px flex-1 border-t border-dashed border-slate-300" />
                 </div>
                 
                 <ScrollArea className="w-full whitespace-nowrap">
-                  <div className="flex gap-4 pb-4">
+                  <div className="flex gap-4 pb-2">
                     {recommendations.map((rec) => (
-                      <div key={rec.id} className="min-w-[150px] bg-white rounded-[1.5rem] shadow-[0_8px_30px_rgba(0,0,0,0.03)] border border-slate-50 overflow-hidden flex flex-col">
+                      <div key={rec.id} className="min-w-[160px] bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col shadow-sm">
                         <div className="relative aspect-square w-full">
                           <Image src={rec.imageUrl} alt={rec.name} fill className="object-cover" />
                         </div>
                         <div className="p-3 space-y-2">
-                          <p className="text-[11px] font-bold text-[#1E2B4D] leading-tight whitespace-normal line-clamp-2">{rec.name}</p>
+                          <p className="text-[11px] font-bold text-[#1E2B4D] leading-tight whitespace-normal line-clamp-2 h-7">{rec.name}</p>
                           <div className="flex items-center justify-between">
                             <span className="text-[#12B4A3] font-bold text-xs">$ {rec.price.toFixed(2)}</span>
                             <Button size="icon" className="w-7 h-7 rounded-full bg-[#12B4A3] p-0 hover:bg-[#109E8F] transition-transform active:scale-90 shadow-sm">
@@ -202,20 +204,20 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 </ScrollArea>
               </div>
 
-              {/* Note Section */}
-              <button className="w-full bg-white rounded-[1.5rem] p-5 flex items-center justify-between shadow-[0_8px_30px_rgba(0,0,0,0.02)] border border-slate-50 active:bg-slate-50 transition-colors">
+              {/* Note Section - Full Bleed */}
+              <div className="bg-white border-y border-slate-100 mt-4 px-6 py-5 flex items-center justify-between active:bg-slate-50 transition-colors cursor-pointer group">
                 <div className="flex items-center gap-4">
-                  <Pencil className="w-5 h-5 text-slate-300" />
+                  <Pencil className="w-5 h-5 text-slate-300 group-active:text-[#12B4A3] transition-colors" />
                   <div className="text-left">
                     <p className="text-sm font-bold text-[#1E2B4D]">Add a Note</p>
                     <p className="text-xs font-medium text-[#8E9AAF]">Any special requests?</p>
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-slate-200" />
-              </button>
+              </div>
 
-              {/* Promo Section */}
-              <div className="bg-white rounded-[1.5rem] p-5 flex items-center gap-4 shadow-[0_8px_30px_rgba(0,0,0,0.02)] border border-slate-50">
+              {/* Promo Section - Full Bleed */}
+              <div className="bg-white border-y border-slate-100 mt-4 px-6 py-5 flex items-center gap-4">
                 <Ticket className="w-5 h-5 text-slate-300 shrink-0" />
                 <Input 
                   placeholder="Enter discount code" 
@@ -226,8 +228,8 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 </button>
               </div>
 
-              {/* Summary Section */}
-              <div className="bg-white rounded-[2rem] p-8 shadow-[0_12px_40px_rgba(0,0,0,0.04)] border border-slate-50 space-y-5">
+              {/* Summary Section - Professional Full Bleed */}
+              <div className="bg-white border-y border-slate-100 mt-4 px-6 py-8 space-y-5">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-medium text-[#8E9AAF]">Subtotal</span>
@@ -243,12 +245,12 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                   </div>
                 </div>
                 
-                <div className="w-full border-t border-slate-100 pt-5 mt-5">
+                <div className="w-full border-t border-slate-100 pt-6">
                   <div className="flex justify-between items-center">
                     <span className="text-xl font-bold text-[#1E2B4D]">Total</span>
                     <div className="text-right">
-                      <span className="text-2xl font-extrabold text-[#1E2B4D] block leading-none">$ {total.toFixed(2)}</span>
-                      <span className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-widest mt-1 block">incl. all taxes</span>
+                      <span className="text-3xl font-extrabold text-[#1E2B4D] block leading-none">$ {total.toFixed(2)}</span>
+                      <span className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-widest mt-2 block">incl. all taxes</span>
                     </div>
                   </div>
                 </div>
@@ -259,7 +261,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
           {/* Checkout Button */}
           <div className="shrink-0 w-full bg-white p-6 border-t border-slate-100 shadow-[0_-10px_40px_rgba(0,0,0,0.06)]">
             <Button 
-              className="w-full h-14 rounded-[1.2rem] bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
+              className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
               onClick={onCheckout}
             >
               Proceed to Checkout
