@@ -464,7 +464,7 @@ export default function MenuPage() {
         <div 
           className={cn(
             "fixed right-6 z-[70] transition-all duration-300 ease-in-out",
-            isNavVisible ? "bottom-28" : "bottom-8",
+            isNavVisible ? "bottom-24" : "bottom-8",
             (cartItems.length === 0) ? "translate-y-24 opacity-0 scale-0 pointer-events-none" : "translate-y-0 opacity-100 scale-100 pointer-events-auto"
           )}
         >
@@ -484,20 +484,20 @@ export default function MenuPage() {
           </div>
         </div>
 
-        {/* Sliding Bottom Navigation */}
+        {/* Sliding Bottom Navigation - Compact & Refined */}
         <nav 
           className={cn(
-            "fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40 transition-transform duration-300 ease-in-out",
+            "fixed bottom-0 w-full max-w-md bg-white/95 backdrop-blur-md border-t border-slate-100/50 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] px-12 py-3 flex justify-between items-center z-40 transition-transform duration-300 ease-in-out",
             isNavVisible ? "translate-y-0" : "translate-y-full"
           )}
         >
-          <div className="flex flex-col items-center gap-1.5 cursor-pointer">
-            <Home className="w-7 h-7 text-[#12B4A3]" strokeWidth={2} />
-            <span className="text-sm font-medium text-[#12B4A3]">Menu</span>
+          <div className="flex flex-col items-center gap-1 cursor-pointer">
+            <Home className="w-6 h-6 text-[#12B4A3]" strokeWidth={2.5} />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#12B4A3]">Menu</span>
           </div>
-          <Link href="/orders" className="flex flex-col items-center gap-1.5 cursor-pointer opacity-30 transition-opacity hover:opacity-100">
-            <ClipboardList className="w-7 h-7 text-slate-500" strokeWidth={2} />
-            <span className="text-sm font-medium text-slate-500">Orders</span>
+          <Link href="/orders" className="flex flex-col items-center gap-1 cursor-pointer opacity-30 transition-opacity hover:opacity-100">
+            <ClipboardList className="w-6 h-6 text-slate-500" strokeWidth={2.5} />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Orders</span>
           </Link>
         </nav>
 

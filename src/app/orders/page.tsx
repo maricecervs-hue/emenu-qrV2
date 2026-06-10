@@ -245,15 +245,15 @@ export default function OrdersPage() {
           )}
         </div>
 
-        {/* Bottom Navigation */}
-        <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-slate-100/50 shadow-[0_-10px_30px_rgba(0,0,0,0.06)] px-16 py-5 flex justify-between items-center z-40">
-          <Link href="/menu" className="flex flex-col items-center gap-1.5 cursor-pointer opacity-30 transition-opacity hover:opacity-100">
-            <Home className="w-7 h-7 text-slate-500" strokeWidth={2} />
-            <span className="text-sm font-medium text-slate-500">Menu</span>
+        {/* Bottom Navigation - Optimized for Mobile */}
+        <nav className="fixed bottom-0 w-full max-w-md bg-white/95 backdrop-blur-md border-t border-slate-100/50 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] px-12 py-3 flex justify-between items-center z-40">
+          <Link href="/menu" className="flex flex-col items-center gap-1 cursor-pointer opacity-30 transition-opacity hover:opacity-100">
+            <Home className="w-6 h-6 text-slate-500" strokeWidth={2.5} />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Menu</span>
           </Link>
-          <div className="flex flex-col items-center gap-1.5 cursor-pointer">
-            <ClipboardList className="w-7 h-7 text-[#12B4A3]" strokeWidth={2} />
-            <span className="text-sm font-medium text-[#12B4A3]">Orders</span>
+          <div className="flex flex-col items-center gap-1 cursor-pointer">
+            <ClipboardList className="w-6 h-6 text-[#12B4A3]" strokeWidth={2.5} />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#12B4A3]">Orders</span>
           </div>
         </nav>
 
