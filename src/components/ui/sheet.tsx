@@ -29,10 +29,10 @@ const SheetOverlay = React.forwardRef<
     ref={ref}
   />
 ))
-SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
+SheetOverlay.displayName = "SheetOverlay"
 
 const sheetVariants = cva(
-  "fixed gap-4 bg-background shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+  "fixed bg-background shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
   {
     variants: {
       side: {
@@ -58,11 +58,11 @@ const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
 >(({ side = "right", className, children, ...props }, ref) => {
-  const zIndexClass = className?.split(' ').find(c => c.startsWith('z-')) || "z-[100]";
+  const zIndexOverlay = className?.split(' ').find(c => c.startsWith('z-')) || "z-[100]";
   
   return (
     <SheetPortal>
-      <SheetOverlay className={zIndexClass} />
+      <SheetOverlay className={zIndexOverlay} />
       <SheetPrimitive.Content
         ref={ref}
         className={cn(sheetVariants({ side }), className)}
@@ -77,7 +77,7 @@ const SheetContent = React.forwardRef<
     </SheetPortal>
   )
 })
-SheetContent.displayName = SheetContent.displayName
+SheetContent.displayName = "SheetContent"
 
 const SheetHeader = ({
   className,
