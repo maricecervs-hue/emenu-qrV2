@@ -32,7 +32,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  "fixed gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+  "fixed gap-4 bg-background shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
   {
     variants: {
       side: {
@@ -58,8 +58,6 @@ const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
 >(({ side = "right", className, children, ...props }, ref) => {
-  // Extract z-index from className if present to apply to overlay as well
-  // This ensures the overlay of a higher sheet covers the content of a lower sheet
   const zIndexClass = className?.split(' ').find(c => c.startsWith('z-')) || "z-[100]";
   
   return (
@@ -79,7 +77,7 @@ const SheetContent = React.forwardRef<
     </SheetPortal>
   )
 })
-SheetContent.displayName = SheetPrimitive.Content.displayName
+SheetContent.displayName = SheetContent.displayName
 
 const SheetHeader = ({
   className,

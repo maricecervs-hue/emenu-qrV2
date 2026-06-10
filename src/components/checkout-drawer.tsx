@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react"
@@ -76,7 +77,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
   return (
     <>
       <Sheet open={isOpen} onOpenChange={(open) => !open && onClose()}>
-        <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden shadow-2xl flex flex-col z-[130]">
+        <SheetContent side="bottom" className="h-[95vh] rounded-t-[2.5rem] p-0 border-none bg-[#F8F9FA] overflow-hidden shadow-2xl flex flex-col z-[130] w-full max-w-md mx-auto left-0 right-0">
           <SheetHeader className="sr-only">
             <SheetTitle>Payment</SheetTitle>
             <SheetDescription>Complete your order and payment.</SheetDescription>
@@ -96,7 +97,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
           </div>
 
           <ScrollArea className="flex-1">
-            <div className="p-6 pb-40 space-y-10">
+            <div className="px-6 py-8 pb-40 space-y-10">
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
@@ -107,7 +108,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                 
                 <div className="space-y-3">
                   {items.map((item) => (
-                    <div key={item.cartId} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50 flex items-start justify-between gap-4">
+                    <div key={item.cartId} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50 flex items-start justify-between gap-4 w-full">
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium text-[#12B4A3] bg-[#E9FBF9] px-2 py-0.5 rounded-md">{item.quantity}x</span>
@@ -127,7 +128,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                 </div>
               </div>
 
-              <div className="bg-white p-7 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-5">
+              <div className="bg-white p-7 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-50 space-y-5 w-full">
                 <div className="flex justify-between items-center text-base">
                   <span className="font-normal text-slate-400">Subtotal</span>
                   <span className="font-medium text-[#1E2B4D]">$ {subtotal.toFixed(2)}</span>
@@ -157,7 +158,7 @@ export function CheckoutDrawer({ isOpen, onClose, onBack, subtotal, items }: Che
                   </p>
                 </div>
 
-                <div className="grid grid-cols-4 gap-3 w-full pt-4">
+                <div className="grid grid-cols-4 gap-3 w-full pt-4 px-1">
                   {tips.map((tip) => {
                     const isSelected = selectedTip === tip.amount
                     const isCustom = tip.amount === 'custom'
