@@ -160,7 +160,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
   }
 
   const activeOption = customizationGroups.flatMap(g => g.options).find(o => o.id === activeParentId)
-  const requiredMissingCount = customizationGroups.filter(g => g.required && !isGroupSelected(g)).length
+  const requiredMissingCount = customisable ? customizationGroups.filter(g => g.required && !isGroupSelected(g)).length : 0
   const totalPrice = (item.price * quantity + customizationGroups.reduce((acc, g) => acc + g.options.reduce((oAcc, o) => oAcc + (o.price * o.quantity), 0), 0)).toFixed(2)
   const isButtonDisabled = requiredMissingCount > 0
 
@@ -171,6 +171,7 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
         setTimeout(() => {
           setView('main')
           setActiveParentId(null)
+          setQuantity(1)
         }, 300)
       }
     }}>
@@ -442,15 +443,17 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
 
           {view === 'main' && (
             <div className="w-full bg-white px-3 py-3 border-t border-slate-100 flex items-center gap-3 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] shrink-0">
-              <div className="flex items-center gap-3 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100 shrink-0">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="text-[#1E2B4D]">
-                  <Minus className="w-4 h-4" strokeWidth={3} />
-                </button>
-                <span className="text-base font-bold text-[#1E2B4D] min-w-[18px] text-center">{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)} className="text-[#1E2B4D]">
-                  <Plus className="w-4 h-4" strokeWidth={3} />
-                </button>
-              </div>
+              {!isButtonDisabled && (
+                <div className="flex items-center gap-3 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100 shrink-0 animate-in fade-in slide-in-from-left duration-300">
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="text-[#1E2B4D]">
+                    <Minus className="w-4 h-4" strokeWidth={3} />
+                  </button>
+                  <span className="text-base font-bold text-[#1E2B4D] min-w-[18px] text-center">{quantity}</span>
+                  <button onClick={() => setQuantity(quantity + 1)} className="text-[#1E2B4D]">
+                    <Plus className="w-4 h-4" strokeWidth={3} />
+                  </button>
+                </div>
+              )}
               <Button 
                 disabled={isButtonDisabled}
                 className={cn(
