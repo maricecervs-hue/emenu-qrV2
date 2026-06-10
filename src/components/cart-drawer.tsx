@@ -74,7 +74,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
           </SheetHeader>
 
           {/* Compact Header */}
-          <div className="bg-white px-6 pt-8 pb-4 flex items-center justify-between border-b border-slate-50 shrink-0">
+          <div className="bg-white px-6 pt-8 pb-4 flex items-center justify-between border-b border-slate-100 shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-[#E9FBF9] rounded-full flex items-center justify-center">
                 <ShoppingBasket className="w-5 h-5 text-[#12B4A3]" />
@@ -95,12 +95,13 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
           </div>
 
           <ScrollArea className="flex-1">
-            <div className="px-6 py-6 pb-40 space-y-6">
-              <div className="space-y-3">
+            <div className="pb-40 space-y-6">
+              {/* Items List - Full Width Container */}
+              <div className="px-4 pt-6 space-y-3">
                 {items.map((item) => (
-                  <div key={item.cartId} className="bg-white p-3 rounded-2xl shadow-sm border border-slate-50 space-y-3 w-full">
-                    <div className="flex items-center gap-4">
-                      <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-slate-50">
+                  <div key={item.cartId} className="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 space-y-3 w-full">
+                    <div className="flex items-center gap-3">
+                      <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-slate-50">
                         <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -110,7 +111,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                             onClick={() => onEdit(item)}
                             className="p-1.5 rounded-full bg-slate-50 hover:bg-slate-100 transition-colors"
                           >
-                            <Pencil className="w-3.5 h-3.5 text-[#12B4A3]" />
+                            <Pencil className="w-3 h-3 text-[#12B4A3]" />
                           </button>
                         </div>
                         <div className="flex items-center mt-1">
@@ -122,14 +123,14 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                       <div className="flex items-center gap-2 bg-[#F8F9FA] px-1 py-1 rounded-full border border-slate-100 shrink-0">
                         <button 
                           onClick={() => item.quantity > 1 ? onUpdateQuantity(item.cartId, -1) : onRemove(item.cartId)}
-                          className="w-8 h-8 rounded-full flex items-center justify-center text-[#FF5C5C] bg-white shadow-sm"
+                          className="w-7 h-7 rounded-full flex items-center justify-center text-[#FF5C5C] bg-white shadow-sm"
                         >
                           {item.quantity === 1 ? <Trash2 className="w-3.5 h-3.5" /> : <Minus className="w-3.5 h-3.5" strokeWidth={3} />}
                         </button>
-                        <span className="text-xs font-bold text-[#1E2B4D] min-w-[16px] text-center">{item.quantity}</span>
+                        <span className="text-xs font-bold text-[#1E2B4D] min-w-[14px] text-center">{item.quantity}</span>
                         <button 
                           onClick={() => onUpdateQuantity(item.cartId, 1)}
-                          className="w-8 h-8 rounded-full flex items-center justify-center text-[#1E2B4D] bg-white shadow-sm"
+                          className="w-7 h-7 rounded-full flex items-center justify-center text-[#1E2B4D] bg-white shadow-sm"
                         >
                           <Plus className="w-3.5 h-3.5" strokeWidth={3} />
                         </button>
@@ -154,14 +155,15 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 ))}
               </div>
 
+              {/* Recommendations */}
               <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <h3 className="text-xs font-bold text-[#1E2B4D] uppercase tracking-wider">You might also like</h3>
+                <div className="px-6 flex items-center gap-4">
+                  <h3 className="text-[10px] font-bold text-[#1E2B4D] uppercase tracking-wider">You might also like</h3>
                   <div className="h-px flex-1 border-t border-dashed border-slate-200" />
                 </div>
-                <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                <div className="flex gap-3 overflow-x-auto pb-2 px-6 scrollbar-hide">
                   {recommendations.map((rec) => (
-                    <div key={rec.id} className="min-w-[140px] bg-white rounded-2xl shadow-sm border border-slate-50 overflow-hidden flex flex-col">
+                    <div key={rec.id} className="min-w-[130px] bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col">
                       <div className="relative aspect-video w-full">
                         <Image src={rec.imageUrl} alt={rec.name} fill className="object-cover" />
                       </div>
@@ -179,8 +181,9 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <button className="w-full bg-white p-4 rounded-2xl flex items-center justify-between shadow-sm border border-slate-50 group">
+              {/* Functional Actions - Edge to Edge */}
+              <div className="space-y-px bg-slate-200/50">
+                <button className="w-full bg-white px-6 py-5 flex items-center justify-between group active:bg-slate-50 transition-colors">
                   <div className="flex items-center gap-4">
                     <div className="w-9 h-9 rounded-full bg-[#F8F9FA] flex items-center justify-center text-slate-300">
                       <Plus className="w-4 h-4" />
@@ -193,7 +196,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                   <ChevronRight className="w-5 h-5 text-slate-200" />
                 </button>
 
-                <div className="bg-white p-4 rounded-2xl flex items-center gap-4 shadow-sm border border-slate-50">
+                <div className="bg-white px-6 py-5 flex items-center gap-4">
                   <Ticket className="w-4 h-4 text-slate-300" />
                   <Input 
                     placeholder="Enter discount code" 
@@ -205,22 +208,24 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 </div>
               </div>
 
-              {/* Summary Card - Edge to Edge flexible */}
-              <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-50 space-y-3 w-full">
-                <div className="flex justify-between items-center text-xs">
-                  <span className="font-medium text-[#8E9AAF]">Subtotal</span>
-                  <span className="font-bold text-[#1E2B4D]">$ {subtotal.toFixed(2)}</span>
+              {/* Summary Section - Full Width Edge to Edge */}
+              <div className="bg-white px-6 py-8 border-y border-slate-100 space-y-4">
+                <div className="space-y-2.5">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="font-medium text-[#8E9AAF]">Subtotal</span>
+                    <span className="font-bold text-[#1E2B4D]">$ {subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="font-medium text-[#8E9AAF]">Tax (8%)</span>
+                    <span className="font-bold text-[#1E2B4D]">$ {tax.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="font-medium text-[#8E9AAF]">Service Charge (10%)</span>
+                    <span className="font-bold text-[#1E2B4D]">$ {serviceCharge.toFixed(2)}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center text-xs">
-                  <span className="font-medium text-[#8E9AAF]">Tax (8%)</span>
-                  <span className="font-bold text-[#1E2B4D]">$ {tax.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between items-center text-xs">
-                  <span className="font-medium text-[#8E9AAF]">Service Charge (10%)</span>
-                  <span className="font-bold text-[#1E2B4D]">$ {serviceCharge.toFixed(2)}</span>
-                </div>
-                <Separator className="bg-slate-50 my-1" />
-                <div className="flex justify-between items-center pt-1">
+                <Separator className="bg-slate-100" />
+                <div className="flex justify-between items-center pt-2">
                   <span className="text-base font-bold text-[#1E2B4D]">Total</span>
                   <span className="text-2xl font-bold text-[#12B4A3]">$ {total.toFixed(2)}</span>
                 </div>
@@ -229,7 +234,7 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
           </ScrollArea>
 
           {/* Action Bar */}
-          <div className="shrink-0 w-full bg-white p-6 border-t border-slate-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+          <div className="shrink-0 w-full bg-white p-6 border-t border-slate-100 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
             <Button 
               className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-base shadow-xl shadow-[#12B4A3]/20"
               onClick={onCheckout}
