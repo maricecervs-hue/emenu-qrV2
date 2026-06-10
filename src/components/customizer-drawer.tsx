@@ -142,7 +142,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
 
   const handleAddToCart = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect()
-    
     const selected = customizationGroups.flatMap(group => 
       group.options.filter(opt => opt.quantity > 0).map(opt => {
         let label = opt.name
@@ -180,75 +179,24 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
           <SheetTitle>{item.name}</SheetTitle>
           <SheetDescription>{item.description}</SheetDescription>
         </SheetHeader>
-
         <div className="h-full flex flex-col">
           <ScrollArea className="flex-1">
             {view === 'main' ? (
               <>
                 <div className="relative w-full aspect-[4/3]">
-                  <Image
-                    src={item.imageUrl}
-                    alt={item.name}
-                    fill
-                    className="object-cover"
-                  />
+                  <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
-
                 <div className="p-4 space-y-6 pb-32">
                   <div className="space-y-3">
                     <div className="space-y-1">
                       <h2 className="text-2xl font-bold text-[#1E2B4D] leading-tight tracking-tight">{item.name}</h2>
                       <p className="text-xs text-[#8E9AAF] font-normal leading-relaxed">{item.description}</p>
                     </div>
-
                     <div className="flex items-center gap-2 pt-1">
                       <span className="text-2xl font-bold text-[#1E2B4D]">$ {item.price.toFixed(2)}</span>
-                      <span className="text-[10px] font-semibold text-[#8E9AAF] uppercase tracking-wider">(Base Price)</span>
-                    </div>
-
-                    <div className="bg-slate-50/50 rounded-[1.8rem] p-4 border border-slate-100/50 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <Flame className="w-4 h-4 text-orange-500 fill-orange-500" />
-                          <h3 className="text-sm font-bold text-[#1E2B4D]">Nutritional Info</h3>
-                        </div>
-                        <span className="text-[9px] font-medium text-[#8E9AAF]">Per serving</span>
-                      </div>
-
-                      <div className="grid grid-cols-4 gap-2">
-                        {[
-                          { val: '892', label: 'Kcal' },
-                          { val: '32g', label: 'Prot' },
-                          { val: '98g', label: 'Carbs' },
-                          { val: '38g', label: 'Fat' }
-                        ].map((stat, i) => (
-                          <div key={i} className="bg-white rounded-xl p-2.5 flex flex-col items-center justify-center border border-slate-50 shadow-sm">
-                            <span className="text-sm font-bold text-[#1E2B4D]">{stat.val}</span>
-                            <span className="text-[8px] font-medium text-[#8E9AAF] uppercase tracking-widest">{stat.label}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-[#FFFBEB] rounded-[1.8rem] p-4 border border-[#FEF08A] space-y-3">
-                      <div className="flex items-center gap-2">
-                        <AlertTriangle className="w-4 h-4 text-orange-500 fill-orange-500/10" />
-                        <h3 className="text-sm font-bold text-[#1E2B4D]">Allergen Information</h3>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <div className="bg-white px-3 py-1.5 rounded-lg shadow-sm border border-[#FEF08A] flex items-center gap-1.5">
-                          <Wheat className="w-3 h-3 text-orange-600" />
-                          <span className="text-[10px] font-bold text-[#1E2B4D]">Gluten</span>
-                        </div>
-                        <div className="bg-white px-3 py-1.5 rounded-lg shadow-sm border border-[#FEF08A] flex items-center gap-1.5">
-                          <Beef className="w-3 h-3 text-orange-600" />
-                          <span className="text-[10px] font-bold text-[#1E2B4D]">Meat</span>
-                        </div>
-                      </div>
                     </div>
                   </div>
-
                   {customisable && customizationGroups.map((group) => {
                     const selected = isGroupSelected(group)
                     return (
@@ -263,24 +211,20 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                         )}
                       >
                         <div className="flex items-center justify-between">
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <h3 className="text-base font-bold text-[#1E2B4D]">{group.name}</h3>
-                              {group.required && !selected && (
-                                <Badge variant="outline" className="h-4 text-[7px] px-1.5 border-orange-200 text-orange-600 bg-white font-bold uppercase tracking-widest">
-                                  Required
-                                </Badge>
-                              )}
-                              {selected && (
-                                <div className="h-4 w-4 rounded-full bg-[#12B4A3] flex items-center justify-center">
-                                  <Check className="w-2.5 h-2.5 text-white" />
-                                </div>
-                              )}
-                            </div>
-                            {group.description && <p className="text-[10px] font-medium text-[#8E9AAF] mt-0.5">{group.description}</p>}
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-base font-bold text-[#1E2B4D]">{group.name}</h3>
+                            {group.required && !selected && (
+                              <Badge variant="outline" className="h-4 text-[7px] px-1.5 border-orange-200 text-orange-600 bg-white font-bold uppercase tracking-widest">
+                                Required
+                              </Badge>
+                            )}
+                            {selected && (
+                              <div className="h-4 w-4 rounded-full bg-[#12B4A3] flex items-center justify-center">
+                                <Check className="w-2.5 h-2.5 text-white" />
+                              </div>
+                            )}
                           </div>
                         </div>
-
                         {group.type === 'single' ? (
                           <RadioGroup 
                             value={group.options.find(o => o.quantity > 0)?.id} 
@@ -288,41 +232,18 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                             className="space-y-0.5"
                           >
                             {group.options.map((option) => (
-                              <div 
-                                key={option.id} 
-                                className="flex items-center justify-between py-3 border-b border-slate-200/50 last:border-0"
-                                onClick={() => {
-                                  if (option.hasChildren) {
-                                    setActiveParentId(option.id)
-                                    setView('sub')
-                                  } else {
-                                    setSingleChoice(group.id, option.id)
-                                  }
-                                }}
-                              >
-                                <div className="flex-1">
-                                  <Label htmlFor={option.id} className="cursor-pointer">
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="text-sm font-bold text-[#1E2B4D]">{option.name}</span>
-                                      {option.hasChildren && <ChevronRight className="w-3 h-3 text-[#12B4A3]" />}
-                                    </div>
-                                    <div className="flex items-center gap-1 mt-0.5">
-                                      <span className={cn(
-                                        "text-[10px] font-bold",
-                                        option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
-                                      )}>
-                                        {option.price > 0 ? `+ $ ${option.price.toFixed(2)}` : 'Included'}
-                                      </span>
-                                      {option.hasChildren && selectedSubOption[option.id] && option.quantity > 0 && (
-                                        <span className="text-[9px] text-[#8E9AAF] font-medium flex items-center gap-1">
-                                          • <span className="font-bold text-[#1E2B4D]">
-                                            {subOptions[option.id as keyof typeof subOptions]?.find(s => s.id === selectedSubOption[option.id])?.name}
-                                          </span>
-                                        </span>
-                                      )}
-                                    </div>
-                                  </Label>
-                                </div>
+                              <div key={option.id} className="flex items-center justify-between py-3 border-b border-slate-200/50 last:border-0" onClick={() => option.hasChildren ? (setActiveParentId(option.id), setView('sub')) : setSingleChoice(group.id, option.id)}>
+                                <Label htmlFor={option.id} className="flex-1 cursor-pointer">
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="text-sm font-bold text-[#1E2B4D]">{option.name}</span>
+                                    {option.hasChildren && <ChevronRight className="w-3 h-3 text-[#12B4A3]" />}
+                                  </div>
+                                  <div className="flex items-center gap-1 mt-0.5">
+                                    <span className={cn("text-[10px] font-bold", option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]")}>
+                                      {option.price > 0 ? `+ $ ${option.price.toFixed(2)}` : 'Included'}
+                                    </span>
+                                  </div>
+                                </Label>
                                 <RadioGroupItem value={option.id} id={option.id} className="h-5 w-5 border-slate-300 text-[#12B4A3]" />
                               </div>
                             ))}
@@ -330,33 +251,17 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                         ) : (
                           <div className="space-y-0.5">
                             {group.options.map((option) => (
-                              <div 
-                                key={option.id} 
-                                className="flex items-center justify-between py-3 border-b border-slate-200/50 last:border-0"
-                              >
+                              <div key={option.id} className="flex items-center justify-between py-3 border-b border-slate-200/50 last:border-0">
                                 <div className="flex-1">
                                   <span className="text-sm font-bold text-[#1E2B4D]">{option.name}</span>
-                                  <p className={cn(
-                                    "text-[10px] font-bold mt-0.5",
-                                    option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
-                                  )}>
+                                  <p className={cn("text-[10px] font-bold mt-0.5", option.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]")}>
                                     {option.price > 0 ? `+ $ ${option.price.toFixed(2)}` : 'Free'}
                                   </p>
                                 </div>
                                 <div className="flex items-center gap-2 bg-white px-1.5 py-1 rounded-full border border-slate-100 shadow-sm scale-90">
-                                  <button 
-                                    onClick={() => updateOptionQuantity(group.id, option.id, -1)}
-                                    className="w-7 h-7 rounded-full flex items-center justify-center text-[#FF5C5C]"
-                                  >
-                                    <Minus className="w-3.5 h-3.5" strokeWidth={3} />
-                                  </button>
+                                  <button onClick={() => updateOptionQuantity(group.id, option.id, -1)} className="w-7 h-7 rounded-full flex items-center justify-center text-[#FF5C5C]"><Minus className="w-3.5 h-3.5" strokeWidth={3} /></button>
                                   <span className="text-xs font-bold text-[#1E2B4D] min-w-[14px] text-center">{option.quantity}</span>
-                                  <button 
-                                    onClick={() => updateOptionQuantity(group.id, option.id, 1)}
-                                    className="w-7 h-7 rounded-full flex items-center justify-center text-[#1E2B4D]"
-                                  >
-                                    <Plus className="w-3.5 h-3.5" strokeWidth={3} />
-                                  </button>
+                                  <button onClick={() => updateOptionQuantity(group.id, option.id, 1)} className="w-7 h-7 rounded-full flex items-center justify-center text-[#12B4A3]"><Plus className="w-3.5 h-3.5" strokeWidth={3} /></button>
                                 </div>
                               </div>
                             ))}
@@ -365,7 +270,6 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                       </div>
                     )
                   })}
-
                   <div className="bg-slate-50 rounded-[1.8rem] p-4 space-y-3 border border-slate-100">
                     <div className="flex items-center gap-2">
                       <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-sm">
@@ -373,101 +277,44 @@ export function CustomizerDrawer({ isOpen, onClose, item, customisable, onAddToC
                       </div>
                       <h3 className="text-sm font-bold text-[#1E2B4D]">Special Requests</h3>
                     </div>
-                    <Textarea 
-                      placeholder="e.g. less spicy, no sugar..."
-                      className="min-h-[80px] rounded-xl border-none bg-white p-3 text-[11px] font-medium shadow-inner"
-                    />
+                    <Textarea placeholder="e.g. less spicy, no sugar..." className="min-h-[80px] rounded-xl border-none bg-white p-3 text-[11px] font-medium shadow-inner" />
                   </div>
                 </div>
               </>
             ) : (
               <div className="p-4 space-y-6 animate-in slide-in-from-right duration-300">
                 <div className="flex items-center gap-3">
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="rounded-full bg-slate-50 w-9 h-9"
-                    onClick={() => setView('main')}
-                  >
-                    <ChevronLeft className="w-4 h-4 text-[#1E2B4D]" />
-                  </Button>
-                  <div>
-                    <h3 className="text-xl font-bold text-[#1E2B4D]">{activeOption?.name}</h3>
-                    <p className="text-[10px] font-bold text-[#8E9AAF] uppercase tracking-wider">Select one option</p>
-                  </div>
+                  <Button variant="ghost" size="icon" className="rounded-full bg-slate-50 w-9 h-9" onClick={() => setView('main')}><ChevronLeft className="w-4 h-4 text-[#1E2B4D]" /></Button>
+                  <div><h3 className="text-xl font-bold text-[#1E2B4D]">{activeOption?.name}</h3></div>
                 </div>
-
                 <div className="bg-slate-50 rounded-[2rem] p-4 border border-slate-100">
-                  <RadioGroup 
-                    value={selectedSubOption[activeParentId!]} 
-                    onValueChange={(val) => {
-                      setSelectedSubOption(prev => ({ ...prev, [activeParentId!]: val }))
-                      const group = customizationGroups.find(g => g.options.some(o => o.id === activeParentId))
-                      if (group) setSingleChoice(group.id, activeParentId!)
-                    }}
-                  >
+                  <RadioGroup value={selectedSubOption[activeParentId!]} onValueChange={(val) => { setSelectedSubOption(prev => ({ ...prev, [activeParentId!]: val })); const group = customizationGroups.find(g => g.options.some(o => o.id === activeParentId)); if (group) setSingleChoice(group.id, activeParentId!); }}>
                     {subOptions[activeParentId as keyof typeof subOptions]?.map((child) => (
-                      <div 
-                        key={child.id} 
-                        className="flex items-center justify-between py-4 border-b border-slate-200 last:border-0"
-                        onClick={() => {
-                          setSelectedSubOption(prev => ({ ...prev, [activeParentId!]: child.id }))
-                          const group = customizationGroups.find(g => g.options.some(o => o.id === activeParentId))
-                          if (group) setSingleChoice(group.id, activeParentId!)
-                        }}
-                      >
+                      <div key={child.id} className="flex items-center justify-between py-4 border-b border-slate-200 last:border-0" onClick={() => { setSelectedSubOption(prev => ({ ...prev, [activeParentId!]: child.id })); const group = customizationGroups.find(g => g.options.some(o => o.id === activeParentId)); if (group) setSingleChoice(group.id, activeParentId!); }}>
                         <Label htmlFor={child.id} className="flex-1 cursor-pointer">
                           <p className="text-base font-bold text-[#1E2B4D]">{child.name}</p>
-                          <p className={cn(
-                            "text-[10px] font-bold mt-0.5",
-                            child.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]"
-                          )}>
-                            {child.price > 0 ? `+ $ ${child.price.toFixed(2)}` : 'Included'}
-                          </p>
+                          <p className={cn("text-[10px] font-bold mt-0.5", child.price > 0 ? "text-[#12B4A3]" : "text-[#8E9AAF]")}>{child.price > 0 ? `+ $ ${child.price.toFixed(2)}` : 'Included'}</p>
                         </Label>
                         <RadioGroupItem value={child.id} id={child.id} className="h-5 w-5 border-slate-300 text-[#12B4A3]" />
                       </div>
                     ))}
                   </RadioGroup>
                 </div>
-                
-                <Button 
-                  className="w-full h-14 rounded-2xl bg-[#12B4A3] text-white font-bold text-base"
-                  onClick={() => setView('main')}
-                >
-                  Confirm Choice
-                </Button>
+                <Button className="w-full h-14 rounded-2xl bg-[#12B4A3] text-white font-bold text-base" onClick={() => setView('main')}>Confirm Choice</Button>
               </div>
             )}
           </ScrollArea>
-
           {view === 'main' && (
             <div className="w-full bg-white px-3 py-3 border-t border-slate-100 flex items-center gap-3 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] shrink-0">
               {!isButtonDisabled && (
                 <div className="flex items-center gap-3 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100 shrink-0 animate-in fade-in slide-in-from-left duration-300">
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="text-[#1E2B4D]">
-                    <Minus className="w-4 h-4" strokeWidth={3} />
-                  </button>
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="text-[#1E2B4D]"><Minus className="w-4 h-4" strokeWidth={3} /></button>
                   <span className="text-base font-bold text-[#1E2B4D] min-w-[18px] text-center">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="text-[#1E2B4D]">
-                    <Plus className="w-4 h-4" strokeWidth={3} />
-                  </button>
+                  <button onClick={() => setQuantity(quantity + 1)} className="text-[#1E2B4D]"><Plus className="w-4 h-4" strokeWidth={3} /></button>
                 </div>
               )}
-              <Button 
-                disabled={isButtonDisabled}
-                className={cn(
-                  "flex-1 h-12 rounded-2xl font-bold text-sm transition-all duration-300",
-                  isButtonDisabled 
-                    ? "bg-[#F1F3F5] text-[#ADB5BD] border border-slate-100" 
-                    : "bg-[#12B4A3] text-white shadow-lg shadow-[#12B4A3]/20"
-                )}
-                onClick={handleAddToCart}
-              >
-                {isButtonDisabled 
-                  ? `Make ${requiredMissingCount} required selection`
-                  : `${isEdit ? 'Update' : 'Add'} • $${totalPrice}`
-                }
+              <Button disabled={isButtonDisabled} className={cn("flex-1 h-12 rounded-2xl font-bold text-sm transition-all duration-300", isButtonDisabled ? "bg-[#F1F3F5] text-[#ADB5BD] border border-slate-100" : "bg-[#12B4A3] text-white shadow-lg shadow-[#12B4A3]/20")} onClick={handleAddToCart}>
+                {isButtonDisabled ? `Make ${requiredMissingCount} required selection` : `${isEdit ? 'Update' : 'Add'} • $${totalPrice}`}
               </Button>
             </div>
           )}

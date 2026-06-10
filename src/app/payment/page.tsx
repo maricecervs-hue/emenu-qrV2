@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { useSearchParams, useRouter } from "next/navigation"
+import { Suspense } from "react"
 import { ShieldCheck, ChevronDown, CreditCard, Building2, Lock } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -16,13 +17,12 @@ import {
 } from "@/components/ui/select"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
-export default function PaymentPage() {
+function PaymentContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [isRedirecting, setIsRedirecting] = React.useState(true)
   const total = searchParams.get('total') || '326.00'
 
-  // Form state with default test data
   const [formData, setFormData] = React.useState({
     cardNumber: '4242 4242 4242 4242',
     expiryDate: '12/26',
@@ -47,7 +47,6 @@ export default function PaymentPage() {
   }, [formData])
 
   React.useEffect(() => {
-    // Simulate the redirection delay before showing the payment form
     const timer = setTimeout(() => {
       setIsRedirecting(false)
     }, 2500)
@@ -62,7 +61,6 @@ export default function PaymentPage() {
     return (
       <main className="min-h-screen bg-[#F4F8FB] flex flex-col items-center justify-center p-6 font-body">
         <div className="w-full max-w-md flex flex-col items-center space-y-12">
-          {/* Custom Circular Preloader */}
           <div className="relative w-24 h-24">
             <div className="absolute inset-0 rounded-full border-4 border-[#E2E8F0]" />
             <div className="absolute inset-0 rounded-full border-4 border-[#3B82F6] border-t-transparent animate-spin" />
@@ -104,7 +102,6 @@ export default function PaymentPage() {
   return (
     <main className="min-h-screen bg-[#F8FAFC] flex flex-col items-center font-body">
       <div className="w-full max-w-md bg-white min-h-screen flex flex-col shadow-xl">
-        {/* Network Header */}
         <header className="p-8 flex justify-center items-center">
           <div className="flex items-center gap-1">
             <span className="text-[28px] font-bold text-[#005CB9] tracking-tight">network</span>
@@ -114,8 +111,6 @@ export default function PaymentPage() {
 
         <ScrollArea className="flex-1">
           <div className="px-6 pb-24 space-y-4">
-            
-            {/* Merchant Card */}
             <Card className="p-5 rounded-2xl border border-slate-100 shadow-sm space-y-5">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[#E9F3FF] rounded-xl flex items-center justify-center">
@@ -133,10 +128,8 @@ export default function PaymentPage() {
               </div>
             </Card>
 
-            {/* Card Information Section */}
             <Card className="p-6 rounded-2xl border border-slate-100 shadow-sm space-y-6">
               <h3 className="text-sm font-bold text-[#1E2B4D]">Card Information</h3>
-              
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="cardNumber" className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Card Number</Label>
@@ -194,10 +187,8 @@ export default function PaymentPage() {
               </div>
             </Card>
 
-            {/* Billing Address Section */}
             <Card className="p-6 rounded-2xl border border-slate-100 shadow-sm space-y-6">
               <h3 className="text-sm font-bold text-[#1E2B4D]">Billing Address</h3>
-              
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Email Address</Label>
@@ -209,7 +200,6 @@ export default function PaymentPage() {
                     className="h-12 border-slate-200 rounded-xl font-medium text-slate-800"
                   />
                 </div>
-
                 <div className="space-y-2">
                   <Label className="text-[11px] font-bold text-[#1E2B4D] uppercase tracking-wide">Country</Label>
                   <Select defaultValue="uae">
@@ -226,7 +216,6 @@ export default function PaymentPage() {
               </div>
             </Card>
 
-            {/* Secure Badge */}
             <div className="bg-[#F0FDF4] rounded-xl p-4 flex items-center gap-3 border border-[#DCFCE7]">
               <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-5 h-5 text-[#22C55E]" />
@@ -238,11 +227,9 @@ export default function PaymentPage() {
                 </span>
               </div>
             </div>
-
           </div>
         </ScrollArea>
 
-        {/* Footer Pay Button */}
         <div className="p-6 border-t border-slate-50 bg-white">
           <Button 
             disabled={!isFormValid}
@@ -254,5 +241,26 @@ export default function PaymentPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function PaymentPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-[#F4F8FB] flex flex-col items-center justify-center p-6 font-body">
+        <div className="w-full max-w-md flex flex-col items-center space-y-12">
+          <div className="relative w-24 h-24">
+            <div className="absolute inset-0 rounded-full border-4 border-[#E2E8F0]" />
+            <div className="absolute inset-0 rounded-full border-4 border-[#3B82F6] border-t-transparent animate-spin" />
+          </div>
+          <div className="text-center space-y-2">
+            <h1 className="text-2xl font-bold text-[#1E2B4D]">Loading Payment</h1>
+            <p className="text-[#8E9AAF] font-medium">Please wait...</p>
+          </div>
+        </div>
+      </main>
+    }>
+      <PaymentContent />
+    </Suspense>
   )
 }

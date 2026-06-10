@@ -75,7 +75,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
             <SheetDescription>View and manage your selected items.</SheetDescription>
           </SheetHeader>
 
-          {/* Header Section */}
           <div className="bg-white px-6 pt-8 pb-4 border-b border-slate-50 shrink-0 relative">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -100,8 +99,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
 
           <ScrollArea className="flex-1 bg-[#F8F9FA]">
             <div className="pb-40">
-              
-              {/* Items List */}
               <div className="bg-white border-b border-slate-100">
                 {items.map((item, idx) => (
                   <div key={item.cartId} className={cn(
@@ -112,7 +109,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                       <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-slate-50">
                         <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
                       </div>
-                      
                       <div className="flex-1 flex flex-col justify-between">
                         <div className="flex items-start justify-between">
                           <h3 className="font-bold text-[#1E2B4D] text-sm leading-tight pr-4 line-clamp-2">{item.name}</h3>
@@ -123,10 +119,8 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                             <Pencil className="w-3.5 h-3.5 text-[#12B4A3]" />
                           </button>
                         </div>
-
                         <div className="flex items-end justify-between">
                           <span className="text-[#12B4A3] font-bold text-base">$ {item.price.toFixed(2)}</span>
-                          
                           <div className="flex items-center gap-3 bg-slate-50 px-2 py-1.5 rounded-full border border-slate-100 shadow-sm">
                             <button 
                               onClick={() => onUpdateQuantity(item.cartId, -1)}
@@ -152,7 +146,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                         </div>
                       </div>
                     </div>
-
                     {item.customizations && (
                       <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="customizations" className="border-none">
@@ -175,13 +168,11 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 ))}
               </div>
 
-              {/* Recommendations */}
               <div className="bg-white border-y border-slate-100 mt-4 p-6 space-y-4">
                 <div className="flex items-center gap-4">
                   <h3 className="text-lg font-bold text-[#1E2B4D]">You might also like</h3>
                   <div className="h-px flex-1 border-t border-dashed border-slate-300" />
                 </div>
-                
                 <ScrollArea className="w-full whitespace-nowrap">
                   <div className="flex gap-4 pb-2">
                     {recommendations.map((rec) => (
@@ -204,7 +195,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 </ScrollArea>
               </div>
 
-              {/* Note Section */}
               <div className="bg-white border-y border-slate-100 mt-4 px-6 py-5 flex items-center justify-between active:bg-slate-50 transition-colors cursor-pointer group">
                 <div className="flex items-center gap-4">
                   <Pencil className="w-5 h-5 text-slate-300 group-active:text-[#12B4A3] transition-colors" />
@@ -216,19 +206,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                 <ChevronRight className="w-5 h-5 text-slate-200" />
               </div>
 
-              {/* Promo Section */}
-              <div className="bg-white border-y border-slate-100 mt-4 px-6 py-5 flex items-center gap-4">
-                <Ticket className="w-5 h-5 text-slate-300 shrink-0" />
-                <Input 
-                  placeholder="Enter discount code" 
-                  className="border-none bg-transparent h-auto p-0 text-sm font-medium text-[#1E2B4D] placeholder:text-slate-300 focus-visible:ring-0 flex-1"
-                />
-                <button className="text-[#12B4A3] font-bold text-sm border-b border-dotted border-[#12B4A3] pb-0.5 shrink-0">
-                  Apply
-                </button>
-              </div>
-
-              {/* Summary Section */}
               <div className="bg-white border-y border-slate-100 mt-4 px-6 py-8 space-y-5">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
@@ -244,7 +221,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
                     <span className="text-sm font-bold text-[#1E2B4D]">$ {serviceCharge.toFixed(2)}</span>
                   </div>
                 </div>
-                
                 <div className="w-full border-t border-slate-100 pt-6">
                   <div className="flex justify-between items-center">
                     <span className="text-xl font-bold text-[#1E2B4D]">Total</span>
@@ -258,7 +234,6 @@ export function CartDrawer({ isOpen, onClose, items, onUpdateQuantity, onRemove,
             </div>
           </ScrollArea>
 
-          {/* Checkout Button */}
           <div className="shrink-0 w-full bg-white p-6 border-t border-slate-100 shadow-[0_-10px_40px_rgba(0,0,0,0.06)]">
             <Button 
               className="w-full h-14 rounded-2xl bg-[#12B4A3] hover:bg-[#109E8F] text-white font-bold text-lg shadow-xl shadow-[#12B4A3]/20 transition-all active:scale-[0.98]"
